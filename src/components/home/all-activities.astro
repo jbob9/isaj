@@ -1,0 +1,147 @@
+---
+import {
+  Apple,
+  Flame,
+  Globe,
+  Microscope,
+  Music,
+  Palette,
+  Sparkles,
+  Trophy,
+} from "@lucide/astro";
+
+const activities = [
+  {
+    title: "Creative Arts",
+    desc: "Painting, pottery, and digital design to spark imagination.",
+    icon: Palette,
+    color: "bg-orange-100 text-orange-600",
+    blob: "blob-shape-1",
+  },
+  {
+    title: "Elite Sports",
+    desc: "From soccer to swimming, building strength and teamwork.",
+    icon: Trophy,
+    color: "bg-green-100 text-green-600",
+    blob: "blob-shape-2",
+  },
+  {
+    title: "STEM Lab",
+    desc: "Coding, robotics, and hands-on science experiments.",
+    icon: Microscope,
+    color: "bg-blue-100 text-blue-600",
+    blob: "blob-shape-1",
+  },
+  {
+    title: "Music Academy",
+    desc: "Instrumental training and choir for all skill levels.",
+    icon: Music,
+    color: "bg-yellow-100 text-yellow-600",
+    blob: "blob-shape-2",
+  },
+  {
+    title: "World Languages",
+    desc: "Immersive Spanish, French, and Mandarin programs.",
+    icon: Globe,
+    color: "bg-purple-100 text-purple-600",
+    blob: "blob-shape-1",
+  },
+  {
+    title: "Culinary Arts",
+    desc: "Junior chef classes focusing on nutrition and flavor.",
+    icon: Apple,
+    color: "bg-red-100 text-red-600",
+    blob: "blob-shape-2",
+  },
+  {
+    title: "Outdoor Survival",
+    desc: "Camping skills and nature conservation projects.",
+    icon: Flame,
+    color: "bg-emerald-100 text-emerald-600",
+    blob: "blob-shape-1",
+  },
+  {
+    title: "Drama & Theater",
+    desc: "Acting workshops and annual grand stage productions.",
+    icon: Sparkles,
+    color: "bg-pink-100 text-pink-600",
+    blob: "blob-shape-2",
+  },
+];
+---
+
+<section class="mx-auto max-w-7xl overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+  <div
+    class="mb-20 flex flex-col items-center justify-between gap-8 md:flex-row"
+  >
+    <div class="max-w-2xl text-center md:text-left">
+      <span
+        class="mb-4 block text-xs font-bold tracking-widest text-orange-500 uppercase"
+        >Beyond the Classroom</span
+      >
+      <h2
+        class="mb-6 text-4xl leading-tight font-bold text-[#3D2C26] md:text-5xl"
+      >
+        Our World of <span class="font-serif text-orange-500 italic"
+          >Endless</span
+        > Discovery
+      </h2>
+      <p class="text-gray-500">
+        Education at Edukids goes far beyond textbooks. We offer a vibrant
+        ecosystem of extra-curricular activities designed to help every child
+        find their unique spark.
+      </p>
+    </div>
+    <div class="relative hidden lg:block">
+      <div
+        class="flex h-24 w-24 animate-spin items-center justify-center rounded-full bg-yellow-100"
+        style={{ animationDuration: "10s" }}
+      >
+        <Sparkles class="text-yellow-500" size={40} />
+      </div>
+      <div class="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-orange-500">
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      activities.map((activity, idx) => (
+        <div class="group relative">
+          <div
+            class={`h-20 w-20 ${activity.color} ${activity.blob} mb-6 flex transform items-center justify-center shadow-sm transition-all duration-500 group-hover:rotate-12`}
+          >
+            {activity.icon}
+          </div>
+          <h3 class="mb-3 text-xl font-bold text-[#3D2C26] transition-colors group-hover:text-orange-500">
+            {activity.title}
+          </h3>
+          <p class="mb-4 text-sm leading-relaxed text-gray-500">
+            {activity.desc}
+          </p>
+          <div class="h-0.5 w-0 bg-orange-400 opacity-50 transition-all duration-500 group-hover:w-full" />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-20 text-center">
+    <div
+      class="inline-flex flex-wrap items-center justify-center gap-4 rounded-full border border-gray-100 bg-white p-2 shadow-lg"
+    >
+      <div class="flex -space-x-3 pl-4">
+        {
+          [...Array(5)].map((_, i) => (
+            <div class="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-gray-100">
+              <img src={`https://i.pravatar.cc/100?u=${i + 50}`} alt="child" />
+            </div>
+          ))
+        }
+      </div>
+      <p class="pr-6 text-sm font-medium text-[#3D2C26]">
+        Join over <span class="font-bold text-orange-500">5,000+ kids</span> in our
+        daily activities!
+      </p>
+    </div>
+  </div>
+</section>

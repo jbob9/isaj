@@ -1,0 +1,62 @@
+---
+import { Monitor, School, Send, Users } from "@lucide/astro";
+---
+
+<div
+  class="relative z-20 mx-auto -mt-10 max-w-6xl px-4 sm:px-6 lg:-mt-16 lg:px-8"
+>
+  <div
+    class="relative flex flex-wrap items-center justify-between gap-8 overflow-hidden rounded-4xl bg-slate-900 p-8 text-white shadow-2xl lg:p-12"
+  >
+    {/* Paper airplane decoration */}
+    <div class="absolute top-4 right-4 animate-pulse text-blue-300">
+      <Send size={24} class="rotate-[-15deg]" />
+    </div>
+
+    <div class="flex min-w-50 flex-1 items-center gap-6">
+      <div class="rounded-2xl bg-blue-500/20 p-4">
+        <School class="text-blue-500" size={32} />
+      </div>
+      <div>
+        <div class="text-3xl font-bold">50+</div>
+        <p
+          class="mt-1 text-xs leading-relaxed tracking-wider text-gray-400 uppercase"
+        >
+          Schools are supported across 29 states
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="flex min-w-50 flex-1 items-center gap-6 border-l border-slate-700/50 pl-8"
+    >
+      <div class="rounded-2xl bg-indigo-500/20 p-4">
+        <Users class="text-indigo-400" size={32} />
+      </div>
+      <div>
+        <div class="text-3xl font-bold">12K+</div>
+        <p
+          class="mt-1 text-xs leading-relaxed tracking-wider text-gray-400 uppercase"
+        >
+          Helping the students of all ages thrive
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="flex min-w-50 flex-1 items-center gap-6 border-l border-slate-700/50 pl-8"
+    >
+      <div class="rounded-2xl bg-emerald-500/20 p-4">
+        <Monitor class="text-emerald-400" size={32} />
+      </div>
+      <div>
+        <div class="text-3xl font-bold">70+</div>
+        <p
+          class="mt-1 text-xs leading-relaxed tracking-wider text-gray-400 uppercase"
+        >
+          Available field workspaces and increasing
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

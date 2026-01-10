@@ -1,0 +1,76 @@
+---
+import { ArrowRight } from "@lucide/astro";
+const cards = [
+  {
+    title: "Life Skills for Kids",
+    color: "bg-blue-600",
+    image:
+      "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&q=80&w=400",
+    accent: "🏀",
+  },
+  {
+    title: "Imagination is power",
+    color: "bg-indigo-600",
+    image:
+      "https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&q=80&w=400",
+    accent: "🛹",
+  },
+  {
+    title: "Grow your own wings",
+    color: "bg-cyan-600",
+    image:
+      "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&q=80&w=400",
+    accent: "🎨",
+  },
+];
+---
+
+<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+  <div class="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row">
+    <div class="max-w-xl">
+      <h2 class="mb-4 text-4xl font-bold text-slate-900 md:text-5xl">
+        Smart and clever kids ready to <span class="text-blue-600"
+          >fly high!</span
+        >
+      </h2>
+    </div>
+    <div class="flex items-center gap-12">
+      <p class="max-w-xs text-sm text-slate-500">
+        Learn smartly with us. We teach 'One Smart Lesson' at a time!
+      </p>
+      <button
+        class="flex items-center rounded-xl border border-blue-200 px-6 py-3 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-50"
+      >
+        Enroll Now <ArrowRight size={18} class="ml-2" />
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+    {
+      cards.map((card, idx) => (
+        <div
+          class={`${card.color} group relative h-[500px] overflow-hidden rounded-[2.5rem] p-8 text-white shadow-xl shadow-blue-900/10`}
+        >
+          <div class="relative z-10">
+            <h3 class="max-w-[150px] text-3xl leading-tight font-bold">
+              {card.title}
+            </h3>
+          </div>
+          <div class="absolute top-8 right-8 text-3xl opacity-50">
+            {card.accent}
+          </div>
+          <div class="absolute bottom-0 left-1/2 h-[65%] w-[85%] -translate-x-1/2 overflow-hidden rounded-t-[3rem] border-4 border-white/20 transition-transform duration-700 group-hover:scale-105">
+            <img
+              src={card.image}
+              alt={card.title}
+              class="h-full w-full object-cover"
+            />
+          </div>
+          {/* Organic curve accent */}
+          <div class="absolute top-1/2 left-0 h-1 w-full -translate-y-1/2 -rotate-12 transform bg-white/10" />
+        </div>
+      ))
+    }
+  </div>
+</section>
