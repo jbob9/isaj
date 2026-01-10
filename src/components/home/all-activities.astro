@@ -8,14 +8,14 @@ import {
   Palette,
   Sparkles,
   Trophy,
-} from "@lucide/astro";
+} from "lucide-react";
 
 const activities = [
   {
     title: "Creative Arts",
     desc: "Painting, pottery, and digital design to spark imagination.",
     icon: Palette,
-    color: "bg-orange-100 text-orange-600",
+    color: "bg-green-100 text-green-600",
     blob: "blob-shape-1",
   },
   {
@@ -76,13 +76,13 @@ const activities = [
   >
     <div class="max-w-2xl text-center md:text-left">
       <span
-        class="mb-4 block text-xs font-bold tracking-widest text-orange-500 uppercase"
+        class="mb-4 block text-xs font-bold tracking-widest text-green-500 uppercase"
         >Beyond the Classroom</span
       >
       <h2
         class="mb-6 text-4xl leading-tight font-bold text-[#3D2C26] md:text-5xl"
       >
-        Our World of <span class="font-serif text-orange-500 italic"
+        Our World of <span class="font-serif text-green-500 italic"
           >Endless</span
         > Discovery
       </h2>
@@ -94,32 +94,32 @@ const activities = [
     </div>
     <div class="relative hidden lg:block">
       <div
-        class="flex h-24 w-24 animate-spin items-center justify-center rounded-full bg-yellow-100"
+        class="flex h-24 w-24 animate-spin items-center justify-center rounded-full bg-green-100"
         style={{ animationDuration: "10s" }}
       >
-        <Sparkles class="text-yellow-500" size={40} />
+        <Sparkles className="text-green-500" size={40} />
       </div>
-      <div class="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-orange-500">
+      <div class="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-green-500">
       </div>
     </div>
   </div>
 
   <div class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
     {
-      activities.map((activity, idx) => (
+      activities.map((activity) => (
         <div class="group relative">
           <div
             class={`h-20 w-20 ${activity.color} ${activity.blob} mb-6 flex transform items-center justify-center shadow-sm transition-all duration-500 group-hover:rotate-12`}
           >
-            {activity.icon}
+            <activity.icon size={28} />
           </div>
-          <h3 class="mb-3 text-xl font-bold text-[#3D2C26] transition-colors group-hover:text-orange-500">
+          <h3 class="mb-3 text-xl font-bold text-[#3D2C26] transition-colors group-hover:text-green-500">
             {activity.title}
           </h3>
           <p class="mb-4 text-sm leading-relaxed text-gray-500">
             {activity.desc}
           </p>
-          <div class="h-0.5 w-0 bg-orange-400 opacity-50 transition-all duration-500 group-hover:w-full" />
+          <div class="h-0.5 w-0 bg-green-400 opacity-50 transition-all duration-500 group-hover:w-full" />
         </div>
       ))
     }
@@ -139,7 +139,7 @@ const activities = [
         }
       </div>
       <p class="pr-6 text-sm font-medium text-[#3D2C26]">
-        Join over <span class="font-bold text-orange-500">5,000+ kids</span> in our
+        Join over <span class="font-bold text-green-500">5,000+ kids</span> in our
         daily activities!
       </p>
     </div>

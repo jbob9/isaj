@@ -1,18 +1,24 @@
 ---
-import AllActivities from '../components/home/all-activities.astro';
-import Categories from '../components/home/categories.astro';
-import GradesTimeline from '../components/home/grades-timeline.astro';
-import Hero from '../components/home/hero.astro';
-import Lessons from '../components/home/lessons.astro';
-import Stats from '../components/home/stats.astro';
-import Layout from '../layouts/Layout.astro';
+import AllActivities from "../components/home/all-activities.astro";
+import Categories from "../components/home/categories.astro";
+import GradesTimeline from "../components/home/grades-timeline.astro";
+import Hero from "../components/home/hero.astro";
+import Lessons from "../components/home/lessons.astro";
+import Promo from "../components/home/promo.astro";
+import Stats from "../components/home/stats.astro";
+import Layout from "../layouts/Layout.astro";
+import FAQ from "../components/home/faq";
+import Empowerment from "../components/home/empowerment.astro";
 ---
 
 <Layout>
-	<Hero/>
-	<Stats/>
-	<GradesTimeline/>
-	<Categories/>
-	<Lessons/>
-	<AllActivities/>
+  <Hero />
+  <Stats />
+  <GradesTimeline />
+  <Categories />
+  <Lessons />
+  <AllActivities />
+  <Promo />
+  <FAQ client:load/>
+  <Empowerment/>
 </Layout>

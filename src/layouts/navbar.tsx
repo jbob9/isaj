@@ -1,4 +1,4 @@
-import { ChevronDown, Menu, X } from "@lucide/astro";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -13,14 +13,19 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 border-b border-blue-100 bg-[#F0F7FF]/80 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          <div className="flex items-center" onClick={() => handleNavigate()}>
+          <a
+            href="/"
+            className="flex items-center"
+            onClick={() => handleNavigate()}
+          >
             <span className="flex cursor-pointer items-center text-2xl font-bold text-slate-900">
               Edukids<span className="text-blue-600">.</span>
             </span>
-          </div>
+          </a>
 
           <div className="hidden items-center space-x-8 md:flex">
-            <button
+            <a
+              href="/"
               onClick={() => handleNavigate()}
               className={`text-sm font-medium transition-colors ${
                 currentView === "home"
@@ -29,13 +34,25 @@ const Navbar = () => {
               }`}
             >
               Home
-            </button>
+            </a>
             <div className="group relative">
               <button className="flex items-center text-sm font-medium text-slate-700 transition-colors group-hover:text-blue-600">
-                Programs <ChevronDown size={16} class="ml-1" />
+                Programs
               </button>
             </div>
-            <button
+            <a
+              href="/gallery"
+              onClick={() => handleNavigate()}
+              className={`text-sm font-medium transition-colors ${
+                currentView === "gallery"
+                  ? "text-blue-600"
+                  : "text-slate-700 hover:text-blue-600"
+              }`}
+            >
+              Gallery
+            </a>
+            <a
+              href="/teams"
               onClick={() => handleNavigate()}
               className={`text-sm font-medium transition-colors ${
                 currentView === "team"
@@ -44,8 +61,9 @@ const Navbar = () => {
               }`}
             >
               Our Team
-            </button>
-            <button
+            </a>
+            <a
+              href="/contact"
               onClick={() => handleNavigate()}
               className={`text-sm font-medium transition-colors ${
                 currentView === "contact"
@@ -54,18 +72,12 @@ const Navbar = () => {
               }`}
             >
               Contact
-            </button>
-            <a
-              href="#"
-              className="text-sm font-medium text-slate-700 transition-colors hover:text-blue-600"
-            >
-              Resources
             </a>
           </div>
 
           <div className="hidden md:block">
             <button className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800">
-              Get Started
+              Enroll
             </button>
           </div>
 

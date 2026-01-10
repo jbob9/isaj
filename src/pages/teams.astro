@@ -1,0 +1,160 @@
+---
+import {
+  BrainCircuit,
+  GraduationCap,
+  Heart,
+  Palette,
+  Quote,
+  Star,
+} from "lucide-react";
+import Layout from "../layouts/Layout.astro";
+
+const staff = [
+  {
+    name: "James Wilson",
+    role: "Art & Creativity",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
+    color: "bg-green-100",
+    icon: Palette,
+  },
+  {
+    name: "Elena Rodriguez",
+    role: "STEM Specialist",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+    color: "bg-blue-100",
+    icon: BrainCircuit,
+  },
+  {
+    name: "Michael Chen",
+    role: "PE & Wellness",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
+    color: "bg-blue-100",
+    icon: Star,
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "Music & Performance",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200",
+    color: "bg-yellow-100",
+    icon: Heart,
+  },
+];
+---
+
+<Layout>
+  <section
+    id="team"
+    class="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-7xl overflow-hidden px-4 py-24 duration-700 sm:px-6 lg:px-8"
+  >
+    {/* Section Header */}
+    <div class="mb-20 text-center">
+      <span
+        class="mb-4 block text-xs font-bold tracking-widest text-blue-500 uppercase"
+        >Our Dedicated Staff</span
+      >
+      <h2 class="mb-4 text-4xl font-bold text-[#3D2C26] md:text-5xl">
+        The <span class="font-serif text-blue-500 italic">Heart</span> of Edukids
+      </h2>
+      <p class="mx-auto max-w-2xl text-gray-500">
+        Meet the passionate educators and mentors dedicated to shaping your
+        child's future with love and creativity.
+      </p>
+    </div>
+
+    {/* Director Spotlight */}
+    <div
+      class="mb-32 grid grid-cols-1 items-center gap-16 rounded-[3rem] border border-gray-50 bg-white p-8 shadow-xl shadow-gray-100 md:p-16 lg:grid-cols-2"
+    >
+      <div class="relative">
+        <div
+          class="blob-shape-1 aspect-square w-full overflow-hidden border-8 border-white bg-blue-100 shadow-2xl md:aspect-4/5"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=500"
+            alt="School Director"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        {/* Decorative element */}
+        <div
+          class="absolute -right-6 -bottom-6 animate-pulse rounded-full bg-yellow-400 p-6 shadow-lg"
+        >
+          <GraduationCap className="text-white" size={32} />
+        </div>
+      </div>
+
+      <div class="relative">
+        <Quote className="absolute -top-10 -left-6 text-blue-200" size={80} />
+        <h3
+          class="mb-4 text-sm font-bold tracking-widest text-blue-500 uppercase"
+        >
+          Executive Director
+        </h3>
+        <h4 class="mb-6 text-3xl font-bold text-[#3D2C26] md:text-4xl">
+          Dr. Sarah Miller
+        </h4>
+        <p class="mb-8 font-serif text-lg leading-relaxed text-gray-600 italic">
+          "At Edukids, we don't just teach subjects; we nurture souls. Our
+          mission is to ignite the spark of curiosity in every child and give
+          them the wings to soar in whatever direction their dreams take them."
+        </p>
+        <div class="flex items-center gap-4 border-t border-gray-100 pt-8">
+          <div class="flex -space-x-2">
+            {
+              [1, 2, 3].map((i) => (
+                <div class="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-gray-200">
+                  <img
+                    src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                    alt="avatar"
+                  />
+                </div>
+              ))
+            }
+          </div>
+          <p class="text-xs font-medium text-gray-500">
+            Leading a team of <span class="text-blue-600"
+              >25+ Certified Educators</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Staff Grid */}
+    <div class="mb-12 text-center">
+      <h3 class="text-2xl font-bold text-[#3D2C26]">Meet our Mentors</h3>
+    </div>
+
+    <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        staff.map((member, idx) => (
+          <div class="group text-center">
+            <div
+              class={`relative mx-auto mb-6 h-48 w-48 transform transition-all duration-500 group-hover:-translate-y-2`}
+            >
+              <div
+                class={`absolute inset-0 ${member.color} blob-shape-2 rotate-12 opacity-60 transition-transform duration-700 group-hover:rotate-45`}
+              />
+              <div class="relative z-10 h-56 w-56 overflow-hidden rounded-full border-4 border-white shadow-lg">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  class="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                />
+              </div>
+              <div class="absolute -right-2 -bottom-2 z-20 transform rounded-xl bg-white p-3 shadow-lg transition-transform group-hover:scale-110">
+                <member.icon className="text-blue-500" size={18} />
+              </div>
+            </div>
+            <h5 class="mb-1 text-xl font-bold text-[#3D2C26]">{member.name}</h5>
+            <p class="text-sm font-medium text-gray-500">{member.role}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

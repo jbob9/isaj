@@ -1,0 +1,100 @@
+---
+import { ArrowUpRight, CheckCircle2, Globe } from "lucide-react";
+---
+
+<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
+    <div>
+      <span
+        class="mb-6 inline-block rounded-md bg-gray-100 px-4 py-1 text-xs font-semibold tracking-wider text-gray-500 uppercase"
+      >
+        Admission on going
+      </span>
+      <h2
+        class="mb-6 text-4xl leading-tight font-bold text-[#3D2C26] md:text-5xl"
+      >
+        Empower your kids to think be <span class="text-[#FF7F50]"
+          >smarter and sharper</span
+        >
+      </h2>
+      <p class="mb-10 text-lg leading-relaxed text-gray-500">
+        Encourage kids to think critically, be creative, and solve problems for
+        a better future.
+      </p>
+
+      <button
+        class="flex items-center rounded-full bg-[#FF7F50] px-8 py-4 font-semibold text-white shadow-lg shadow-orange-100 transition-all hover:bg-[#FF6347]"
+      >
+        Get Educated <ArrowUpRight className="ml-2" size={20} />
+      </button>
+    </div>
+
+    <div class="relative">
+      <div
+        class="relative h-125 w-full overflow-hidden rounded-[3rem] bg-[#4A90E2] shadow-2xl"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600"
+          alt="Happy learning"
+          class="h-full w-full object-cover"
+        />
+        {/* Heart float */}
+        <div class="absolute top-8 right-8 rounded-full bg-white p-2 shadow-lg">
+          <span class="text-xl text-red-500">❤️</span>
+        </div>
+      </div>
+
+      {/* Stats Overlays */}
+      <div
+        class="absolute -bottom-8 left-8 flex max-w-70 items-center gap-4 rounded-2xl border border-gray-50 bg-white p-6 shadow-xl md:-left-12"
+      >
+        <div class="rounded-full bg-green-100 p-3">
+          <CheckCircle2 className="text-green-500" size={24} />
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-[#3D2C26]">45M+</div>
+          <p class="text-xs leading-tight text-gray-500">
+            Genius kids watched across the globe
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="absolute top-1/2 -right-8 flex max-w-60 translate-y-4 items-center gap-4 rounded-2xl border border-gray-50 bg-white p-6 shadow-xl md:-right-12"
+      >
+        <div class="rounded-full bg-blue-100 p-3">
+          <Globe className="text-blue-500" size={24} />
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-[#3D2C26]">164+</div>
+          <p class="text-xs leading-tight text-gray-500">
+            Nations participating in the Olympiad
+          </p>
+        </div>
+      </div>
+
+      {/* Curved Arrow Illustration (CSS trick or SVG) */}
+      <div
+        class="absolute -bottom-20 left-1/2 h-20 w-32 -translate-x-1/2 transform opacity-40"
+      >
+        <svg
+          viewBox="0 0 100 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 40C40 40 60 10 90 10"
+            stroke="#FF7F50"
+            stroke-width="3"
+            stroke-linecap="round"></path>
+          <path
+            d="M85 15L90 10L85 5"
+            stroke="#FF7F50"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+---
+import { ArrowUpRight } from "lucide-react";
+---
+
+<section class="mx-auto max-w-7xl overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 items-center gap-0 lg:grid-cols-12">
+    {/* Left Card */}
+    <div
+      class="relative z-10 flex h-112.5 flex-col justify-center rounded-[2.5rem] bg-[#FFD151] p-10 shadow-xl lg:col-span-4 lg:-mr-10"
+    >
+      <h3 class="mb-4 text-3xl leading-tight font-bold text-[#3D2C26]">
+        Confidence that builds a brighter future.
+      </h3>
+      <p class="mb-8 max-w-62.5 text-sm text-[#3D2C26]/70">
+        Empowering kids with confidence to create a successful future.
+      </p>
+      <button
+        class="flex w-fit items-center rounded-xl bg-white px-6 py-3 font-semibold text-[#3D2C26] shadow-sm transition-colors hover:bg-gray-50"
+      >
+        Book Now <ArrowUpRight size={18} className="ml-2" />
+      </button>
+    </div>
+
+    {/* Center Image */}
+    <div
+      class="relative z-20 flex h-137.5 items-center justify-center py-8 lg:col-span-4 lg:py-0"
+    >
+      <div
+        class="h-full w-full scale-110 rotate-3 transform overflow-hidden rounded-[3rem] border-8 border-white bg-[#FAF9F6] shadow-2xl"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1544717305-27a7ad47579f?auto=format&fit=crop&q=80&w=500"
+          alt="Confident kid"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      {/* Decorative shapes */}
+      <div
+        class="absolute -bottom-4 -left-4 h-12 w-12 rounded-full bg-[#FF7F50] opacity-50 blur-xl"
+      >
+      </div>
+      <div class="absolute top-10 right-10 animate-bounce text-orange-500">
+        ⭐
+      </div>
+    </div>
+
+    {/* Right Card */}
+    <div
+      class="relative z-10 flex h-112.5 flex-col justify-center rounded-[2.5rem] bg-[#FF8C66] p-10 shadow-xl lg:col-span-4 lg:-ml-10"
+    >
+      <h3 class="mb-4 text-3xl leading-tight font-bold text-white">
+        Helping kids to shoot their dreams.
+      </h3>
+      <p class="mb-8 max-w-62.5 text-sm text-white/80">
+        Inspiring kids to aim achieve.
+      </p>
+      <button
+        class="flex w-fit items-center rounded-xl bg-white px-6 py-3 font-semibold text-[#FF8C66] shadow-sm transition-colors hover:bg-gray-50"
+      >
+        Learn More <ArrowUpRight size={18} className="ml-2" />
+      </button>
+
+      <div class="absolute right-10 bottom-10 h-24 w-24 opacity-30">
+        <img
+          src="https://img.icons8.com/color/96/pinwheel.png"
+          alt="pinwheel"
+          class="animate-spin"
+          style={{ animationDuration: "8s" }}
+        />
+      </div>
+    </div>
+  </div>
+</section>

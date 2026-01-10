@@ -1,5 +1,6 @@
 ---
-import { ArrowRight, Baby, BookOpen, GraduationCap, Zap } from "@lucide/astro";
+import { ArrowRight, Baby, BookOpen, GraduationCap, Zap } from "lucide-react";
+
 const stages = [
   {
     id: 0,
@@ -74,7 +75,7 @@ const stages = [
             <div
               class={`h-14 w-14 ${stage.color} ${stage.textColor} mb-6 flex rotate-3 transform items-center justify-center rounded-2xl transition-transform group-hover:rotate-12`}
             >
-              <stage.icon size={24}/>
+              <stage.icon size={24} />
             </div>
             <span class="mb-2 block text-xs font-bold tracking-widest text-slate-400 uppercase">
               {stage.age}
@@ -90,7 +91,7 @@ const stages = [
             </p>
 
             <div class="flex items-center text-xs font-bold text-slate-700 transition-colors group-hover:text-blue-600">
-              Explore Curriculum <ArrowRight size={14} class="ml-2" />
+              Explore Curriculum <ArrowRight size={14} className="ml-2" />
             </div>
 
             {/* Badge for continuity */}
