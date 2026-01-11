@@ -76,9 +76,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:block">
-            <button className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800">
+            <a href="/enrollment" className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800">
               Inscrire
-            </button>
+            </a>
           </div>
 
           <div className="flex items-center md:hidden">

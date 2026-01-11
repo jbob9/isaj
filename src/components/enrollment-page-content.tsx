@@ -40,26 +40,26 @@ const EnrollmentPageContent = () => {
 
     // Format the information for the email body
     const emailBody = `
-NEW ENROLLMENT SUBSCRIPTION REQUEST
+DEMANDE D'ABONNEMENT POUR UNE NOUVELLE INSCRIPTION
 ------------------------------------
 
-CHILD INFORMATION:
-- Full Name: ${formData.childFirstName} ${formData.childLastName}
-- Date of Birth: ${formData.dob}
-- Entering Grade: ${formData.grade}
+INFORMATIONS CONCERNANT L'ENFANT :
+- Nom et prénom: ${formData.childFirstName} ${formData.childLastName}
+- Date de naissance: ${formData.dob}
+- Entrée en classe: ${formData.grade}
 
-PARENT CONTACT:
-- Email: ${formData.parentEmail}
-- Phone: ${formData.phone}
+CONTACT PARENTAL :
+- E-mail: ${formData.parentEmail}
+- Téléphone: ${formData.phone}
 
-SUBSCRIPTION DETAILS:
-- Selected Plan: ${formData.plan}
+DÉTAILS DE L'ABONNEMENT :
+- Plan sélectionné: ${formData.plan}
 
 ------------------------------------
-Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
+Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
     `.trim();
 
-    const subject = `New Enrollment: ${formData.childFirstName} ${formData.childLastName}`;
+    const subject = `Nouvelles inscriptions: ${formData.childFirstName} ${formData.childLastName}`;
     const recipient = "admissions@isaj.com";
 
     // Construct Gmail URL
@@ -79,24 +79,23 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
           <CheckCircle2 size={48} className="text-green-600" />
         </div>
         <h2 className="mb-6 text-4xl font-bold text-slate-900">
-          Enrollment Initialized!
+          Inscription initialisée!
         </h2>
         <p className="mx-auto mb-10 max-w-lg text-xl leading-relaxed text-slate-500">
-          We've opened a Gmail window with your formatted enrollment details.
-          Please send the email to complete the notification process!
+         Nous avons ouvert une fenêtre Gmail contenant vos informations d'inscription correctement formatées. Veuillez envoyer l'e-mail pour finaliser la procédure de notification !
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <a
             href="/"
             className="rounded-2xl bg-blue-600 px-10 py-4 font-bold text-white shadow-xl shadow-blue-200 transition-all hover:bg-blue-700"
           >
-            Return to Homepage
+            Retour à la page d'accueil
           </a>
           <a
             href="/contact"
             className="rounded-2xl border-2 border-slate-100 bg-white px-10 py-4 font-bold text-slate-600 transition-all hover:bg-slate-50"
           >
-            Contact Support
+            Contacter l'assistance
           </a>
         </div>
       </div>
@@ -113,7 +112,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
           size={20}
           className="mr-2 transform transition-transform group-hover:-translate-x-1"
         />
-        Back to Home
+        Retour à l'accueil
       </a>
 
       <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
@@ -121,26 +120,25 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
         <div className="space-y-8 lg:col-span-4">
           <div>
             <h1 className="mb-6 text-4xl font-bold text-slate-900">
-              Subscribe to <span className="text-blue-600" >Institution le Saint Justien (ISAJ)</span>
+              Abonnez-vous à <span className="text-blue-600" >Institution le Saint Justien (ISAJ)</span>
             </h1>
             <p className="leading-relaxed text-slate-500">
-              Start your child's personalized learning path today. Our
-              subscriptions unlock a world of creativity and growth.
+              Démarrez dès aujourd'hui le parcours d'apprentissage personnalisé de votre enfant. Nos abonnements lui ouvrent un monde de créativité et d'épanouissement.
             </p>
           </div>
 
           <div className="rounded-[2.5rem] border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5">
             <h3 className="mb-6 flex items-center gap-2 font-bold text-slate-900">
               <Heart className="text-blue-500" size={20} />
-              Member Benefits
+              Avantages réservés aux membres
             </h3>
             <ul className="space-y-4">
               {[
-                "Unlimited access to all workshops",
-                "Personalized progress reports",
-                "Priority enrollment in field trips",
-                "Member-only family events",
-                "10% sibling discount automatically applied",
+                "Accès illimité à tous les ateliers",
+                "Rapports d'avancement personnalisés",
+                "Inscription prioritaire aux excursions",
+                "événements familiaux réservés aux membres",
+                "Une réduction de 10 % pour les frères et sœurs est automatiquement appliquée.",
               ].map((benefit, i) => (
                 <li
                   key={i}
@@ -157,10 +155,9 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
 
           <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white">
             <ShieldCheck className="mb-4 text-blue-400" size={32} />
-            <h4 className="mb-2 font-bold">Secure Enrollment</h4>
+            <h4 className="mb-2 font-bold">Inscription sécurisée</h4>
             <p className="text-xs text-slate-400">
-              Your data is encrypted and secure. We never share your personal
-              information with third parties.
+              Vos données sont cryptées et sécurisées. Nous ne partageons jamais vos informations personnelles avec des tiers.
             </p>
             {/* Decoration */}
             <div className="absolute -right-10 -bottom-10 h-24 w-24 rounded-full bg-blue-600/10 blur-2xl transition-transform group-hover:scale-150"></div>
@@ -174,7 +171,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
             <div className="relative flex items-center justify-between bg-blue-600 p-8 text-white md:p-12">
               <div>
                 <span className="mb-2 block text-xs font-bold tracking-widest text-blue-200 uppercase opacity-80">
-                  Step {step} of 2
+                  Étape {step} sur 2
                 </span>
                 <h2 className="text-2xl font-bold md:text-3xl">
                   {step === 1 ? "Child Information" : "Parent & Subscription"}
@@ -198,8 +195,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                   <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                     <div className="space-y-3">
                       <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <User size={16} className="text-blue-500" /> Child's
-                        First Name
+                        <User size={16} className="text-blue-500" /> Prénom de l'enfant
                       </label>
                       <input
                         required
@@ -213,8 +209,8 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                     </div>
                     <div className="space-y-3">
                       <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <User size={16} className="text-blue-500" /> Child's
-                        Last Name
+                        <User size={16} className="text-blue-500" />
+                        Nom de famille
                       </label>
                       <input
                         required
@@ -232,7 +228,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                     <div className="space-y-3">
                       <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
                         <Calendar size={16} className="text-blue-500" /> Date of
-                        Birth
+                        Naissance
                       </label>
                       <input
                         required
@@ -255,11 +251,11 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                         onChange={handleInputChange}
                         className="w-full appearance-none rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
                       >
-                        <option value="">Select Grade Level</option>
-                        <option>Toddler / Pre-K</option>
-                        <option>Elementary (Grades 1-5)</option>
+                        <option value="">Sélectionner le niveau scolaire</option>
+                        <option>Tout-petits / Préscolaire</option>
+                        <option>Élémentaire (1re à 5e année)</option>
                         <option>Middle School (Grades 6-8)</option>
-                        <option>High School (Grades 9-12)</option>
+                        <option>Lycée (9e à 12e année)</option>
                       </select>
                     </div>
                   </div>
@@ -276,7 +272,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                       onClick={() => setStep(2)}
                       className="flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 py-5 font-bold text-white shadow-xl shadow-slate-200 transition-all hover:bg-slate-800 disabled:bg-slate-300"
                     >
-                      Continue to Parent Details
+                      Continuer vers les détails des parents
                     </button>
                   </div>
                 </div>
@@ -286,7 +282,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                     <div className="space-y-3">
                       <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
                         <Mail size={16} className="text-blue-500" /> Parent
-                        Email
+                        E-mail
                       </label>
                       <input
                         required
@@ -300,8 +296,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                     </div>
                     <div className="space-y-3">
                       <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <Phone size={16} className="text-blue-500" /> Contact
-                        Number
+                        <Phone size={16} className="text-blue-500" /> Numéro de contact
                       </label>
                       <input
                         required
@@ -317,8 +312,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
 
                   <div className="space-y-6">
                     <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                      <CreditCard size={16} className="text-blue-500" /> Select
-                      Subscription Plan
+                      <CreditCard size={16} className="text-blue-500" /> Choisissez votre abonnement
                     </label>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                       <label className="group relative cursor-pointer">
@@ -333,14 +327,14 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                         <div className="rounded-2xl border-2 border-transparent bg-slate-50 p-6 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50/30">
                           <div className="mb-4 flex items-center justify-between">
                             <span className="font-bold text-slate-900">
-                              Monthly
+                              Mensuel
                             </span>
                             <span className="font-bold text-blue-600">
                               $149/mo
                             </span>
                           </div>
                           <p className="text-xs text-slate-500">
-                            Perfect for exploring our programs month by month.
+                            Idéal pour découvrir nos programmes mois après mois.
                           </p>
                         </div>
                         <CheckCircle2
@@ -361,10 +355,10 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                         <div className="rounded-2xl border-2 border-transparent bg-slate-50 p-6 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50/30">
                           <div className="mb-4 flex items-center justify-between">
                             <span className="font-bold text-slate-900">
-                              Annual
+                              Annuelle
                             </span>
                             <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[10px] text-white">
-                              Save 20%
+                              Économisez 20%
                             </span>
                           </div>
                           <div className="flex items-center justify-between">
@@ -373,7 +367,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                             </span>
                           </div>
                           <p className="mt-2 text-xs text-slate-500">
-                            Best value for long-term growth and success.
+                            Le meilleur rapport qualité-prix pour une croissance et un succès à long terme.
                           </p>
                         </div>
                         <CheckCircle2
@@ -390,13 +384,13 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
                       onClick={() => setStep(1)}
                       className="rounded-2xl bg-slate-100 px-8 py-5 font-bold text-slate-600 transition-all hover:bg-slate-200"
                     >
-                      Back
+                      Retour
                     </button>
                     <button
                       type="submit"
                       className="flex flex-1 items-center justify-center gap-3 rounded-2xl bg-blue-600 py-5 font-bold text-white shadow-xl shadow-blue-200 transition-all hover:bg-blue-700"
                     >
-                      Complete Enrollment & Send Details{" "}
+                      Finalisez votre inscription et envoyez vos informations.{" "}
                       <ArrowUpRight size={20} />
                     </button>
                   </div>
@@ -407,8 +401,7 @@ Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
 
           <div className="mt-8 text-center text-xs text-slate-400">
             <p>
-              Clicking "Complete Enrollment" will open a Gmail window to
-              securely send your application details to our admissions office.
+              Cliquer sur « Finaliser l’inscription » ouvrira une fenêtre Gmail pour envoyer en toute sécurité les détails de votre candidature à notre bureau des admissions.
             </p>
           </div>
         </div>
