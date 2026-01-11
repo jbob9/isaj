@@ -49,7 +49,7 @@ const Navbar = () => {
                   : "text-slate-700 hover:text-blue-600"
               }`}
             >
-             Galerie
+              Galerie
             </a>
             <a
               href="/teams"
@@ -95,33 +95,39 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="space-y-4 bg-white px-4 pt-2 pb-6 shadow-lg md:hidden">
-          <button
+          <a
+            href="/"
             onClick={() => handleNavigate()}
             className="block w-full text-left text-base font-medium text-slate-700"
           >
             Home
-          </button>
+          </a>
           <button className="block w-full text-left text-base font-medium text-slate-700">
             Programs
           </button>
-          <button
+          <a
+            href="/teams"
             onClick={() => handleNavigate()}
             className="block w-full text-left text-base font-medium text-slate-700"
           >
             Our Team
-          </button>
-          <button
+          </a>
+          <a
+            href="/contact"
             onClick={() => handleNavigate()}
             className="block w-full text-left text-base font-medium text-slate-700"
           >
             Contact
-          </button>
+          </a>
           <button className="block w-full text-left text-base font-medium text-slate-700">
             Resources
           </button>
-          <button className="w-full rounded-full bg-slate-900 px-6 py-3 text-base font-medium text-white">
-            Get Started
-          </button>
+          <a
+            href="/enrollment"
+            className="w-full rounded-full bg-slate-900 px-6 py-3 text-base font-medium text-white"
+          >
+            Inscrivez votre enfant
+          </a>
         </div>
       )}
     </nav>

@@ -1,22 +1,23 @@
 ---
 import { ArrowRight } from "lucide-react";
+
 const cards = [
   {
-    title: "Life Skills for Kids",
+    title: "Compétences de vie",
     color: "bg-blue-600",
     image:
       "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&q=80&w=400",
     accent: "🏀",
   },
   {
-    title: "Imagination is power",
+    title: "L'imagination est un pouvoir",
     color: "bg-indigo-600",
     image:
       "https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&q=80&w=400",
     accent: "🛹",
   },
   {
-    title: "Grow your own wings",
+    title: "Déploie tes propres ailes",
     color: "bg-cyan-600",
     image:
       "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&q=80&w=400",
@@ -29,20 +30,22 @@ const cards = [
   <div class="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row">
     <div class="max-w-xl">
       <h2 class="mb-4 text-4xl font-bold text-slate-900 md:text-5xl">
-        Smart and clever kids ready to <span class="text-blue-600"
-          >fly high!</span
+        Des enfants brillants et intelligents, prêts à prendre <span
+          class="text-blue-600">leur envol !</span
         >
       </h2>
     </div>
     <div class="flex items-center gap-12">
       <p class="max-w-xs text-sm text-slate-500">
-        Learn smartly with us. We teach 'One Smart Lesson' at a time!
+        Apprenez intelligemment avec nous. Nous enseignons une leçon
+        intelligente à la fois !
       </p>
-      <button
+      <a
+        href="/enrollment"
         class="flex items-center rounded-xl border border-blue-200 px-6 py-3 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-50"
       >
-        Enroll Now <ArrowRight size={18} className="ml-2" />
-      </button>
+        Inscrivez-vous <ArrowRight size={18} className="ml-2" />
+      </a>
     </div>
   </div>
 
@@ -53,7 +56,7 @@ const cards = [
           class={`${card.color} group relative h-125 overflow-hidden rounded-[2.5rem] p-8 text-white shadow-xl shadow-blue-900/10`}
         >
           <div class="relative z-10">
-            <h3 class="max-w-37.5 text-3xl leading-tight font-bold">
+            <h3 class="max-w-39.5 text-3xl leading-tight font-bold">
               {card.title}
             </h3>
           </div>
