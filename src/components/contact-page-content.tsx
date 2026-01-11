@@ -28,24 +28,24 @@ const ContactPageContent = () => {
 
     // Format the information for the email body
     const emailBody = `
-EDU-KIDS CONTACT INQUIRY
+Institution le Saint Justien (ISAJ) DEMANDE DE CONTACT
 ========================
 
-SENDER DETAILS:
-- Name: ${formData.parentName}
-- Contact Email: ${formData.email}
-- Phone: ${formData.phone || "Not provided"}
-- Interested Stage: ${formData.interestedGrade}
+DÉTAILS DE L'EXPÉDITEUR :
+- Nom: ${formData.parentName}
+- Email: ${formData.email}
+- Téléphone: ${formData.phone || "Non fourni"}
+- Stade d'intérêt: ${formData.interestedGrade}
 
-MESSAGE FROM PARENT:
+MESSAGE DU PARENT :
 ------------------------------------
 ${formData.message}
 ------------------------------------
 
-This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact Portal.
+Cette demande a été générée via le portail de contact de l'Institution le Saint Justien (ISAJ).
     `.trim();
 
-    const subject = `New Inquiry: ${formData.parentName} (${formData.interestedGrade})`;
+    const subject = `Nouvelle enquête: ${formData.parentName} (${formData.interestedGrade})`;
     const recipient = "admissions@isaj.com";
 
     // Construct Gmail URL
@@ -63,15 +63,14 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
     <section className="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl overflow-hidden px-4 py-12 duration-700 sm:px-6 md:py-24 lg:px-8">
       <div className="mb-16 text-center md:mb-24">
         <span className="mb-4 block text-xs font-bold tracking-widest text-blue-500 uppercase">
-          Get In Touch
+         Entrer en contact
         </span>
         <h1 className="mb-6 text-4xl leading-tight font-bold text-[#3D2C26] md:text-6xl">
-          Let's Start a{" "}
+          Commençons une{" "}
           <span className="font-serif text-blue-500 italic">Conversation</span>
         </h1>
         <p className="mx-auto max-w-2xl text-lg text-gray-500">
-          Whether you have questions about enrollment, curriculum, or just want
-          to say hi, our team is here for you.
+          Que vous ayez des questions sur les inscriptions, les programmes d'études ou que vous souhaitiez simplement nous saluer, notre équipe est là pour vous.
         </p>
       </div>
 
@@ -85,12 +84,12 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
               </div>
               <div>
                 <h4 className="mb-2 text-lg font-bold text-[#3D2C26]">
-                  Main Campus
+                  Campus principal
                 </h4>
                 <p className="text-sm leading-relaxed text-gray-500">
-                  123 Education Way,
+                  Lilavois,
                   <br />
-                  Creative District, NY 10012
+                  Ouest, Croix-des-bouquest
                 </p>
               </div>
             </div>
@@ -101,10 +100,10 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
               </div>
               <div>
                 <h4 className="mb-2 text-lg font-bold text-[#3D2C26]">
-                  Call Us
+                  Appelez-nous
                 </h4>
                 <p className="text-sm leading-relaxed text-gray-500">
-                  Main Office: (555) 123-4567
+                  Bureau principal: (555) 123-4567
                   <br />
                   Admissions: (555) 987-6543
                 </p>
@@ -117,12 +116,12 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
               </div>
               <div>
                 <h4 className="mb-2 text-lg font-bold text-[#3D2C26]">
-                  School Hours
+                  Horaires scolaires
                 </h4>
                 <p className="text-sm leading-relaxed text-gray-500">
-                  Mon - Fri: 8:00 AM - 4:00 PM
+                  Lundi - Vendredi: 8:00 AM - 4:00 PM
                   <br />
-                  Weekend: Closed
+                  Week-end : Fermé
                 </p>
               </div>
             </div>
@@ -131,11 +130,10 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
           {/* Social Proof / Small Map Placeholder */}
           <div className="relative overflow-hidden rounded-[2.5rem] bg-[#2D1B14] p-10 text-white">
             <h3 className="relative z-10 mb-6 text-2xl font-bold">
-              Join our community
+              Rejoignez notre communauté
             </h3>
             <p className="relative z-10 mb-8 text-sm leading-relaxed text-gray-400">
-              Follow us on social media for daily updates, student achievements,
-              and behind-the-scenes looks at life at Institution le Saint Justien (ISAJ).
+              Suivez-nous sur les réseaux sociaux pour des mises à jour quotidiennes, les réussites des élèves et des aperçus des coulisses de la vie à l'Institution le Saint Justien (ISAJ).
             </p>
             <div className="relative z-10 flex gap-4">
               <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-blue-500">
@@ -159,17 +157,16 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                   <CheckCircle2 size={40} className="text-green-600" />
                 </div>
                 <h2 className="mb-4 text-3xl font-bold text-[#3D2C26]">
-                  Inquiry Initialized!
+                  Requête initialisée !
                 </h2>
                 <p className="mb-8 text-gray-500">
-                  We've opened a Gmail window with your formatted inquiry.
-                  Please send the email to complete the notification process!
+                  Nous avons ouvert une fenêtre Gmail contenant votre demande formatée. Veuillez envoyer l'e-mail pour finaliser le processus de notification !
                 </p>
                 <button
                   onClick={() => setFormState("idle")}
                   className="rounded-xl bg-blue-500 px-8 py-3 font-bold text-white transition-colors hover:bg-blue-600"
                 >
-                  Send another message
+                  Envoyer un autre message
                 </button>
               </div>
             ) : (
@@ -177,7 +174,7 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div className="space-y-2">
                     <label className="ml-2 text-sm font-bold text-[#3D2C26]">
-                      Parent Name
+                      Nom du parent
                     </label>
                     <input
                       required
@@ -191,7 +188,7 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                   </div>
                   <div className="space-y-2">
                     <label className="ml-2 text-sm font-bold text-[#3D2C26]">
-                      Email Address
+                      Adresse email
                     </label>
                     <input
                       required
@@ -208,7 +205,7 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div className="space-y-2">
                     <label className="ml-2 text-sm font-bold text-[#3D2C26]">
-                      Interested Grade
+                      Niveau d'intérêt
                     </label>
                     <select
                       name="interestedGrade"
@@ -216,15 +213,15 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                       onChange={handleInputChange}
                       className="w-full appearance-none rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option>Little Explorers (Toddler - Pre-K)</option>
-                      <option>Core Foundations (Grades 1-5)</option>
-                      <option>Growth & Identity (Grades 6-8)</option>
-                      <option>Future Leaders (Grades 9-12)</option>
+                      <option>Petits explorateurs (Tout-petits - Préscolaire)</option>
+                      <option>Fondements de base (1re à 5e année)</option>
+                      <option>Croissance et identité (6e à 8e année)</option>
+                      <option>Futurs leaders (9e à 12e année)</option>
                     </select>
                   </div>
                   <div className="space-y-2">
                     <label className="ml-2 text-sm font-bold text-[#3D2C26]">
-                      Phone Number
+                      Numéro de téléphone
                     </label>
                     <input
                       name="phone"
@@ -239,7 +236,7 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
 
                 <div className="space-y-2">
                   <label className="ml-2 text-sm font-bold text-[#3D2C26]">
-                    How can we help?
+                    Comment pouvons-nous vous aider ?
                   </label>
                   <textarea
                     required
@@ -247,7 +244,7 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={5}
-                    placeholder="Tell us about your child and any questions you have..."
+                    placeholder="Parlez-nous de votre enfant et posez-nous toutes vos questions..."
                     className="w-full resize-none rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
                   ></textarea>
                 </div>
@@ -260,14 +257,13 @@ This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact P
                     <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/30 border-t-white"></div>
                   ) : (
                     <>
-                      Prepare Email <Send size={20} />
+                     Préparer un courriel <Send size={20} />
                     </>
                   )}
                 </button>
 
                 <p className="text-center text-xs text-gray-400">
-                  By clicking "Prepare Email", we'll open a Gmail tab with your
-                  pre-filled inquiry to send securely to our team.
+                  En cliquant sur « Préparer l'e-mail », nous ouvrirons un onglet Gmail avec votre demande pré-remplie pour l'envoyer en toute sécurité à notre équipe.
                 </p>
               </form>
             )}
