@@ -19,7 +19,7 @@ const Navbar = () => {
             onClick={() => handleNavigate()}
           >
             <span className="flex cursor-pointer items-center text-2xl font-bold text-slate-900">
-              Edukids<span className="text-blue-600">.</span>
+             ISAJ<span className="text-blue-600">.</span>
             </span>
           </a>
 

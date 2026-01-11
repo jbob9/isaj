@@ -42,11 +42,11 @@ MESSAGE FROM PARENT:
 ${formData.message}
 ------------------------------------
 
-This inquiry was generated via the Edukids Contact Portal.
+This inquiry was generated via the Institution le Saint Justien (ISAJ) Contact Portal.
     `.trim();
 
     const subject = `New Inquiry: ${formData.parentName} (${formData.interestedGrade})`;
-    const recipient = "admissions@edukids.com";
+    const recipient = "admissions@isaj.com";
 
     // Construct Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
@@ -135,7 +135,7 @@ This inquiry was generated via the Edukids Contact Portal.
             </h3>
             <p className="relative z-10 mb-8 text-sm leading-relaxed text-gray-400">
               Follow us on social media for daily updates, student achievements,
-              and behind-the-scenes looks at life at Edukids.
+              and behind-the-scenes looks at life at Institution le Saint Justien (ISAJ).
             </p>
             <div className="relative z-10 flex gap-4">
               <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-blue-500">

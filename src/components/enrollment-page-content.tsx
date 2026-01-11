@@ -56,11 +56,11 @@ SUBSCRIPTION DETAILS:
 - Selected Plan: ${formData.plan}
 
 ------------------------------------
-Sent via Edukids Enrollment Portal
+Sent via Institution le Saint Justien (ISAJ) Enrollment Portal
     `.trim();
 
     const subject = `New Enrollment: ${formData.childFirstName} ${formData.childLastName}`;
-    const recipient = "admissions@edukids.com";
+    const recipient = "admissions@isaj.com";
 
     // Construct Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
@@ -121,7 +121,7 @@ Sent via Edukids Enrollment Portal
         <div className="space-y-8 lg:col-span-4">
           <div>
             <h1 className="mb-6 text-4xl font-bold text-slate-900">
-              Subscribe to <span className="text-blue-600">Edukids</span>
+              Subscribe to <span className="text-blue-600" >Institution le Saint Justien (ISAJ)</span>
             </h1>
             <p className="leading-relaxed text-slate-500">
               Start your child's personalized learning path today. Our

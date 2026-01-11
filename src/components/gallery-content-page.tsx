@@ -102,7 +102,7 @@ const GalleryContentPage = () => {
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-500">
             A visual window into the daily adventures and achievements of our
-            Edukids family.
+            Institution le Saint Justien (ISAJ) family.
           </p>
         </div>
 

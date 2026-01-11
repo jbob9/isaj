@@ -15,7 +15,7 @@ const faqs = [
   {
     question: "Proposez-vous une aide financière ou des bourses d'études ?",
     answer:
-      "Oui, Edukids s'engage pour l'accessibilité. Nous offrons des bourses au mérite et une aide financière selon les besoins. Environ 20 % de nos élèves bénéficient d'une forme d'aide financière pour leurs frais de scolarité.",
+      "Oui, Institution le Saint Justien (ISAJ) s'engage pour l'accessibilité. Nous offrons des bourses au mérite et une aide financière selon les besoins. Environ 20 % de nos élèves bénéficient d'une forme d'aide financière pour leurs frais de scolarité.",
   },
   {
     question: "Comment garantir la sécurité des étudiants sur le campus?",
