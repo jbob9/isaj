@@ -33,11 +33,11 @@ const Navbar = () => {
                   : "text-slate-700 hover:text-blue-600"
               }`}
             >
-              Home
+              Accueil
             </a>
             <div className="group relative">
               <button className="flex items-center text-sm font-medium text-slate-700 transition-colors group-hover:text-blue-600">
-                Programs
+                Programme
               </button>
             </div>
             <a
@@ -49,7 +49,7 @@ const Navbar = () => {
                   : "text-slate-700 hover:text-blue-600"
               }`}
             >
-              Gallery
+             Galerie
             </a>
             <a
               href="/teams"
@@ -60,7 +60,7 @@ const Navbar = () => {
                   : "text-slate-700 hover:text-blue-600"
               }`}
             >
-              Our Team
+              Notre équipe
             </a>
             <a
               href="/contact"
@@ -77,7 +77,7 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <button className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800">
-              Enroll
+              Inscrire
             </button>
           </div>
 
