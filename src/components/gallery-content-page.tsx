@@ -1,13 +1,20 @@
-import { ArrowLeft, Camera, Maximize2, Sparkles } from "lucide-react";
-import { useState } from "react";
+import {
+  ArrowLeft,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  X,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
-type GalleryCategory = "All" | "Academic" | "Creative" | "Sports" | "Events";
+type GalleryCategory = "Tout" | "Académique" |"Créative" |"Sportif" | "Événements";
 
 const galleryItems = [
   {
     id: 1,
     title: "Science Fair Success",
-    category: "Academic",
+    category: "Académique",
     image:
       "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?auto=format&fit=crop&q=80&w=800",
     size: "large",
@@ -15,7 +22,7 @@ const galleryItems = [
   {
     id: 2,
     title: "Morning Art Studio",
-    category: "Creative",
+    category: "Créative",
     image:
       "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800",
     size: "small",
@@ -23,7 +30,7 @@ const galleryItems = [
   {
     id: 3,
     title: "Championship Spirit",
-    category: "Sports",
+    category: "Sportif",
     image:
       "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&q=80&w=800",
     size: "medium",
@@ -31,7 +38,7 @@ const galleryItems = [
   {
     id: 4,
     title: "Annual Drama Production",
-    category: "Events",
+    category: "Événements",
     image:
       "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=800",
     size: "medium",
@@ -39,7 +46,7 @@ const galleryItems = [
   {
     id: 5,
     title: "Coding for Beginners",
-    category: "Academic",
+    category: "Académique",
     image:
       "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",
     size: "small",
@@ -47,7 +54,7 @@ const galleryItems = [
   {
     id: 6,
     title: "Music Conservatory",
-    category: "Creative",
+    category: "Créative",
     image:
       "https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&q=80&w=800",
     size: "large",
@@ -55,7 +62,7 @@ const galleryItems = [
   {
     id: 7,
     title: "Summer Sports Camp",
-    category: "Sports",
+    category: "Sportif",
     image:
       "https://images.unsplash.com/photo-1519766428956-8a1b75224e79?auto=format&fit=crop&q=80&w=800",
     size: "small",
@@ -63,7 +70,7 @@ const galleryItems = [
   {
     id: 8,
     title: "Graduation Celebration",
-    category: "Events",
+    category: "Événements",
     image:
       "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800",
     size: "medium",
@@ -71,38 +78,67 @@ const galleryItems = [
 ];
 
 const categories: GalleryCategory[] = [
-  "All",
-  "Academic",
-  "Creative",
-  "Sports",
-  "Events",
+  "Tout",
+  "Académique",
+  "Créative",
+  "Sportif",
+  "Événements",
 ];
 const GalleryContentPage = () => {
-  const [activeCategory, setActiveCategory] = useState<GalleryCategory>("All");
+  const [activeCategory, setActiveCategory] = useState<GalleryCategory>("Tout");
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null,
+  );
 
   const filteredItems =
-    activeCategory === "All"
+    activeCategory === "Tout"
       ? galleryItems
       : galleryItems.filter((item) => item.category === activeCategory);
+
+  // Handle keyboard navigation for the lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === "Escape") setSelectedImageIndex(null);
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImageIndex]);
+
+  const handleNext = () => {
+    if (selectedImageIndex === null) return;
+    setSelectedImageIndex((selectedImageIndex + 1) % filteredItems.length);
+  };
+
+  const handlePrev = () => {
+    if (selectedImageIndex === null) return;
+    setSelectedImageIndex(
+      (selectedImageIndex - 1 + filteredItems.length) % filteredItems.length,
+    );
+  };
 
   return (
     <section className="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8">
       <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row">
         <div>
-          <button className="group mb-6 flex items-center text-slate-500 transition-colors hover:text-blue-600">
+          <a
+            href="/"
+            className="group mb-6 flex items-center text-slate-500 transition-colors hover:text-blue-600"
+          >
             <ArrowLeft
               size={20}
               className="mr-2 transform transition-transform group-hover:-translate-x-1"
             />
-            Back to Home
-          </button>
+            Retour à l'accueil
+          </a>
           <h1 className="text-4xl leading-tight font-bold text-slate-900 md:text-6xl">
-            Moments of{" "}
-            <span className="font-serif text-blue-600 italic">Discovery</span>
+            Moments de{" "}
+            <span className="font-serif text-blue-600 italic">découverte</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-500">
-            A visual window into the daily adventures and achievements of our
-            Institution le Saint Justien (ISAJ) family.
+            Une fenêtre visuelle sur les aventures et les réussites quotidiennes de notre famille Institution le Saint Justien (ISAJ).
           </p>
         </div>
 
@@ -122,7 +158,10 @@ const GalleryContentPage = () => {
         {categories.map((cat) => (
           <button
             key={cat}
-            onClick={() => setActiveCategory(cat)}
+            onClick={() => {
+              setActiveCategory(cat);
+              setSelectedImageIndex(null);
+            }}
             className={`rounded-2xl px-8 py-3 font-bold transition-all ${
               activeCategory === cat
                 ? "scale-105 bg-blue-600 text-white shadow-lg shadow-blue-200"
@@ -136,10 +175,11 @@ const GalleryContentPage = () => {
 
       {/* Masonry-style Grid */}
       <div className="columns-1 gap-8 space-y-8 sm:columns-2 lg:columns-3">
-        {filteredItems.map((item) => (
+        {filteredItems.map((item, index) => (
           <div
             key={item.id}
-            className="group animate-in zoom-in relative break-inside-avoid overflow-hidden rounded-[2.5rem] border-4 border-white shadow-xl shadow-blue-900/5 duration-500"
+            onClick={() => setSelectedImageIndex(index)}
+            className="group animate-in zoom-in relative cursor-pointer break-inside-avoid overflow-hidden rounded-[2.5rem] border-4 border-white shadow-xl shadow-blue-900/5 duration-500"
           >
             <img
               src={item.image}
@@ -156,9 +196,6 @@ const GalleryContentPage = () => {
                 <h3 className="mb-2 text-xl font-bold text-white">
                   {item.title}
                 </h3>
-                <div className="flex items-center gap-2 text-xs font-bold text-blue-300">
-                  <Sparkles size={14} /> View Story
-                </div>
               </div>
             </div>
 
@@ -170,8 +207,63 @@ const GalleryContentPage = () => {
         ))}
       </div>
 
+      {/* Lightbox Modal */}
+      {selectedImageIndex !== null && (
+        <div className="animate-in fade-in fixed inset-0 z-100 flex items-center justify-center bg-slate-950/95 p-4 backdrop-blur-sm duration-300 md:p-8">
+          <button
+            onClick={() => setSelectedImageIndex(null)}
+            className="absolute top-6 right-6 z-110 rounded-full p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <X size={32} />
+          </button>
+
+          {/* Navigation Controls */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
+            className="absolute left-4 z-110 rounded-full p-3 text-white/50 transition-colors hover:bg-white/10 hover:text-white md:left-8"
+          >
+            <ChevronLeft size={48} />
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+            className="absolute right-4 z-110 rounded-full p-3 text-white/50 transition-colors hover:bg-white/10 hover:text-white md:right-8"
+          >
+            <ChevronRight size={48} />
+          </button>
+
+          <div className="animate-in zoom-in relative flex max-h-[90vh] w-full max-w-5xl flex-col items-center duration-500">
+            <img
+              src={filteredItems[selectedImageIndex].image}
+              alt={filteredItems[selectedImageIndex].title}
+              className="max-h-[80vh] max-w-full rounded-3xl border-4 border-white/10 object-contain shadow-2xl"
+            />
+            <div className="mt-6 text-center text-white">
+              <span className="mb-3 inline-block rounded-full bg-blue-600 px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase">
+                {filteredItems[selectedImageIndex].category}
+              </span>
+              <h3 className="text-2xl font-bold md:text-3xl">
+                {filteredItems[selectedImageIndex].title}
+              </h3>
+            </div>
+          </div>
+
+          {/* Click outside to close */}
+          <div
+            className="absolute inset-0 -z-10"
+            onClick={() => setSelectedImageIndex(null)}
+          ></div>
+        </div>
+      )}
+
       {/* CTA Section */}
-      <div className="mt-24 text-center">
+      {/* <div className="mt-24 text-center">
         <div className="mx-auto max-w-3xl rounded-[3rem] border border-blue-50 bg-white p-12 shadow-sm">
           <h3 className="mb-4 text-2xl font-bold text-slate-900">
             Want to see our campus in person?
@@ -189,7 +281,7 @@ const GalleryContentPage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
