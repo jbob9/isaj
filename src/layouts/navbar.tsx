@@ -94,23 +94,23 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="space-y-4 bg-white px-4 pt-2 pb-6 shadow-lg md:hidden">
+        <div className="space-y-6 bg-white px-4 pt-2 pb-6 shadow-lg md:hidden">
           <a
             href="/"
             onClick={() => handleNavigate()}
             className="block w-full text-left text-base font-medium text-slate-700"
           >
-            Home
+            Accueil
           </a>
           <button className="block w-full text-left text-base font-medium text-slate-700">
-            Programs
+            Programme
           </button>
           <a
             href="/teams"
             onClick={() => handleNavigate()}
             className="block w-full text-left text-base font-medium text-slate-700"
           >
-            Our Team
+            Notre équipe
           </a>
           <a
             href="/contact"
@@ -119,9 +119,9 @@ const Navbar = () => {
           >
             Contact
           </a>
-          <button className="block w-full text-left text-base font-medium text-slate-700">
-            Resources
-          </button>
+          <a href="/gallery" className="block w-full text-left text-base font-medium text-slate-700">
+             Galerie
+          </a>
           <a
             href="/enrollment"
             className="w-full rounded-full bg-slate-900 px-6 py-3 text-base font-medium text-white"

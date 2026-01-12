@@ -71,7 +71,10 @@ const stages = [
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
       {
         stages.map((stage, idx) => (
-          <div class="group relative cursor-pointer rounded-[2.5rem] border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5 transition-all duration-500 hover:-translate-y-2">
+          <a
+            href={`/grade/${stage.id}`}
+            class="group relative cursor-pointer rounded-[2.5rem] border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5 transition-all duration-500 hover:-translate-y-2"
+          >
             <div
               class={`h-14 w-14 ${stage.color} ${stage.textColor} mb-6 flex rotate-3 transform items-center justify-center rounded-2xl transition-transform group-hover:rotate-12`}
             >
@@ -98,7 +101,7 @@ const stages = [
             <div class="absolute -right-3 -bottom-3 flex h-10 w-10 items-center justify-center rounded-full border border-blue-50 bg-white font-bold text-slate-300 shadow-md">
               0{idx + 1}
             </div>
-          </div>
+          </a>
         ))
       }
     </div>
@@ -113,11 +116,12 @@ const stages = [
         Découvrez notre guide complet des programmes scolaires pour 2026.
       </p>
     </div>
-    <button
+    <a
+      href="/curriculum"
       class="relative z-10 flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3 font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700"
     >
       Consulter le prospectus <ArrowRight size={18} />
-    </button>
+    </a>
     {/* Background decorative blob */}
     <div
       class="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl"

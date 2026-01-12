@@ -1,0 +1,371 @@
+---
+import {
+  ArrowLeft,
+  BookOpen,
+  Camera,
+  Check,
+  DollarSign,
+  Info,
+  Star,
+} from "lucide-react";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  return [
+    {
+      id: 0,
+      title: "Little Explorers",
+      grades: "Toddler - Pre-K",
+      overview:
+        "Our early childhood program focuses on learning through play, fostering curiosity, and building the first social connections in a safe, nurturing environment.",
+      color: "blue",
+      curriculum: [
+        "Phonetic Awareness",
+        "Sensory Art",
+        "Basic Numeracy",
+        "Nature Discovery",
+        "Storytelling & Drama",
+      ],
+      activities: [
+        "Morning Circle",
+        "Puppet Shows",
+        "Garden Exploration",
+        "Sand & Water Play",
+        "Rhythmic Music",
+      ],
+      pricing: {
+        tuition: "$1,200",
+        period: "per month",
+        includes: [
+          "Daily Organic Snacks",
+          "Educational Materials",
+          "Parent Portal Access",
+          "Class Field Trips",
+        ],
+      },
+      gallery: [
+        "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1587653263995-422546a72569?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?auto=format&fit=crop&q=80&w=600",
+      ],
+    },
+    {
+      id: 1,
+      title: "Core Foundations",
+      grades: "Grades 1 - 5",
+      overview:
+        "Elementary years are dedicated to academic mastery and emotional intelligence. We encourage students to ask 'why' and explore the world around them.",
+      color: "indigo",
+      curriculum: [
+        "Singapore Math",
+        "STEM Lab",
+        "Creative Writing",
+        "World Languages",
+        "History & Culture",
+      ],
+      activities: [
+        "Robotics Club",
+        "Junior Soccer",
+        "Chess Team",
+        "Science Fairs",
+        "School Choir",
+      ],
+      pricing: {
+        tuition: "$14,500",
+        period: "per year",
+        includes: [
+          "Personal Tablet",
+          "Lab Fees",
+          "Sports Uniforms",
+          "Annual Camping Trip",
+        ],
+      },
+      gallery: [
+        "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1510531704581-5b2870972060?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600",
+      ],
+    },
+    {
+      id: 2,
+      title: "Growth & Identity",
+      grades: "Grades 6 - 8",
+      overview:
+        "Middle school at Edukids is a bridge to independence. We provide a rigorous academic core with diverse electives to help students discover their passions.",
+      color: "cyan",
+      curriculum: [
+        "Algebra & Geometry",
+        "Physical Science",
+        "Global Citizenship",
+        "Digital Media",
+        "Literature Analysis",
+      ],
+      activities: [
+        "Debate Society",
+        "Basketball Academy",
+        "Student Government",
+        "Coding Intensive",
+        "Theater Productions",
+      ],
+      pricing: {
+        tuition: "$16,800",
+        period: "per year",
+        includes: [
+          "Laptop Lease",
+          "Elective Materials",
+          "Counseling Services",
+          "Regional Competitions",
+        ],
+      },
+      gallery: [
+        "https://images.unsplash.com/photo-1577891772427-68d51a9af321?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&q=80&w=600",
+      ],
+    },
+    {
+      id: 3,
+      title: "Future Leaders",
+      grades: "Grades 9 - 12",
+      overview:
+        "Our college-preparatory high school program emphasizes leadership, advanced research, and career readiness through internships and AP courses.",
+      color: "emerald",
+      curriculum: [
+        "Advanced Placement (AP)",
+        "Business & Econ",
+        "Social Psychology",
+        "grade Science",
+        "Ethics & Philosophy",
+      ],
+      activities: [
+        "Entrepreneurship Lab",
+        "Varsity Sports",
+        "Community Service",
+        "Model UN",
+        "Design Portfolio",
+      ],
+      pricing: {
+        tuition: "$18,200",
+        period: "per year",
+        includes: [
+          "College Counseling",
+          "Internship Placement",
+          "Graduation Fees",
+          "International Study Trip",
+        ],
+      },
+      gallery: [
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600",
+        "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?auto=format&fit=crop&q=80&w=600",
+      ],
+    },
+  ].map((grade) => ({
+    params: { id: grade.id },
+    props: { grade },
+  }));
+}
+
+const { grade } = Astro.props;
+
+const colorMap: Record<string, string> = {
+  blue: "text-blue-600 bg-blue-100 border-blue-200",
+  indigo: "text-indigo-600 bg-indigo-100 border-indigo-200",
+  cyan: "text-cyan-600 bg-cyan-100 border-cyan-200",
+  emerald: "text-emerald-600 bg-emerald-100 border-emerald-200",
+};
+
+const activeColor = colorMap[grade.color];
+---
+
+<Layout>
+  <div
+    class="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8"
+  >
+    <a
+      href="/"
+      class="group mb-12 flex items-center text-slate-500 transition-colors hover:text-blue-600"
+    >
+      <ArrowLeft
+        size={20}
+        className="mr-2 transform transition-transform group-hover:-translate-x-1"
+      />
+      Back to Journey
+    </a>
+
+    <div class="grid grid-cols-1 gap-16 lg:grid-cols-3">
+      {/* Main Content */}
+      <div class="lg:col-span-2">
+        <div class="mb-12">
+          <span
+            class={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border mb-6 inline-block ${activeColor}`}
+          >
+            {grade.grades}
+          </span>
+          <h1
+            class="mb-8 text-5xl leading-tight font-bold text-slate-900 md:text-6xl"
+          >
+            {grade.title}
+          </h1>
+          <p
+            class="max-w-2xl font-serif text-xl leading-relaxed text-slate-500 italic"
+          >
+            "{grade.overview}"
+          </p>
+        </div>
+
+        <div class="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2">
+          <div
+            class="rounded-4xl border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5"
+          >
+            <div class="mb-6 flex items-center gap-3">
+              <div class={`p-3 rounded-xl ${activeColor}`}>
+                <BookOpen size={24} />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900">
+                Curriculum Highlights
+              </h3>
+            </div>
+            <ul class="space-y-4">
+              {
+                grade.curriculum.map((item, i) => (
+                  <li class="flex items-center gap-3 text-slate-600">
+                    <Check size={18} className="text-blue-500" />
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div
+            class="rounded-4xl border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5"
+          >
+            <div class="mb-6 flex items-center gap-3">
+              <div class={`p-3 rounded-xl ${activeColor}`}>
+                <Star size={24} />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900">
+                Engaging Activities
+              </h3>
+            </div>
+            <ul class="space-y-4">
+              {
+                grade.activities.map((item, i) => (
+                  <li class="flex items-center gap-3 text-slate-600">
+                    <div class="h-1.5 w-1.5 rounded-full bg-blue-400" />
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="mb-16">
+          <div class="mb-8 flex items-center justify-between">
+            <h3
+              class="flex items-center gap-3 text-3xl font-bold text-slate-900"
+            >
+              <Camera size={28} className="text-blue-500" />
+              Gallery of Moments
+            </h3>
+          </div>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {
+              grade.gallery.map((img, i) => (
+                <div class="aspect-square transform overflow-hidden rounded-4xl border-4 border-white shadow-lg transition-transform duration-500 hover:scale-105">
+                  <img
+                    src={img}
+                    alt="Gallery"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* Sidebar / Pricing */}
+      <div class="lg:col-span-1">
+        <div class="sticky top-32">
+          <div
+            class="relative overflow-hidden rounded-[3rem] bg-slate-900 p-10 text-white shadow-2xl"
+          >
+            {/* Decorative background element */}
+            <div
+              class="absolute top-0 right-0 h-32 w-32 translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-2xl"
+            >
+            </div>
+
+            <div class="mb-8 flex items-center gap-3">
+              <DollarSign size={24} className="text-blue-500" />
+              <span
+                class="text-sm font-bold tracking-widest text-slate-400 uppercase"
+                >Investment in Future</span
+              >
+            </div>
+
+            <div class="mb-10">
+              <div class="mb-2 text-5xl font-bold">{grade.pricing.tuition}</div>
+              <div class="font-medium text-blue-400">
+                {grade.pricing.period}
+              </div>
+            </div>
+
+            <div class="mb-10 space-y-4">
+              <p
+                class="mb-4 text-sm font-semibold tracking-wider text-slate-400 uppercase"
+              >
+                What's Included:
+              </p>
+              {
+                grade.pricing.includes.map((item, i) => (
+                  <div class="flex items-start gap-3 text-sm text-slate-300">
+                    <Check
+                      size={16}
+                      className="text-blue-500 mt-0.5 shrink-0"
+                    />
+                    <span>{item}</span>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div class="flex flex-col items-center">
+              <a
+                href="/enrollment"
+                class="mb-6 w-full rounded-2xl bg-blue-600 py-4 text-center font-bold text-white shadow-lg shadow-blue-900/50 transition-all hover:bg-blue-700"
+              >
+                Apply for Enrollment
+              </a>
+
+              <div
+                class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+              >
+                <Info size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                <p class="text-[10px] leading-relaxed text-slate-400">
+                  Financial aid and sibling discounts available. Please contact
+                  the admissions office for a detailed breakdown.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-8 rounded-4xl border border-blue-50 bg-white p-8 text-center shadow-sm"
+          >
+            <h4 class="mb-4 font-bold text-slate-900">Need a personal tour?</h4>
+            <p class="mb-6 text-sm text-slate-500">
+              Visit our campus and see the magic in person.
+            </p>
+            <button class="font-bold text-blue-600 hover:underline"
+              >Schedule Visit</button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,301 @@
+---
+import {
+  ArrowLeft,
+  Brain,
+  CheckCircle2,
+  Compass,
+  Globe,
+  Microscope,
+  Palette,
+  Rocket,
+  Sparkles,
+} from "lucide-react";
+import Layout from "../layouts/Layout.astro";
+
+const curriculumLevels = [
+  {
+    title: "Little Explorers",
+    subtitle: "The Foundation of Curiosity",
+    grades: "Toddler - Pre-K",
+    icon: Compass,
+    color: "blue",
+    details: [
+      {
+        label: "Cognitive Milestones",
+        items: [
+          "Object permanence through play",
+          "Basic shape and color recognition",
+          "Bilingual auditory exposure",
+        ],
+      },
+      {
+        label: "Social Development",
+        items: [
+          "Emotional regulation workshops",
+          "Cooperative play foundations",
+          "Empathy-building stories",
+        ],
+      },
+      {
+        label: "Physical Growth",
+        items: [
+          "Fine motor skill activities",
+          "Outdoor nature exploration",
+          "Rhythmic movement & dance",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Core Foundations",
+    subtitle: "Mastery of Fundamentals",
+    grades: "Grades 1 - 5",
+    icon: Microscope,
+    color: "indigo",
+    details: [
+      {
+        label: "Academic Core",
+        items: [
+          "Singapore Math methodology",
+          "Immersive literacy programs",
+          "Historical world perspectives",
+        ],
+      },
+      {
+        label: "STEM Integration",
+        items: [
+          "Introduction to logic/coding",
+          "Sustainable garden science",
+          "Design thinking projects",
+        ],
+      },
+      {
+        label: "Creative Expression",
+        items: [
+          "Visual arts studio time",
+          "Musical theory & practice",
+          "Public speaking confidence",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Growth & Identity",
+    subtitle: "Navigating Independence",
+    grades: "Grades 6 - 8",
+    icon: Brain,
+    color: "cyan",
+    details: [
+      {
+        label: "Advanced Core",
+        items: [
+          "Analytical literature reviews",
+          "Pre-Algebra & Geometry",
+          "Global geopolitical studies",
+        ],
+      },
+      {
+        label: "Innovation Lab",
+        items: [
+          "App development basics",
+          "Robotics & Engineering",
+          "Environmental advocacy",
+        ],
+      },
+      {
+        label: "Self-Discovery",
+        items: [
+          "Leadership & Ethics",
+          "Career interest rotation",
+          "Health & Wellness coaching",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Future Leaders",
+    subtitle: "Preparation for Impact",
+    grades: "Grades 9 - 12",
+    icon: Rocket,
+    color: "emerald",
+    details: [
+      {
+        label: "Academic Excellence",
+        items: [
+          "Advanced Placement (AP) tracks",
+          "Economic & Financial literacy",
+          "Psychology & Behavioral science",
+        ],
+      },
+      {
+        label: "Real-World Prep",
+        items: [
+          "Corporate internship placement",
+          "University bridge program",
+          "Social entrepreneurship",
+        ],
+      },
+      {
+        label: "Global Citizen",
+        items: [
+          "Multi-lingual fluency goals",
+          "International exchange prep",
+          "Community impact projects",
+        ],
+      },
+    ],
+  },
+];
+---
+
+<Layout>
+    <span class="hidden text-cyan-500"/>
+  <section
+    class="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8"
+  >
+    <div
+      class="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row"
+    >
+      <div>
+        <a
+          href="/"
+          class="group mb-6 flex items-center text-slate-500 transition-colors hover:text-blue-600"
+        >
+          <ArrowLeft
+            size={20}
+            className="mr-2 transform transition-transform group-hover:-translate-x-1"
+          />
+          Back to Home
+        </a>
+        <h1 class="text-4xl leading-tight font-bold text-slate-900 md:text-6xl">
+          Edukids <span class="font-serif text-blue-600 italic">Prospectus</span
+          > 2025
+        </h1>
+        <p class="mt-4 max-w-2xl text-lg text-slate-500">
+          A transparent and detailed look at how we nurture potential at every
+          unique stage of a child's educational development.
+        </p>
+      </div>
+
+      <div class="hidden gap-4 lg:flex">
+        <div
+          class="rounded-4xl border border-blue-50 bg-white p-6 text-center shadow-xl"
+        >
+          <Globe className="mx-auto mb-2 text-blue-500" size={24} />
+          <div class="text-2xl font-bold">12+</div>
+          <div class="text-[10px] font-bold text-slate-400 uppercase">
+            Languages
+          </div>
+        </div>
+        <div
+          class="rounded-4xl border border-blue-50 bg-white p-6 text-center shadow-xl"
+        >
+          <Palette className="mx-auto mb-2 text-indigo-500" size={24} />
+          <div class="text-2xl font-bold">40+</div>
+          <div class="text-[10px] font-bold text-slate-400 uppercase">
+            Workshops
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-24">
+      {
+        curriculumLevels.map((level, idx) => (
+          <div class="group relative">
+            <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12">
+              {/* Sidebar Info */}
+              <div class="lg:col-span-4">
+                <div class="sticky top-32">
+                  <div class="mb-6 flex items-center gap-4">
+                    <div class="rounded-2xl border border-slate-50 bg-white p-4 shadow-lg transition-transform group-hover:scale-110">
+                      <level.icon
+                        className={`text-${level.color}-500`}
+                        size={32}
+                      />
+                    </div>
+                    <div>
+                      <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">
+                        {level.grades}
+                      </span>
+                      <h2 class="text-3xl font-bold text-slate-900">
+                        {level.title}
+                      </h2>
+                    </div>
+                  </div>
+                  <p class="mb-8 font-serif text-lg text-slate-500 italic">
+                    "{level.subtitle}"
+                  </p>
+                  <div
+                    class={`h-1 w-20 bg-${level.color}-500 mb-8 rounded-full`}
+                  />
+                  <button class="flex items-center text-sm font-bold text-blue-600 transition-all hover:gap-2">
+                    Request Full Syllabus{" "}
+                    <Sparkles className="ml-2" size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Curriculum Breakdown */}
+              <div class="grid grid-cols-1 gap-8 md:grid-cols-3 lg:col-span-8">
+                {level.details.map((detail, dIdx) => (
+                  <div class="rounded-[2.5rem] border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5 transition-colors hover:border-blue-200">
+                    <h4 class="mb-6 border-b border-slate-50 pb-4 font-bold text-slate-900">
+                      {detail.label}
+                    </h4>
+                    <ul class="space-y-4">
+                      {detail.items.map((item, iIdx) => (
+                        <li class="flex items-start gap-3 text-sm leading-tight text-slate-600">
+                          <CheckCircle2
+                            size={16}
+                            className="text-blue-500 mt-0.5 shrink-0"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Divider */}
+            {idx < curriculumLevels.length - 1 && (
+              <div class="absolute -bottom-12 left-0 flex w-full justify-center opacity-10">
+                <div class="h-12 w-1 rounded-full bg-blue-500" />
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="relative mt-32 overflow-hidden rounded-[3rem] bg-slate-900 p-12 text-center text-white"
+    >
+      <h3 class="relative z-10 mb-6 text-3xl font-bold md:text-4xl">
+        Ready to Shape Their Tomorrow?
+      </h3>
+      <p class="relative z-10 mx-auto mb-10 max-w-xl text-slate-400">
+        Join our next virtual open house to speak directly with our department
+        heads and explore our facilities.
+      </p>
+      <div class="relative z-10 flex flex-col justify-center gap-4 sm:flex-row">
+        <a
+            href="/"
+          class="rounded-2xl bg-blue-600 px-10 py-4 font-bold text-white shadow-xl shadow-blue-500/20 transition-all hover:bg-blue-700"
+        >
+          Book a Tour
+      </a>
+      </div>
+      {/* Background blobs */}
+      <div
+        class="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl"
+      >
+      </div>
+    </div>
+  </section>
+</Layout>
