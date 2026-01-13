@@ -1,0 +1,79 @@
+---
+import { Quote, Star } from "lucide-react";
+const reviews = [
+  {
+    name: "Jessica Pearson",
+    role: "Parent d'un élève de CE1",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+    content:
+      "L'attention personnalisée dont bénéficie mon fils est incroyable. Sa confiance en mathématiques a fait un bond spectaculaire en un seul semestre !",
+    rating: 5,
+  },
+  {
+    name: "David Miller",
+    role: "Parent d'un enfant en maternelle",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
+    content:
+      "Trouver une école qui valorise autant la créativité que les études était notre priorité. Edukids a dépassé toutes nos attentes.",
+    rating: 5,
+  },
+];
+---
+
+<section class="overflow-hidden bg-[#F0F7FF] py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 text-center">
+      <span
+        class="mb-4 block text-xs font-bold tracking-widest text-blue-600 uppercase"
+        >La voix des parents</span
+      >
+      <h2
+        class="mb-6 text-4xl leading-tight font-bold text-slate-900 md:text-5xl"
+      >
+        Apprécié des <span class="font-serif text-blue-600 italic">familles</span> du monde entier
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      {
+        reviews.map((review, idx) => (
+          <div class="group relative rounded-[3rem] border border-blue-50 bg-white p-10 shadow-xl shadow-blue-900/5">
+            <Quote
+              className="absolute top-10 right-10 text-blue-100 group-hover:text-blue-200 transition-colors"
+              size={64}
+            />
+
+            <div class="mb-8 flex items-center gap-6">
+              <div class="h-20 w-20 overflow-hidden rounded-full border-4 border-blue-50 shadow-md">
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  class="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <h4 class="text-xl font-bold text-slate-900">{review.name}</h4>
+                <p class="text-sm font-medium text-slate-400">{review.role}</p>
+                <div class="mt-2 flex gap-1">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      className="fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <p class="text-lg leading-relaxed text-slate-600 italic">
+              "{review.content}"
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

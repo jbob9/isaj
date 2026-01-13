@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { Images, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -12,14 +12,14 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-blue-100 bg-[#F0F7FF]/80 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16  items-center justify-between">
           <a
             href="/"
             className="flex items-center"
             onClick={() => handleNavigate()}
           >
             <span className="flex cursor-pointer items-center text-2xl font-bold text-slate-900">
-             ISAJ<span className="text-blue-600">.</span>
+              ISAJ<span className="text-blue-600">.</span>
             </span>
           </a>
 
@@ -76,12 +76,21 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:block">
-            <a href="/enrollment" className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800">
+            <a
+              href="/enrollment"
+              className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+            >
               Inscrire
             </a>
           </div>
 
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center md:hidden gap-3">
+            <a
+              href="/gallery"
+              className={`flex item-center gap-2 rounded-full border text-blue-600 bg-blue-100 border-blue-200 px-4 py-1.5 text-xs font-bold tracking-widest uppercase`}
+            >
+              <Images className="size-4" /> <span>Galleries</span>
+            </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-slate-700"
@@ -119,8 +128,11 @@ const Navbar = () => {
           >
             Contact
           </a>
-          <a href="/gallery" className="block w-full text-left text-base font-medium text-slate-700">
-             Galerie
+          <a
+            href="/gallery"
+            className="block w-full text-left text-base font-medium text-slate-700"
+          >
+            Galerie
           </a>
           <a
             href="/enrollment"

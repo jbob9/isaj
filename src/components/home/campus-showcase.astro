@@ -1,0 +1,83 @@
+---
+import { BookOpen, Coffee, MapPin, Microscope, Sparkles } from "lucide-react";
+
+const facilities = [
+  {
+    title: "Bibliothèque numérique",
+    desc: "Une vaste collection de ressources physiques et numériques pour les jeunes esprits.",
+    image:
+      "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=800",
+    icon: BookOpen,
+  },
+  {
+    title: "Laboratoire des sciences et de l'innovation",
+    desc: "Doté des technologies les plus récentes pour des expériences pratiques en sciences, technologies, ingénierie et mathématiques.",
+    image:
+      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800",
+    icon: Microscope,
+  },
+  {
+    title: "Studio des arts créatifs",
+    desc: "Un lieu où les élèves s'expriment à travers la peinture, l'argile et les médias numériques.",
+    image:
+      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=800",
+    icon: Sparkles,
+  },
+  {
+    title: "Cuisine du jeune chef",
+    desc: "Un espace sûr pour apprendre la nutrition et le plaisir de cuisiner sainement.",
+    image:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800",
+    icon: Coffee,
+  },
+];
+---
+
+<section class="overflow-hidden bg-white py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div
+      class="mb-16 flex flex-col items-end justify-between gap-8 lg:flex-row"
+    >
+      <div class="max-w-2xl">
+        <span
+          class="mb-4 block text-xs font-bold tracking-widest text-blue-600 uppercase"
+          >Visitez notre campus</span
+        >
+        <h2 class="text-4xl leading-tight font-bold text-slate-900 md:text-5xl">
+          Des espaces conçus pour <span class="font-serif text-blue-600 italic"
+            >inspirer</span
+          > l'excellence
+        </h2>
+      </div>
+      <div class="flex items-center gap-2 font-medium text-slate-400">
+        <MapPin size={18} />
+        <span>Lilavois 34, Croix des Bouquets</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      {
+        facilities.map((item, idx) => (
+          <div class="group relative h-100 cursor-pointer overflow-hidden rounded-[3rem] shadow-2xl shadow-blue-900/5">
+            <img
+              src={item.image}
+              alt={item.title}
+              class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-slate-900/90 via-slate-900/20 to-transparent p-10">
+              <div class="mb-4 flex items-center gap-3">
+                <div class="rounded-xl bg-blue-600 p-2 text-white">
+                  <item.icon size={20} />
+                </div>
+                <h3 class="text-2xl font-bold text-white">{item.title}</h3>
+              </div>
+              <p class="max-w-sm text-slate-300 transition-colors group-hover:text-white line-clamp-2">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
