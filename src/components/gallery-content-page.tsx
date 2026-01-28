@@ -13,31 +13,31 @@ type GalleryCategory = "Tout" | "Académique" |"Créative" |"Sportif" | "Événe
 const galleryItems = [
   {
     id: 1,
-    title: "Science Fair Success",
+    title: "Réussite à l'exposition scientifique",
     category: "Académique",
     image:
-      "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?auto=format&fit=crop&q=80&w=800",
+      "/isaj-2.jpeg",
     size: "large",
   },
   {
     id: 2,
-    title: "Morning Art Studio",
+    title: "Atelier d'art du matin",
     category: "Créative",
     image:
-      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800",
+      "/isaj-3.jpeg",
     size: "small",
   },
   {
     id: 3,
-    title: "Championship Spirit",
+    title: "Esprit de champion",
     category: "Sportif",
     image:
-      "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&q=80&w=800",
+      "/isaj-4.jpeg",
     size: "medium",
   },
   {
     id: 4,
-    title: "Annual Drama Production",
+    title: "Production théâtrale annuelle",
     category: "Événements",
     image:
       "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=800",
@@ -48,12 +48,12 @@ const galleryItems = [
     title: "Coding for Beginners",
     category: "Académique",
     image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",
+      "/isaj-1.jpeg",
     size: "small",
   },
   {
     id: 6,
-    title: "Music Conservatory",
+    title: "Conservatoire de musique",
     category: "Créative",
     image:
       "https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&q=80&w=800",
@@ -61,7 +61,7 @@ const galleryItems = [
   },
   {
     id: 7,
-    title: "Summer Sports Camp",
+    title: "Camp sportif d'été",
     category: "Sportif",
     image:
       "https://images.unsplash.com/photo-1519766428956-8a1b75224e79?auto=format&fit=crop&q=80&w=800",
@@ -69,7 +69,7 @@ const galleryItems = [
   },
   {
     id: 8,
-    title: "Graduation Celebration",
+    title: "Célébration de la remise des diplômes",
     category: "Événements",
     image:
       "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800",
