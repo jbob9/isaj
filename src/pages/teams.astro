@@ -8,13 +8,14 @@ import {
   Star,
 } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
+import director from "../assets/3.jpeg";
+import { Image } from 'astro:assets';
 
 const staff = [
   {
     name: "James Wilson",
     role: "Art & Creativity",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
+    image: director,
     color: "bg-green-100",
     icon: Palette,
   },
@@ -73,8 +74,10 @@ const staff = [
         <div
           class="blob-shape-1 aspect-square w-full overflow-hidden border-8 border-white bg-blue-100 shadow-2xl md:aspect-4/5"
         >
-          <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=500"
+          <Image
+            src={director}
+            width={500}
+            height={500}
             alt="School Director"
             class="h-full w-full object-cover"
           />

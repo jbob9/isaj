@@ -7,6 +7,15 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import scienceFair from "../assets/1.jpeg";
+import morningArt from "../assets/2.jpeg";
+import championshipSpirit from "../assets/3.jpeg";
+import annualDramaProduction from "../assets/4.jpeg";
+import codingForBeginners from "../assets/5.jpeg";
+import musicConservatory from "../assets/6.jpeg";
+import summerSportsCamp from "../assets/7.jpeg";
+import graduationCelebration from "../assets/8.jpeg";
+import { Image } from 'astro:assets';
 
 type GalleryCategory = "Tout" | "Académique" |"Créative" |"Sportif" | "Événements";
 
@@ -72,7 +81,7 @@ const galleryItems = [
     title: "Célébration de la remise des diplômes",
     category: "Événements",
     image:
-      "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800",
+    scienceFair.src,
     size: "medium",
   },
 ];
