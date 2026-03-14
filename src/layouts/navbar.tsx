@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-blue-100 bg-[#F0F7FF]/80 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16  items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
           <a
             href="/"
             className="flex items-center"
@@ -36,9 +36,13 @@ const Navbar = () => {
               Accueil
             </a>
             <div className="group relative">
-              <button className="flex items-center text-sm font-medium text-slate-700 transition-colors group-hover:text-blue-600">
+              <a
+                href="/curriculum"
+                onClick={() => handleNavigate()}
+                className="flex items-center text-sm font-medium text-slate-700 transition-colors group-hover:text-blue-600"
+              >
                 Programme
-              </button>
+              </a>
             </div>
             <a
               href="/gallery"
@@ -84,10 +88,10 @@ const Navbar = () => {
             </a>
           </div>
 
-          <div className="flex items-center md:hidden gap-3">
+          <div className="flex items-center gap-3 md:hidden">
             <a
               href="/gallery"
-              className={`flex item-center gap-2 rounded-full border text-blue-600 bg-blue-100 border-blue-200 px-4 py-1.5 text-xs font-bold tracking-widest uppercase`}
+              className={`item-center flex gap-2 rounded-full border border-blue-200 bg-blue-100 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-600 uppercase`}
             >
               <Images className="size-4" /> <span>Galleries</span>
             </a>

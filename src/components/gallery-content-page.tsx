@@ -8,14 +8,10 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import scienceFair from "../assets/1.jpeg";
-import morningArt from "../assets/2.jpeg";
-import championshipSpirit from "../assets/3.jpeg";
-import annualDramaProduction from "../assets/4.jpeg";
 import codingForBeginners from "../assets/5.jpeg";
 import musicConservatory from "../assets/6.jpeg";
 import summerSportsCamp from "../assets/7.jpeg";
 import graduationCelebration from "../assets/8.jpeg";
-import { Image } from 'astro:assets';
 
 type GalleryCategory = "Tout" | "Académique" |"Créative" |"Sportif" | "Événements";
 
@@ -49,12 +45,12 @@ const galleryItems = [
     title: "Production théâtrale annuelle",
     category: "Événements",
     image:
-      "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=800",
+      graduationCelebration.src,
     size: "medium",
   },
   {
     id: 5,
-    title: "Coding for Beginners",
+    title: "Atelier d'art du matin",
     category: "Académique",
     image:
       "/isaj-1.jpeg",
@@ -65,7 +61,7 @@ const galleryItems = [
     title: "Conservatoire de musique",
     category: "Créative",
     image:
-      "https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&q=80&w=800",
+      musicConservatory.src,
     size: "large",
   },
   {
@@ -73,7 +69,7 @@ const galleryItems = [
     title: "Camp sportif d'été",
     category: "Sportif",
     image:
-      "https://images.unsplash.com/photo-1519766428956-8a1b75224e79?auto=format&fit=crop&q=80&w=800",
+      summerSportsCamp.src,
     size: "small",
   },
   {
@@ -83,6 +79,14 @@ const galleryItems = [
     image:
     scienceFair.src,
     size: "medium",
+  },
+  {
+    id: 10,
+    title: "Atelier des enfants",
+    category: "Académique",
+    image:
+      codingForBeginners.src,
+    size: "small",
   },
 ];
 
