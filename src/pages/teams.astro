@@ -8,6 +8,8 @@ import {
   Star,
 } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
+import director1 from "../assets/director-1.jpeg";
+import teams from "../assets/teams.jpeg";
 import director from "../assets/3.jpeg";
 import { Image } from 'astro:assets';
 
@@ -22,27 +24,11 @@ const staff = [
   {
     name: "Elena Rodriguez",
     role: "STEM Specialist",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+    image: teams,
     color: "bg-blue-100",
     icon: BrainCircuit,
   },
-  {
-    name: "Michael Chen",
-    role: "PE & Wellness",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
-    color: "bg-blue-100",
-    icon: Star,
-  },
-  {
-    name: "Sarah Jenkins",
-    role: "Music & Performance",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200",
-    color: "bg-yellow-100",
-    icon: Heart,
-  },
+ 
 ];
 ---
 
@@ -74,7 +60,7 @@ const staff = [
           class="blob-shape-1 aspect-square w-full overflow-hidden border-8 border-white bg-blue-100 shadow-2xl md:aspect-4/5"
         >
           <Image
-            src={director}
+            src={director1}
             width={500}
             height={500}
             alt="School Director"
@@ -103,21 +89,10 @@ const staff = [
           "À l’Institution le Saint Justien (ISAJ), nous n’enseignons pas seulement des matières ; nous cultivons les âmes. Notre mission est d’éveiller la curiosité de chaque enfant et de lui donner les ailes pour qu’il puisse s’épanouir pleinement, quel que soit le chemin que lui mènent ses rêves."
         </p>
         <div class="flex items-center gap-4 border-t border-gray-100 pt-8">
-          <div class="flex -space-x-2">
-            {
-              [1, 2, 3].map((i) => (
-                <div class="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-gray-200">
-                  <img
-                    src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                    alt="avatar"
-                  />
-                </div>
-              ))
-            }
-          </div>
+          
           <p class="text-xs font-medium text-gray-500">
             Dirigeant une équipe de <span class="text-blue-600"
-              >25+ Éducateurs Certifiés</span
+              >10+ Éducateurs Certifiés</span
             >
           </p>
         </div>
@@ -129,21 +104,21 @@ const staff = [
       <h3 class="text-2xl font-bold text-[#3D2C26]">Rencontrez nos Mentors</h3>
     </div>
 
-    <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="flex items-center justify-center gap-20">
       {
         staff.map((member, idx) => (
           <div class="group text-center">
             <div
-              class={`relative mx-auto mb-6 h-48 w-48 transform transition-all duration-500 group-hover:-translate-y-2`}
+              class={`relative mx-auto mb-6 size-64 transform transition-all duration-500 group-hover:-translate-y-2`}
             >
               <div
                 class={`absolute inset-0 ${member.color} blob-shape-2 rotate-12 opacity-60 transition-transform duration-700 group-hover:rotate-45`}
               />
-              <div class="relative z-10 h-56 w-56 overflow-hidden rounded-full border-4 border-white shadow-lg">
-                <img
+              <div class="relative z-10 size-64 overflow-hidden rounded-full border-4 border-white shadow-lg">
+                <Image
                   src={member.image}
                   alt={member.name}
-                  class="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                  class="h-full w-full object-cover transition-all duration-500 group-hover:grayscale-0"
                 />
               </div>
               <div class="absolute -right-2 -bottom-2 z-20 transform rounded-xl bg-white p-3 shadow-lg transition-transform group-hover:scale-110">

@@ -1,369 +1,548 @@
 ---
 import {
-  ArrowLeft,
-  BookOpen,
-  Camera,
-  Check,
-  DollarSign,
-  Info,
-  Star,
+ArrowLeft,
+ArrowRight,
+BookOpen,
+Camera,
+Check,
+DollarSign,
+GraduationCap,
+Info,
+Star,
 } from "lucide-react";
+import { gradeProfiles } from "../../data/grade-profiles";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  return [
-    {
-      id: 0,
-      title: "Petits explorateurs",
-      grades: "Enfants en bas âge - Préscolaire",
-      overview:
-        "Notre programme pour la petite enfance met l'accent sur l'apprentissage par le jeu, en stimulant la curiosité et en établissant les premiers liens sociaux dans un environnement sûr et stimulant.",
-      color: "blue",
-      curriculum: [
-        "Conscience phonétique",
-        "Art sensoriel",
-        "Numératie de base",
-        "Découverte de la nature",
-        "Narration et théâtre",
-      ],
-      activities: [
-        "Cercle du matin",
-        "Spectacles de marionnettes",
-        "Exploration du jardin",
-        "Jeux de sable et d'eau",
-        "Musique rythmique",
-      ],
-      pricing: {
-        tuition: "$1,200",
-        period: "par mois",
-        includes: [
-          "Collations biologiques quotidiennes",
-          "Matériel pédagogique",
-          "Accès au portail parents",
-          "Sorties scolaires",
-        ],
-      },
-      gallery: [
-        "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1587653263995-422546a72569?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?auto=format&fit=crop&q=80&w=600",
-      ],
-    },
-    {
-      id: 1,
-      title: "Fondamentaux",
-      grades: "Niveaux 1 à 5",
-      overview:
-        "Les années d'école primaire sont consacrées à la maîtrise des connaissances et au développement de l'intelligence émotionnelle. Nous encourageons les élèves à se poser des questions et à explorer le monde qui les entoure.",
-      color: "indigo",
-      curriculum: [
-        "Mathématiques",
-        "Laboratoire STEM",
-        "Écriture créative",
-        "Langues du monde",
-        "Histoire et culture",
-      ],
-      activities: [
-        "Club de robotique",
-        "Football junior",
-        "Équipe d'échecs",
-        "Expositions scientifiques",
-        "Chorale scolaire",
-      ],
-      pricing: {
-        tuition: "$14,500",
-        period: "par année",
-        includes: [
-          "Tablette personnelle",
-          "Frais de laboratoire",
-          "Uniformes sportifs",
-          "Voyage annuel en camping",
-        ],
-      },
-      gallery: [
-        "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1510531704581-5b2870972060?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600",
-      ],
-    },
-    {
-      id: 2,
-      title: "Croissance et identité",
-      grades: "Grades 6 - 8",
-      overview:
-        "Le collège Edukids est un tremplin vers l'autonomie. Nous proposons un tronc commun académique rigoureux, complété par des cours optionnels variés, afin d'aider les élèves à découvrir leurs passions.",
-      color: "cyan",
-      curriculum: [
-        "Algèbre et géométrie",
-        "Sciences physiques",
-        "Citoyenneté mondiale",
-        "Médias numériques",
-        "Analyse de la littérature",
-      ],
-      activities: [
-        "Société de débat",
-        "Académie de basketball",
-        "Gouvernement étudiant",
-        "Programmation intensive",
-        "Productions théâtrales",
-      ],
-      pricing: {
-        tuition: "$16,800",
-        period: "par année",
-        includes: [
-          "Location d'ordinateur portable",
-          "Matières à option",
-          "Services de consultation",
-          "Compétitions régionales",
-        ],
-      },
-      gallery: [
-        "https://images.unsplash.com/photo-1577891772427-68d51a9af321?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&q=80&w=600",
-      ],
-    },
-    {
-      id: 3,
-      title: "Futurs leaders",
-      grades: "9e à 12e année",
-      overview:
-        "Notre programme de lycée préparatoire à l'université met l'accent sur le leadership, la recherche avancée et la préparation à la carrière grâce à des stages et des cours AP.",
-      color: "emerald",
-      curriculum: [
-        "Programme de placement avancé (AP)",
-        "Commerce et économie",
-        "Psychologie sociale",
-        "Sciences de niveau",
-        "Éthique et philosophie",
-      ],
-      activities: [
-        "Laboratoire d'entrepreneuriat",
-        "Sports universitaires",
-        "Service communautaire",
-        "Modèle des Nations Unies",
-        "Portfolio de design",
-      ],
-      pricing: {
-        tuition: "$18,200",
-        period: "par année",
-        includes: [
-          "Conseils d'orientation universitaire",
-          "Stage",
-          "Frais de remise de diplôme",
-          "Voyage d'études international",
-        ],
-      },
-      gallery: [
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600",
-        "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?auto=format&fit=crop&q=80&w=600",
-      ],
-    },
-  ].map((grade) => ({
+  return gradeProfiles.map((grade) => ({
     params: { id: grade.id },
     props: { grade },
   }));
 }
 
-const { grade } = Astro.props;
-
-const colorMap: Record<string, string> = {
-  blue: "text-blue-600 bg-blue-100 border-blue-200",
-  indigo: "text-indigo-600 bg-indigo-100 border-indigo-200",
-  cyan: "text-cyan-600 bg-cyan-100 border-cyan-200",
-  emerald: "text-emerald-600 bg-emerald-100 border-emerald-200",
+const { grade } = Astro.props as {
+  grade: (typeof gradeProfiles)[number];
 };
 
-const activeColor = colorMap[grade.color];
+const themeMap: Record<
+  string,
+  {
+    badge: string;
+    accentText: string;
+    accentIcon: string;
+    accentDot: string;
+    surface: string;
+    card: string;
+    subtleCard: string;
+    darkAccent: string;
+    darkButton: string;
+    glow: string;
+    link: string;
+  }
+> = {
+  blue: {
+    badge: "border-blue-200 bg-blue-100/85 text-blue-700",
+    accentText: "text-blue-600",
+    accentIcon: "text-blue-500",
+    accentDot: "bg-blue-500",
+    surface:
+      "border-blue-100 bg-gradient-to-br from-blue-100/90 via-white to-sky-100/80 shadow-blue-900/10",
+    card: "border-blue-100 bg-white shadow-blue-900/5",
+    subtleCard: "border-blue-200/70 bg-blue-50/75 shadow-blue-900/5",
+    darkAccent: "text-blue-300",
+    darkButton: "bg-blue-600 shadow-blue-900/25 hover:bg-blue-700",
+    glow: "bg-blue-500/15",
+    link: "text-blue-600 hover:text-blue-700",
+  },
+  indigo: {
+    badge: "border-indigo-200 bg-indigo-100/85 text-indigo-700",
+    accentText: "text-indigo-600",
+    accentIcon: "text-indigo-500",
+    accentDot: "bg-indigo-500",
+    surface:
+      "border-indigo-100 bg-gradient-to-br from-indigo-100/90 via-white to-violet-100/80 shadow-indigo-900/10",
+    card: "border-indigo-100 bg-white shadow-indigo-900/5",
+    subtleCard: "border-indigo-200/70 bg-indigo-50/75 shadow-indigo-900/5",
+    darkAccent: "text-indigo-300",
+    darkButton: "bg-indigo-600 shadow-indigo-900/25 hover:bg-indigo-700",
+    glow: "bg-indigo-500/15",
+    link: "text-indigo-600 hover:text-indigo-700",
+  },
+  cyan: {
+    badge: "border-cyan-200 bg-cyan-100/85 text-cyan-700",
+    accentText: "text-cyan-600",
+    accentIcon: "text-cyan-500",
+    accentDot: "bg-cyan-500",
+    surface:
+      "border-cyan-100 bg-gradient-to-br from-cyan-100/90 via-white to-sky-100/80 shadow-cyan-900/10",
+    card: "border-cyan-100 bg-white shadow-cyan-900/5",
+    subtleCard: "border-cyan-200/70 bg-cyan-50/75 shadow-cyan-900/5",
+    darkAccent: "text-cyan-300",
+    darkButton: "bg-cyan-600 shadow-cyan-900/25 hover:bg-cyan-700",
+    glow: "bg-cyan-500/15",
+    link: "text-cyan-600 hover:text-cyan-700",
+  },
+  emerald: {
+    badge: "border-emerald-200 bg-emerald-100/85 text-emerald-700",
+    accentText: "text-emerald-600",
+    accentIcon: "text-emerald-500",
+    accentDot: "bg-emerald-500",
+    surface:
+      "border-emerald-100 bg-gradient-to-br from-emerald-100/90 via-white to-lime-100/80 shadow-emerald-900/10",
+    card: "border-emerald-100 bg-white shadow-emerald-900/5",
+    subtleCard: "border-emerald-200/70 bg-emerald-50/75 shadow-emerald-900/5",
+    darkAccent: "text-emerald-300",
+    darkButton: "bg-emerald-600 shadow-emerald-900/25 hover:bg-emerald-700",
+    glow: "bg-emerald-500/15",
+    link: "text-emerald-600 hover:text-emerald-700",
+  },
+};
+
+const theme = themeMap[grade.color] ?? themeMap.blue;
+const gradeIndex = gradeProfiles.findIndex(({ id }) => id === grade.id);
+const stageNumber = String(gradeIndex + 1).padStart(2, "0");
+const previousGrade = gradeProfiles[gradeIndex - 1] ?? null;
+const nextGrade = gradeProfiles[gradeIndex + 1] ?? null;
+const statCards = [
+  { value: `${stageNumber}/04`, label: "position du parcours" },
+  { value: grade.ageRange, label: "tranche d'âge" },
+  {
+    value: String(grade.activities.length).padStart(2, "0"),
+    label: "activités marquantes",
+  },
+];
 ---
 
 <Layout>
-  <div
+  <section
     class="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8"
   >
     <a
-      href="/"
-      class="group mb-12 flex items-center text-slate-500 transition-colors hover:text-blue-600"
+      href="/curriculum"
+      class={`group mb-8 inline-flex items-center gap-2 text-sm font-semibold transition-colors ${theme.link}`}
     >
       <ArrowLeft
-        size={20}
-        className="mr-2 transform transition-transform group-hover:-translate-x-1"
+        size={18}
+        className="transform transition-transform group-hover:-translate-x-1"
       />
-      Retour au voyage
+      Retour au prospectus
     </a>
 
-    <div class="grid grid-cols-1 gap-16 lg:grid-cols-3">
-      {/* Main Content */}
-      <div class="lg:col-span-2">
-        <div class="mb-12">
-          <span
-            class={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border mb-6 inline-block ${activeColor}`}
-          >
-            {grade.grades}
-          </span>
-          <h1
-            class="mb-8 text-5xl leading-tight font-bold text-slate-900 md:text-6xl"
-          >
-            {grade.title}
-          </h1>
-          <p
-            class="max-w-2xl font-serif text-xl leading-relaxed text-slate-500 italic"
-          >
-            "{grade.overview}"
-          </p>
-        </div>
-
-        <div class="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2">
+    <div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <div class="space-y-10">
+        <section
+          class={`relative overflow-hidden rounded-[2.75rem] border p-6 shadow-xl sm:p-8 lg:p-10 ${theme.surface}`}
+        >
           <div
-            class="rounded-4xl border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5"
+            class={`absolute -top-16 right-8 h-40 w-40 rounded-full blur-3xl ${theme.glow}`}
+          >
+          </div>
+          <div
+            class="absolute -bottom-20 left-0 h-56 w-56 rounded-full bg-white/70 blur-3xl"
+          >
+          </div>
+
+          <div
+            class="relative z-10 grid gap-8 "
+          >
+            <div>
+              <div class="mb-5 flex flex-wrap gap-3">
+                <span
+                  class="rounded-full border border-white/80 bg-white/75 px-4 py-2 text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase"
+                >
+                  Parcours {stageNumber}/04
+                </span>
+                <span
+                  class={`rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.16em] uppercase ${theme.badge}`}
+                >
+                  {grade.grades}
+                </span>
+              </div>
+
+              <p
+                class={`mb-4 text-sm font-semibold tracking-[0.24em] uppercase ${theme.accentText}`}
+              >
+                {grade.ageRange}
+              </p>
+
+              <h1
+                class="max-w-3xl text-4xl leading-[0.95] font-bold tracking-tight text-slate-950 md:text-6xl"
+              >
+                {grade.title}
+              </h1>
+
+              <p
+                class="mt-4 max-w-2xl font-serif text-2xl leading-tight text-slate-600 italic"
+              >
+                {grade.subtitle}
+              </p>
+
+              <p
+                class="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg"
+              >
+                {grade.overview}
+              </p>
+
+              <div class="mt-8 grid gap-4 sm:grid-cols-3">
+                {
+                  statCards.map((stat) => (
+                    <div class="rounded-[1.75rem] border border-white/75 bg-white/80 p-4 shadow-lg shadow-slate-900/5 backdrop-blur-sm">
+                      <div class="text-lg font-semibold text-slate-900 md:text-xl">
+                        {stat.value}
+                      </div>
+                      <div class="mt-1 text-xs tracking-[0.16em] text-slate-500 uppercase">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+           
+          </div>
+        </section>
+
+        <section class="grid gap-6 lg:grid-cols-2">
+          <article
+            class={`rounded-[2.25rem] border p-8 shadow-xl transition-transform duration-300 hover:-translate-y-1 ${theme.card}`}
           >
             <div class="mb-6 flex items-center gap-3">
-              <div class={`p-3 rounded-xl ${activeColor}`}>
-                <BookOpen size={24} />
+              <div class={`rounded-2xl border p-3 ${theme.badge}`}>
+                <BookOpen size={22} />
               </div>
-              <h3 class="text-xl font-bold text-slate-900">
-                Points saillants du programme
-              </h3>
+              <div>
+                <p
+                  class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase"
+                >
+                  Vision académique
+                </p>
+                <h2 class="text-2xl font-semibold text-slate-900">
+                  Points saillants du programme
+                </h2>
+              </div>
             </div>
+
             <ul class="space-y-4">
               {
-                grade.curriculum.map((item, i) => (
-                  <li class="flex items-center gap-3 text-slate-600">
-                    <Check size={18} className="text-blue-500" />
-                    {item}
+                grade.curriculum.map((item) => (
+                  <li class="flex items-start gap-3 text-slate-600">
+                    <Check
+                      size={18}
+                      className={`mt-0.5 shrink-0 ${theme.accentIcon}`}
+                    />
+                    <span class="leading-7">{item}</span>
                   </li>
                 ))
               }
             </ul>
-          </div>
+          </article>
 
-          <div
-            class="rounded-4xl border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5"
+          <article
+            class={`rounded-[2.25rem] border p-8 shadow-xl transition-transform duration-300 hover:-translate-y-1 ${theme.card}`}
           >
             <div class="mb-6 flex items-center gap-3">
-              <div class={`p-3 rounded-xl ${activeColor}`}>
-                <Star size={24} />
+              <div class={`rounded-2xl border p-3 ${theme.badge}`}>
+                <Star size={22} />
               </div>
-              <h3 class="text-xl font-bold text-slate-900">
-                Activités captivantes
-              </h3>
+              <div>
+                <p
+                  class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase"
+                >
+                  Vie scolaire
+                </p>
+                <h2 class="text-2xl font-semibold text-slate-900">
+                  Activités captivantes
+                </h2>
+              </div>
             </div>
+
             <ul class="space-y-4">
               {
-                grade.activities.map((item, i) => (
-                  <li class="flex items-center gap-3 text-slate-600">
-                    <div class="h-1.5 w-1.5 rounded-full bg-blue-400" />
-                    {item}
+                grade.activities.map((item) => (
+                  <li class="flex items-start gap-3 text-slate-600">
+                    <div
+                      class={`mt-2 h-2 w-2 shrink-0 rounded-full ${theme.accentDot}`}
+                    />
+                    <span class="leading-7">{item}</span>
                   </li>
                 ))
               }
             </ul>
-          </div>
-        </div>
+          </article>
+        </section>
 
-        <div class="mb-16">
-          <div class="mb-8 flex items-center justify-between">
-            <h3
-              class="flex items-center gap-3 text-3xl font-bold text-slate-900"
-            >
-              <Camera size={28} className="text-blue-500" />
-              Galerie des moments
-            </h3>
+        <section class="space-y-6">
+          <div
+            class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
+          >
+            <div>
+              <p
+                class={`text-xs font-semibold tracking-[0.2em] uppercase ${theme.accentText}`}
+              >
+                Ce que ce niveau développe
+              </p>
+              <h2
+                class="mt-2 text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl"
+              >
+                Trois piliers structurent l'expérience quotidienne
+              </h2>
+            </div>
+            <p class="max-w-xl text-sm leading-7 text-slate-500">
+              Les repères du prospectus deviennent ici un aperçu plus concret du
+              rythme d'apprentissage, des compétences visées et du climat de
+              classe.
+            </p>
           </div>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+
+          <div class="grid gap-6 lg:grid-cols-3">
             {
-              grade.gallery.map((img, i) => (
-                <div class="aspect-square transform overflow-hidden rounded-4xl border-4 border-white shadow-lg transition-transform duration-500 hover:scale-105">
-                  <img
-                    src={img}
-                    alt="Gallery"
-                    class="h-full w-full object-cover"
-                  />
-                </div>
+              grade?.details?.map((detail, detailIndex) => (
+                <article
+                  class={`rounded-[2.25rem] border p-7 shadow-xl transition-transform duration-300 hover:-translate-y-1 ${theme.card}`}
+                >
+                  <div
+                    class={`mb-5 inline-flex h-11 w-11 items-center justify-center rounded-2xl border text-sm font-semibold ${theme.badge}`}
+                  >
+                    {String(detailIndex + 1).padStart(2, "0")}
+                  </div>
+                  <h3 class="text-xl font-semibold text-slate-900">
+                    {detail.label}
+                  </h3>
+                  <ul class="mt-5 space-y-4">
+                    {detail.items.map((item) => (
+                      <li class="flex items-start gap-3 text-sm leading-7 text-slate-600">
+                        <Check
+                          size={16}
+                          className={`mt-1 shrink-0 ${theme.accentIcon}`}
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
               ))
             }
           </div>
-        </div>
+        </section>
+
+
+        <section class="grid gap-4 md:grid-cols-2">
+          {
+            previousGrade ? (
+              <a
+                href={`/grade/${previousGrade.id}`}
+                class={`rounded-[2rem] border p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1 ${theme.card}`}
+              >
+                <p class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+                  Étape précédente
+                </p>
+                <h3 class="mt-3 text-2xl font-semibold text-slate-900">
+                  {previousGrade.title}
+                </h3>
+                <p class="mt-2 text-sm leading-6 text-slate-500">
+                  {previousGrade.grades}
+                </p>
+                <span
+                  class={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${theme.link}`}
+                >
+                  Voir le niveau
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+            ) : (
+              <a
+                href="/curriculum"
+                class={`rounded-[2rem] border p-6 shadow-lg transition-transform duration-300 hover:-translate-y-1 ${theme.card}`}
+              >
+                <p class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
+                  Vue d'ensemble
+                </p>
+                <h3 class="mt-3 text-2xl font-semibold text-slate-900">
+                  Revoir tout le prospectus
+                </h3>
+                <p class="mt-2 text-sm leading-6 text-slate-500">
+                  Comparez les quatre étapes du parcours scolaire avant de
+                  revenir sur ce niveau.
+                </p>
+                <span
+                  class={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${theme.link}`}
+                >
+                  Ouvrir le prospectus
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+            )
+          }
+
+          {
+            nextGrade ? (
+              <a
+                href={`/grade/${nextGrade.id}`}
+                class="rounded-[2rem] border border-slate-900 bg-slate-900 p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1"
+              >
+                <p
+                  class={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.darkAccent}`}
+                >
+                  Étape suivante
+                </p>
+                <h3 class="mt-3 text-2xl font-semibold text-white">
+                  {nextGrade.title}
+                </h3>
+                <p class="mt-2 text-sm leading-6 text-slate-300">
+                  {nextGrade.subtitle}
+                </p>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                  Continuer le parcours
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+            ) : (
+              <a
+                href="/enrollment"
+                class="rounded-[2rem] border border-slate-900 bg-slate-900 p-6 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1"
+              >
+                <p
+                  class={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.darkAccent}`}
+                >
+                  Prêt pour la suite
+                </p>
+                <h3 class="mt-3 text-2xl font-semibold text-white">
+                  Lancer une demande d'inscription
+                </h3>
+                <p class="mt-2 text-sm leading-6 text-slate-300">
+                  Rencontrez l'équipe admissions et préparez les prochaines
+                  étapes pour l'entrée au lycée.
+                </p>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                  Démarrer la demande
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+            )
+          }
+        </section>
       </div>
 
-      {/* Sidebar / Pricing */}
-      <div class="lg:col-span-1">
-        <div class="sticky top-32">
+      <aside class="xl:pt-2">
+        <div class="sticky top-28 space-y-6">
           <div
-            class="relative overflow-hidden rounded-[3rem] bg-slate-900 p-10 text-white shadow-2xl"
+            class="relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white shadow-2xl"
           >
-            {/* Decorative background element */}
             <div
-              class="absolute top-0 right-0 h-32 w-32 translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-2xl"
+              class={`absolute top-0 right-0 h-32 w-32 translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl ${theme.glow}`}
             >
             </div>
 
-            <div class="mb-8 flex items-center gap-3">
-              <DollarSign size={24} className="text-blue-500" />
-              <span
-                class="text-sm font-bold tracking-widest text-slate-400 uppercase"
-                >Investir dans l'avenir</span
-              >
-            </div>
-
-            <div class="mb-10">
-              <div class="mb-2 text-5xl font-bold">{grade.pricing.tuition}</div>
-              <div class="font-medium text-blue-400">
-                {grade.pricing.period}
+            <div class="relative z-10">
+              <div class="mb-6 flex flex-wrap gap-2">
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold tracking-[0.16em] text-slate-300 uppercase"
+                >
+                  {grade.ageRange}
+                </span>
+                <span
+                  class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold tracking-[0.16em] text-slate-300 uppercase"
+                >
+                  {grade.details?.length} piliers
+                </span>
               </div>
-            </div>
 
-            <div class="mb-10 space-y-4">
-              <p
-                class="mb-4 text-sm font-semibold tracking-wider text-slate-400 uppercase"
-              >
-                Ce qui est inclus :
-              </p>
-              {
-                grade.pricing.includes.map((item, i) => (
-                  <div class="flex items-start gap-3 text-sm text-slate-300">
-                    <Check
-                      size={16}
-                      className="text-blue-500 mt-0.5 shrink-0"
-                    />
-                    <span>{item}</span>
-                  </div>
-                ))
-              }
-            </div>
+              <div class="mb-8 flex items-center gap-3">
+                <DollarSign size={22} className={theme.accentIcon} />
+                <div>
+                  <p
+                    class="text-xs font-semibold tracking-[0.18em] text-slate-400 uppercase"
+                  >
+                    Investir dans l'avenir
+                  </p>
+                  <h2 class="text-2xl font-semibold text-white">
+                    Informations pratiques
+                  </h2>
+                </div>
+              </div>
 
-            <div class="flex flex-col items-center">
+              <div class="mb-8">
+                <div class="text-5xl font-bold text-white">
+                  {grade.pricing.tuition}
+                </div>
+                <div class={`mt-2 font-medium ${theme.darkAccent}`}>
+                  {grade.pricing.period}
+                </div>
+              </div>
+
+              <div class="mb-8 space-y-4">
+                <p
+                  class="text-xs font-semibold tracking-[0.18em] text-slate-400 uppercase"
+                >
+                  Ce qui est inclus
+                </p>
+                {
+                  grade.pricing.includes.map((item) => (
+                    <div class="flex items-start gap-3 text-sm text-slate-300">
+                      <Check
+                        size={16}
+                        className={`mt-0.5 shrink-0 ${theme.accentIcon}`}
+                      />
+                      <span class="leading-6">{item}</span>
+                    </div>
+                  ))
+                }
+              </div>
+
               <a
                 href="/enrollment"
-                class="mb-6 w-full rounded-2xl bg-blue-600 py-4 text-center font-bold text-white shadow-lg shadow-blue-900/50 transition-all hover:bg-blue-700"
+                class={`block w-full rounded-2xl py-4 text-center font-semibold text-white shadow-lg transition-colors ${theme.darkButton}`}
               >
                 Demande d'inscription
               </a>
 
               <div
-                class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+                class="mt-6 flex items-start gap-3 rounded-[1.75rem] border border-white/10 bg-white/5 p-4"
               >
-                <Info size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                <p class="text-[10px] leading-relaxed text-slate-400">
-                  Aide financière et réductions pour les frères et sœurs disponibles. Veuillez contacter le bureau des admissions pour plus de détails.
+                <Info
+                  size={16}
+                  className={`mt-0.5 shrink-0 ${theme.accentIcon}`}
+                />
+                <p class="text-xs leading-6 text-slate-400">
+                  Aide financière et réductions pour les frères et sœurs
+                  disponibles. Veuillez contacter le bureau des admissions pour
+                  plus de détails.
                 </p>
               </div>
             </div>
           </div>
 
-          <div
-            class="mt-8 rounded-4xl border border-blue-50 bg-white p-8 text-center shadow-sm"
-          >
-            <h4 class="mb-4 font-bold text-slate-900">Besoin d'une visite personnalisée ?</h4>
-            <p class="mb-6 text-sm text-slate-500">
-              Visitez notre campus et découvrez la magie en personne.
+          <div class={`rounded-[2rem] border p-6 shadow-lg ${theme.card}`}>
+            <p
+              class="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase"
+            >
+              Vue rapide
             </p>
-            <a href="/contact" class="font-bold text-blue-600 hover:underline"
-              >Planifier une visite</a>
+            <h3 class="mt-2 text-xl font-semibold text-slate-900">
+              Ce que ce niveau privilégie
+            </h3>
+            <div class="mt-5 space-y-3">
+              {
+                grade?.details?.map((detail) => (
+                  <div class="rounded-[1.25rem] border border-slate-100 bg-slate-50/80 px-4 py-3">
+                    <div class="text-sm font-semibold text-slate-900">
+                      {detail.label}
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <a
+              href="/contact"
+              class={`mt-6 inline-flex items-center gap-2 text-sm font-semibold ${theme.link}`}
+            >
+              Planifier une visite
+              <ArrowRight size={16} />
+            </a>
           </div>
         </div>
-      </div>
+      </aside>
     </div>
-  </div>
+  </section>
 </Layout>
