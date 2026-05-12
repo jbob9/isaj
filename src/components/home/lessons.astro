@@ -2,68 +2,78 @@
 const lessons = [
   {
     title: "Identification par lettre",
-    level: "Classe - Préscolaire",
-    image:
-      "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=200",
-    bgColor: "bg-blue-100",
+    level: "Préscolaire",
+    image: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=600",
   },
   {
     title: "Connaissances générales",
-    level: "Quatrième année",
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80&w=200",
-    bgColor: "bg-orange-100",
+    level: "4ᵉ année",
+    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80&w=600",
   },
   {
     title: "Quiz de géographie",
-    level: "Première année",
-    image:
-      "https://images.unsplash.com/photo-1510531704581-5b2870972060?auto=format&fit=crop&q=80&w=200",
-    bgColor: "bg-green-100",
+    level: "1ʳᵉ année",
+    image: "https://images.unsplash.com/photo-1510531704581-5b2870972060?auto=format&fit=crop&q=80&w=600",
   },
   {
     title: "Formation en arts visuels",
     level: "Cours de dessin",
-    image:
-      "https://images.unsplash.com/photo-1617234112618-337d8fb28d42?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHZpc3VhbCUyMGFydHxlbnwwfHwwfHx8MA%3D%3D",
-    bgColor: "bg-yellow-100",
+    image: "https://images.unsplash.com/photo-1617234112618-337d8fb28d42?auto=format&fit=crop&q=80&w=600",
   },
 ];
 ---
 
-<section class="bg-white py-20">
-  <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-    <p class="mb-4 text-sm font-medium text-gray-400">
-     Nous nous concentrons sur une leçon marquante à la fois.
-    </p>
-    <h2 class="mb-16 text-4xl font-bold text-[#3D2C26] md:text-5xl">
-      Façonner <span class="font-serif text-green-500 italic">l'avenir</span> des enfants
-    </h2>
+<section class="bg-white py-24 lg:py-32">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 max-w-3xl">
+      <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+        Une leçon marquante à la fois
+      </p>
+      <h2 class="tracking-headline balance text-4xl font-semibold leading-[1.05] text-ink md:text-[3.25rem]">
+        Façonner <span class="font-display italic font-normal text-brand-deep">l'avenir</span> des enfants
+      </h2>
+    </div>
 
-    <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+    <ul class="divide-y divide-black/[0.06] border-y border-black/[0.06]">
       {
         lessons.map((lesson, idx) => (
-          <div class="group cursor-pointer">
-            <div
-              class={`relative mx-auto h-32 w-32 rounded-full md:h-40 md:w-40 ${lesson.bgColor} mb-6 p-2 transition-transform duration-500 group-hover:rotate-12`}
+          <li>
+            <a
+              href="/curriculum"
+              class="group grid grid-cols-12 items-center gap-4 py-7 transition-colors hover:bg-[#fbfcfe] md:py-9"
             >
-              <div class="h-full w-full overflow-hidden rounded-full border-4 border-white shadow-lg">
-                <img
-                  src={lesson.image}
-                  alt={lesson.title}
-                  class="h-full w-full object-cover"
-                />
+              <span class="tabular col-span-2 text-[0.78rem] font-medium text-ink-mute md:col-span-1">
+                {String(idx + 1).padStart(2, "0")}
+              </span>
+
+              <div class="col-span-10 flex items-center gap-5 md:col-span-7">
+                <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl md:h-16 md:w-16">
+                  <img
+                    src={lesson.image}
+                    alt={lesson.title}
+                    class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                </div>
+                <h3 class="font-display text-[1.5rem] font-medium leading-tight tracking-[-0.015em] text-ink transition-colors group-hover:text-brand-deep md:text-[1.85rem]">
+                  {lesson.title}
+                </h3>
               </div>
-              {/* Decorative blob behind */}
-              <div class="absolute top-0 left-0 -z-10 h-full w-full scale-125 rounded-full bg-inherit opacity-20 blur-sm transition-all duration-700 group-hover:scale-150" />
-            </div>
-            <h3 class="mb-1 text-xl font-bold text-[#3D2C26] transition-colors group-hover:text-orange-500">
-              {lesson.title}
-            </h3>
-            <p class="text-sm text-gray-500">{lesson.level}</p>
-          </div>
+
+              <p class="col-span-12 text-[0.85rem] text-ink-mute md:col-span-3">
+                {lesson.level}
+              </p>
+
+              <div class="col-span-12 hidden justify-end md:col-span-1 md:flex">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/8 text-ink-mute transition-all duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-white">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M7 17L17 7M9 7h8v8" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </div>
 </section>

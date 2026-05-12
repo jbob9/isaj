@@ -1,116 +1,146 @@
 ---
-import { ArrowUpRight, Check } from "lucide-react";
-import image from "../../assets/2.jpeg";
+import { Image } from "astro:assets";
+import { ArrowUpRight, Check, Star } from "lucide-react";
+import imgA from "../../assets/2.jpeg";
+import imgB from "../../assets/5.jpeg";
+import imgC from "../../assets/8.jpeg";
 ---
 
-<section
-  class="relative mx-auto max-w-7xl overflow-hidden px-4 pt-12 pb-20 sm:px-6 lg:px-8 lg:pt-20 lg:pb-32"
->
-  {/* Decorative icons */}
-  <div
-    class="absolute top-10 left-10 hidden animate-bounce lg:block"
-    style={{ animationDuration: "3s" }}
-  >
-    <img
-      src="https://img.icons8.com/color/48/hot-air-balloon.png"
-      alt="balloon"
-      class="w-12"
-    />
-  </div>
-  
-
-  <div class="relative z-10 mx-auto max-w-4xl text-center">
-    <h1
-      class="mb-8 text-4xl leading-tight font-bold text-slate-900 md:text-6xl lg:text-7xl"
+<section class="relative mx-auto max-w-7xl px-4 pt-10 pb-24 sm:px-6 lg:px-8 lg:pt-16 lg:pb-32">
+  {/* Eyebrow chip — lowercase, refined */}
+  <div class="mb-10 flex justify-center">
+    <a
+      href="/enrollment"
+      class="group inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/60 px-3 py-1.5 text-[0.78rem] font-medium text-ink-soft backdrop-blur-md transition-colors hover:bg-white/90"
     >
-      Mettre en avant <span class="font-serif text-blue-600 italic"
-        >les intérêts</span
-      > de votre enfant
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75"></span>
+        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand"></span>
+      </span>
+      Admissions ouvertes pour 2026
+      <ArrowUpRight size={13} className="opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+    </a>
+  </div>
+
+  <div class="relative mx-auto max-w-5xl text-center">
+    <h1
+      class="tracking-headline balance text-[2.6rem] font-semibold leading-[1.02] text-ink sm:text-6xl md:text-[5.25rem] md:leading-[0.98]"
+    >
+      Mettre en avant
+      <span class="font-display italic font-normal text-brand-deep">
+        les intérêts<span class="text-brand">.</span>
+      </span>
+      <br class="hidden sm:block" />
+      <span class="text-ink-soft">de votre enfant</span>
     </h1>
 
-    <div class="mb-10 flex flex-wrap justify-center gap-6">
-      <span class="flex items-center text-sm font-medium text-slate-600">
-        <Check
-          size={16}
-          className="mr-2 rounded-full border border-blue-200 p-0.5 text-blue-500"
-        /> Tous les niveaux
-      </span>
-      <span class="flex items-center text-sm font-medium text-slate-600">
-        <Check
-          size={16}
-          className="mr-2 rounded-full border border-blue-200 p-0.5 text-blue-500"
-        /> Éducateurs certifiés
-      </span>
-      <span class="flex items-center text-sm font-medium text-slate-600">
-        <Check
-          size={16}
-          className="mr-2 rounded-full border border-blue-200 p-0.5 text-blue-500"
-        /> Reconnaissance
-      </span>
+    <p
+      class="pretty mx-auto mt-7 max-w-xl text-base leading-relaxed text-ink-mute md:text-lg"
+    >
+      De la maternelle au lycée — une éducation cohérente, exigeante et chaleureuse, à chaque étape du parcours.
+    </p>
+
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+      <a
+        href="/enrollment"
+        class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
+      >
+        Inscrivez votre enfant
+        <ArrowUpRight size={17} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      </a>
+      <a
+        href="/curriculum"
+        class="group inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-[0.95rem] font-medium text-ink underline decoration-ink/20 decoration-1 underline-offset-[6px] transition-colors hover:decoration-ink/60"
+      >
+        Découvrir le programme
+      </a>
     </div>
 
-    <button
-      class="mx-auto flex transform items-center rounded-full bg-blue-600 px-8 py-4 font-semibold text-white shadow-lg shadow-blue-200 transition-all hover:scale-105 hover:bg-blue-700"
-    >
-      Inscrivez votre enfant<ArrowUpRight className="ml-2" size={20} />
-    </button>
-
-    <p class="mx-auto mt-6 max-w-md text-sm text-slate-500 md:text-base">
-      De la maternelle au leadership au lycée, nous offrons une éducation
-      cohérente et de calibre mondial à chaque étape.
-    </p>
+    {/* Trust strip — lowercase, no heavy uppercase */}
+    <ul class="mx-auto mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[0.8rem] text-ink-mute">
+      <li class="inline-flex items-center gap-1.5">
+        <Check size={14} className="text-brand" /> Tous les niveaux
+      </li>
+      <li class="hidden sm:inline-block">·</li>
+      <li class="inline-flex items-center gap-1.5">
+        <Check size={14} className="text-brand" /> Éducateurs certifiés
+      </li>
+      <li class="hidden sm:inline-block">·</li>
+      <li class="inline-flex items-center gap-1.5">
+        <Check size={14} className="text-brand" /> Reconnu par l'État
+      </li>
+    </ul>
   </div>
 
-  {/* Floating Child Images */}
-  <div
-    class="mt-16 grid grid-cols-1 items-center justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-2"
-  >
-    <div class="group relative">
-      {/* Doodle decoration */}
-      <div
-        class="pointer-events-none absolute -top-10 -left-10 h-24 w-24 opacity-20"
-      >
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path
-            fill="#3B82F6"
-            d="M47.7,-64.2C59.9,-54.2,66.8,-37.8,71.7,-20.8C76.6,-3.8,79.5,13.8,72.9,27.1C66.3,40.4,50.2,49.4,35,58.8C19.8,68.2,5.5,78,-9.4,79.2C-24.3,80.4,-39.8,73,-51.7,62.1C-63.6,51.2,-71.9,36.8,-76.3,21.1C-80.7,5.4,-81.2,-11.6,-75.4,-26.8C-69.6,-42,-57.5,-55.4,-43.3,-64.6C-29.1,-73.8,-14.6,-78.8,1.3,-80.6C17.2,-82.4,35.5,-74.2,47.7,-64.2Z"
-            transform="translate(100 100)"></path>
-        </svg>
-      </div>
-      <div
-        class="blob-shape-1 h-80 w-64 overflow-hidden border-4 border-white bg-blue-100 shadow-xl transition-transform duration-500 group-hover:scale-105 lg:h-96 lg:w-80"
-      >
-        <img
-          src="/isaj-1.jpeg"
-          alt="Kid learning"
-          class="h-full w-full object-cover"
+  {/* Image collage — broken grid, layered, varied aspect ratios */}
+  <div class="relative mt-20 hidden md:block">
+    {/* Decorative spark */}
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 40 40"
+      class="absolute -top-6 left-[18%] h-9 w-9 -rotate-12 text-ink/30"
+      fill="none"
+    >
+      <path
+        d="M20 2v36M2 20h36M6 6l28 28M34 6L6 34"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+
+    <div class="grid grid-cols-12 items-end gap-6">
+      <figure class="col-span-4">
+        <Image
+          src={imgA}
+          alt="Une élève souriante dans la cour de l'école"
+          class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-ink-lg"
         />
-      </div>
+        <figcaption class="mt-3 px-1 text-left text-[0.72rem] uppercase tracking-[0.18em] text-ink-mute">
+          École primaire · Lilavois
+        </figcaption>
+      </figure>
+
+      <figure class="col-span-4 -mb-12 translate-y-6">
+        <Image
+          src={imgB}
+          alt="Élèves en activité créative"
+          class="aspect-[3/4] w-full rounded-[2rem] object-cover shadow-ink-lg"
+        />
+      </figure>
+
+      <figure class="col-span-4">
+        <Image
+          src={imgC}
+          alt="Cérémonie de remise de diplômes"
+          class="aspect-[5/6] w-full rounded-[2rem] object-cover shadow-ink-lg"
+        />
+        <figcaption class="mt-3 flex items-center justify-end gap-1.5 px-1 text-[0.72rem] uppercase tracking-[0.18em] text-ink-mute">
+          <Star size={11} className="fill-amber-400 text-amber-400" />
+          Promotion 2025
+        </figcaption>
+      </figure>
     </div>
 
-    <div class="group relative hidden md:block">
-      {/* Another doodle */}
-      <div
-        class="pointer-events-none absolute -right-10 -bottom-10 h-32 w-32 rotate-45 opacity-20"
-      >
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path
-            fill="#4ADE80"
-            d="M41.5,-63.7C54.1,-58.3,64.9,-47.1,70.9,-33.8C76.9,-20.5,78.2,-5.1,73.1,8.3C68,21.7,56.6,33.1,45.4,41.9C34.2,50.7,23.3,56.9,10.6,62C-2.1,67.1,-16.6,71.1,-29.4,67.7C-42.2,64.3,-53.3,53.5,-61.7,40.9C-70.1,28.3,-75.8,13.9,-75.5,-0.2C-75.2,-14.3,-68.9,-28.1,-59,-38.4C-49.1,-48.7,-35.6,-55.5,-22.4,-60.5C-9.2,-65.5,3.7,-68.7,18.8,-68C33.9,-67.3,47.8,-62.7,41.5,-63.7Z"
-            transform="translate(100 100)"></path>
-        </svg>
-      </div>
-      <div
-        class="blob-shape-2 h-80 w-64 translate-y-8 overflow-hidden border-4 border-white bg-green-100 shadow-xl transition-transform duration-500 group-hover:scale-105 lg:h-96 lg:w-80"
-      >
-        <img
-          src={image.src}
-          width={500}
-          height={500}
-          alt="Kid smiling"
-          class="h-full w-full object-cover"
-        />
-      </div>
+    {/* Floating quote-card overlay */}
+    <div
+      class="absolute -bottom-4 left-1/2 hidden w-[min(380px,90%)] -translate-x-1/2 rounded-2xl border border-black/5 bg-white/90 px-5 py-4 shadow-ink backdrop-blur-md lg:block"
+    >
+      <p class="text-[0.85rem] leading-snug text-ink-soft">
+        <span class="font-display italic text-ink">«</span> Un environnement où chaque enfant trouve sa voie. <span class="font-display italic text-ink">»</span>
+      </p>
+      <p class="mt-1 text-[0.7rem] uppercase tracking-[0.18em] text-ink-mute">
+        Parent · 4ᵉ année
+      </p>
     </div>
+  </div>
+
+  {/* Mobile single image */}
+  <div class="relative mt-12 md:hidden">
+    <Image
+      src={imgA}
+      alt="Élève souriante"
+      class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-ink-lg"
+    />
   </div>
 </section>

@@ -11,130 +11,62 @@ import {
 } from "lucide-react";
 
 const activities = [
-  {
-    title: "Arts créatifs",
-    desc: "Peinture, poterie et design numérique pour stimuler l'imagination.",
-    icon: Palette,
-    color: "bg-green-100 text-green-600",
-    blob: "blob-shape-1",
-  },
-  {
-    title: "Sports d'élite",
-    desc: "Du football à la natation, développer la force et le travail d'équipe.",
-    icon: Trophy,
-    color: "bg-green-100 text-green-600",
-    blob: "blob-shape-2",
-  },
-  {
-    title: "Laboratoire STEM",
-    desc: "Expériences scientifiques pratiques.",
-    icon: Microscope,
-    color: "bg-blue-100 text-blue-600",
-    blob: "blob-shape-1",
-  },
-  {
-    title: "Académie de musique",
-    desc: "Cours d'instrument et chorale pour tous niveaux.",
-    icon: Music,
-    color: "bg-yellow-100 text-yellow-600",
-    blob: "blob-shape-2",
-  },
-  {
-    title: "Langues du monde",
-    desc: "Programmes d'immersion en espagnol, français et mandarin.",
-    icon: Globe,
-    color: "bg-purple-100 text-purple-600",
-    blob: "blob-shape-1",
-  },
-  {
-    title: "Arts culinaires",
-    desc: "Cours de cuisine pour jeunes cuisiniers axés sur la nutrition et la saveur.",
-    icon: Apple,
-    color: "bg-red-100 text-red-600",
-    blob: "blob-shape-2",
-  },
-  {
-    title: "Survie en plein air",
-    desc: "Techniques de camping et projets de conservation de la nature.",
-    icon: Flame,
-    color: "bg-emerald-100 text-emerald-600",
-    blob: "blob-shape-1",
-  },
-  {
-    title: "Art dramatique et théâtre",
-    desc: "Ateliers d'art dramatique et grandes productions annuelles sur scène.",
-    icon: Sparkles,
-    color: "bg-pink-100 text-pink-600",
-    blob: "blob-shape-2",
-  },
+  { title: "Arts créatifs", desc: "Peinture, poterie et design numérique pour stimuler l'imagination.", icon: Palette },
+  { title: "Sports d'élite", desc: "Du football à la natation — développer la force et le travail d'équipe.", icon: Trophy },
+  { title: "Laboratoire STEM", desc: "Expériences scientifiques pratiques et démarche d'investigation.", icon: Microscope },
+  { title: "Académie de musique", desc: "Cours d'instrument et chorale pour tous niveaux.", icon: Music },
+  { title: "Langues du monde", desc: "Programmes d'immersion en espagnol, français et anglais.", icon: Globe },
+  { title: "Arts culinaires", desc: "Cours pour jeunes cuisiniers, axés sur la nutrition et la saveur.", icon: Apple },
+  { title: "Survie en plein air", desc: "Techniques de camping et projets de conservation de la nature.", icon: Flame },
+  { title: "Art dramatique", desc: "Ateliers et grandes productions annuelles sur scène.", icon: Sparkles },
 ];
 ---
 
-<section class="mx-auto max-w-7xl overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
-  <div
-    class="mb-20 flex flex-col items-center justify-between gap-8 md:flex-row"
-  >
-    <div class="max-w-2xl text-center md:text-left">
-      <span
-        class="mb-4 block text-xs font-bold tracking-widest text-green-500 uppercase"
-        >Au-delà de la salle de classe</span
-      >
-      <h2
-        class="mb-6 text-4xl leading-tight font-bold text-[#3D2C26] md:text-5xl"
-      >
-        Notre monde de <span class="font-serif text-green-500 italic"
-          >découvertes</span
-        > infinies
-      </h2>
-      <p class="text-gray-500">
-        À l’Institution le Saint Justien (ISAJ), l’éducation va bien au-delà des
-        manuels scolaires. Nous proposons un écosystème dynamique d’activités
-        extrascolaires conçues pour aider chaque enfant à révéler son potentiel
-        unique.
+<section class="relative overflow-hidden py-24 lg:py-32">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+          Au-delà de la salle de classe
+        </p>
+        <h2 class="tracking-headline balance text-4xl font-semibold leading-[1.05] text-ink md:text-[3.25rem]">
+          Notre monde de <span class="font-display italic font-normal text-brand-deep">découvertes</span> infinies
+        </h2>
+      </div>
+      <p class="pretty text-[0.95rem] leading-relaxed text-ink-mute lg:col-span-5">
+        À l'Institution Saint Justien, l'éducation va bien au-delà des manuels. Un écosystème d'activités conçues pour aider chaque enfant à révéler son potentiel unique.
       </p>
     </div>
-    <div class="relative hidden lg:block">
-      <div
-        class="flex h-24 w-24 animate-spin items-center justify-center rounded-full bg-green-100"
-        style={{ animationDuration: "10s" }}
-      >
-        <Sparkles className="text-green-500" size={40} />
-      </div>
-      <div class="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-green-500">
-      </div>
-    </div>
-  </div>
 
-  <div class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-    {
-      activities.map((activity) => (
-        <div class="group relative">
-          <div
-            class={`h-20 w-20 ${activity.color} ${activity.blob} mb-6 flex transform items-center justify-center shadow-sm transition-all duration-500 group-hover:rotate-12`}
-          >
-            <activity.icon size={28} />
+    {/* Bento — varied sizes */}
+    <div class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.75rem] bg-black/[0.06] sm:grid-cols-2 lg:grid-cols-4">
+      {
+        activities.map((a, i) => (
+          <div class="group relative bg-white p-7 transition-colors hover:bg-[#fbfcfe] lg:p-8">
+            <div class="flex items-start justify-between">
+              <a.icon size={22} strokeWidth={1.6} className="text-ink transition-colors group-hover:text-brand" />
+              <span class="tabular text-[0.7rem] text-ink-mute">{String(i + 1).padStart(2, "0")}</span>
+            </div>
+
+            <h3 class="mt-10 font-display text-[1.35rem] font-medium leading-tight tracking-[-0.015em] text-ink">
+              {a.title}
+            </h3>
+            <p class="mt-2 text-[0.88rem] leading-relaxed text-ink-mute">
+              {a.desc}
+            </p>
+
+            <div class="mt-6 h-px w-8 bg-ink/15 transition-all duration-500 group-hover:w-16 group-hover:bg-brand"></div>
           </div>
-          <h3 class="mb-3 text-xl font-bold text-[#3D2C26] transition-colors group-hover:text-green-500">
-            {activity.title}
-          </h3>
-          <p class="mb-4 text-sm leading-relaxed text-gray-500">
-            {activity.desc}
-          </p>
-          <div class="h-0.5 w-0 bg-green-400 opacity-50 transition-all duration-500 group-hover:w-full" />
-        </div>
-      ))
-    }
-  </div>
-
-  <div class="mt-20 text-center">
-    <div
-      class="inline-flex flex-wrap items-center justify-center gap-4 rounded-full border border-gray-100 bg-white px-5 py-6 shadow-lg"
-    >
-      <p class="pr-6 text-sm font-medium text-[#3D2C26]">
-        Rejoignez plus de <span class="font-bold text-green-500"
-          >100+ enfants</span
-        > dans nos activités quotidiennes !
-      </p>
+        ))
+      }
     </div>
+
+    <p class="mt-12 flex flex-wrap items-center gap-2 text-[0.9rem] text-ink-mute">
+      <span class="font-display italic text-ink">«</span>
+      Rejoignez plus de
+      <span class="font-medium text-ink">100 enfants</span>
+      dans nos activités quotidiennes.
+      <span class="font-display italic text-ink">»</span>
+    </p>
   </div>
 </section>

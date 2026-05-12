@@ -1,9 +1,8 @@
 import {
   ArrowLeft,
-  Camera,
+  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
-  Maximize2,
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -13,80 +12,84 @@ import musicConservatory from "../assets/6.jpeg";
 import summerSportsCamp from "../assets/7.jpeg";
 import graduationCelebration from "../assets/8.jpeg";
 
-type GalleryCategory = "Tout" | "Académique" |"Créative" |"Sportif" | "Événements";
+type GalleryCategory =
+  | "Tout"
+  | "Académique"
+  | "Créative"
+  | "Sportif"
+  | "Événements";
 
-const galleryItems = [
+type Item = {
+  id: number;
+  title: string;
+  category: Exclude<GalleryCategory, "Tout">;
+  image: string;
+  year: string;
+};
+
+const galleryItems: Item[] = [
   {
     id: 1,
     title: "Réussite à l'exposition scientifique",
     category: "Académique",
-    image:
-      "/isaj-2.jpeg",
-    size: "large",
+    image: "/isaj-2.jpeg",
+    year: "2025",
   },
   {
     id: 2,
     title: "Atelier d'art du matin",
     category: "Créative",
-    image:
-      "/isaj-3.jpeg",
-    size: "small",
+    image: "/isaj-3.jpeg",
+    year: "2025",
   },
   {
     id: 3,
     title: "Esprit de champion",
     category: "Sportif",
-    image:
-      "/isaj-4.jpeg",
-    size: "medium",
+    image: "/isaj-4.jpeg",
+    year: "2025",
   },
   {
     id: 4,
     title: "Production théâtrale annuelle",
     category: "Événements",
-    image:
-      graduationCelebration.src,
-    size: "medium",
+    image: graduationCelebration.src,
+    year: "2024",
   },
   {
     id: 5,
-    title: "Atelier d'art du matin",
+    title: "Cours du matin · Maternelle",
     category: "Académique",
-    image:
-      "/isaj-1.jpeg",
-    size: "small",
+    image: "/isaj-1.jpeg",
+    year: "2024",
   },
   {
     id: 6,
     title: "Conservatoire de musique",
     category: "Créative",
-    image:
-      musicConservatory.src,
-    size: "large",
+    image: musicConservatory.src,
+    year: "2025",
   },
   {
     id: 7,
     title: "Camp sportif d'été",
     category: "Sportif",
-    image:
-      summerSportsCamp.src,
-    size: "small",
+    image: summerSportsCamp.src,
+    year: "2024",
   },
   {
     id: 8,
-    title: "Célébration de la remise des diplômes",
+    title: "Remise des diplômes",
     category: "Événements",
-    image:
-    scienceFair.src,
-    size: "medium",
+    image: scienceFair.src,
+    year: "2024",
   },
   {
     id: 10,
-    title: "Atelier des enfants",
+    title: "Atelier des jeunes explorateurs",
     category: "Académique",
-    image:
-      codingForBeginners.src,
-    size: "small",
+    image: codingForBeginners.src,
+    year: "2025",
   },
 ];
 
@@ -97,18 +100,16 @@ const categories: GalleryCategory[] = [
   "Sportif",
   "Événements",
 ];
+
 const GalleryContentPage = () => {
   const [activeCategory, setActiveCategory] = useState<GalleryCategory>("Tout");
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null,
-  );
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const filteredItems =
     activeCategory === "Tout"
       ? galleryItems
       : galleryItems.filter((item) => item.category === activeCategory);
 
-  // Handle keyboard navigation for the lightbox
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedImageIndex === null) return;
@@ -118,6 +119,17 @@ const GalleryContentPage = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImageIndex, filteredItems.length]);
+
+  // Lock body scroll when lightbox open
+  useEffect(() => {
+    if (selectedImageIndex !== null) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
   }, [selectedImageIndex]);
 
   const handleNext = () => {
@@ -133,168 +145,210 @@ const GalleryContentPage = () => {
   };
 
   return (
-    <section className="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8">
-      <div className="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row">
-        <div>
-          <a
-            href="/"
-            className="group mb-6 flex items-center text-slate-500 transition-colors hover:text-blue-600"
-          >
-            <ArrowLeft
-              size={20}
-              className="mr-2 transform transition-transform group-hover:-translate-x-1"
-            />
-            Retour à l'accueil
-          </a>
-          <h1 className="text-4xl leading-tight font-bold text-slate-900 md:text-6xl">
-            Moments de{" "}
-            <span className="font-serif text-blue-600 italic">découverte</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-500">
-            Une fenêtre visuelle sur les aventures et les réussites quotidiennes de notre famille Institution le Saint Justien (ISAJ).
+    <section className="mx-auto max-w-7xl px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-16 lg:pb-32">
+      {/* Breadcrumb */}
+      <a
+        href="/"
+        className="group inline-flex items-center gap-2 text-[0.85rem] text-ink-mute transition-colors hover:text-ink"
+      >
+        <ArrowLeft size={15} className="transition-transform group-hover:-translate-x-0.5" />
+        Retour à l'accueil
+      </a>
+
+      {/* Header */}
+      <div className="mt-10 mb-12 grid grid-cols-1 items-end gap-8 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-8">
+          <p className="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+            Galerie · {galleryItems.length} moments
           </p>
+          <h1 className="tracking-headline balance text-5xl leading-[1.02] font-semibold text-ink md:text-[5.5rem]">
+            Moments de <span className="font-display italic font-normal text-brand-deep">découverte.</span>
+          </h1>
         </div>
-
-        <div className="relative hidden lg:block">
-          <div
-            className="flex h-24 w-24 animate-spin items-center justify-center rounded-full bg-blue-100"
-            style={{ animationDuration: "15s" }}
-          >
-            <Camera className="text-blue-500" size={32} />
-          </div>
-          <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-blue-500"></div>
-        </div>
+        <p className="pretty max-w-md text-[1rem] leading-relaxed text-ink-mute lg:col-span-4">
+          Une fenêtre visuelle sur les aventures et les réussites quotidiennes de la famille ISAJ — saisons 2024 et 2025.
+        </p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="mb-16 flex flex-wrap justify-center gap-4">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => {
-              setActiveCategory(cat);
-              setSelectedImageIndex(null);
-            }}
-            className={`rounded-2xl px-8 py-3 font-bold transition-all ${
-              activeCategory === cat
-                ? "scale-105 bg-blue-600 text-white shadow-lg shadow-blue-200"
-                : "border border-slate-100 bg-white text-slate-500 hover:bg-blue-50"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Filter Tabs — inline editorial pills */}
+      <div className="mb-12 flex flex-wrap items-center gap-x-1 gap-y-2 border-y border-black/[0.07] py-4">
+        <span className="mr-2 hidden text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase sm:inline">
+          Filtrer
+        </span>
+        {categories.map((cat) => {
+          const active = activeCategory === cat;
+          const count =
+            cat === "Tout"
+              ? galleryItems.length
+              : galleryItems.filter((i) => i.category === cat).length;
+          return (
+            <button
+              key={cat}
+              onClick={() => {
+                setActiveCategory(cat);
+                setSelectedImageIndex(null);
+              }}
+              className={`group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.88rem] font-medium transition-all ${
+                active
+                  ? "bg-ink text-white"
+                  : "text-ink-mute hover:bg-black/[0.04] hover:text-ink"
+              }`}
+            >
+              {cat}
+              <span
+                className={`tabular text-[0.7rem] ${
+                  active ? "text-white/55" : "text-ink-mute/70"
+                }`}
+              >
+                {String(count).padStart(2, "0")}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Masonry-style Grid */}
-      <div className="columns-1 gap-8 space-y-8 sm:columns-2 lg:columns-3">
+      {/* Masonry grid — subtle border, no heavy white frames */}
+      <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 lg:gap-6">
         {filteredItems.map((item, index) => (
-          <div
+          <button
             key={item.id}
             onClick={() => setSelectedImageIndex(index)}
-            className="group animate-in zoom-in relative cursor-pointer break-inside-avoid overflow-hidden rounded-[2.5rem] border-4 border-white shadow-xl shadow-blue-900/5 duration-500"
+            className="group relative mb-5 block w-full cursor-zoom-in break-inside-avoid overflow-hidden rounded-[1.25rem] bg-ink lg:mb-6"
           >
             <img
               src={item.image}
               alt={item.title}
-              className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="h-auto w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-[1.04]"
             />
 
-            {/* Overlay */}
-            <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-slate-900/80 via-slate-900/20 to-transparent p-8 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <div className="translate-y-4 transition-transform duration-500 group-hover:translate-y-0">
-                <span className="mb-3 inline-block rounded-full bg-blue-600 px-3 py-1 text-[10px] font-bold tracking-widest text-white uppercase">
-                  {item.category}
-                </span>
-                <h3 className="mb-2 text-xl font-bold text-white">
+            {/* Subtle bottom-gradient caption (always visible, intensifies on hover) */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent p-6 opacity-90 transition-opacity duration-500 group-hover:opacity-100">
+              <div>
+                <p className="text-[0.65rem] uppercase tracking-[0.18em] text-white/65">
+                  {item.category} · {item.year}
+                </p>
+                <h3 className="font-display mt-1 text-[1.15rem] leading-tight font-medium text-white">
                   {item.title}
                 </h3>
               </div>
+              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:text-ink">
+                <ArrowUpRight size={15} />
+              </span>
             </div>
-
-            {/* Floating Action */}
-            <div className="absolute top-6 right-6 flex h-12 w-12 translate-x-4 transform items-center justify-center rounded-2xl bg-white/10 text-white opacity-0 backdrop-blur-md transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
-              <Maximize2 size={20} />
-            </div>
-          </div>
+          </button>
         ))}
       </div>
 
-      {/* Lightbox Modal */}
-      {selectedImageIndex !== null && (
-        <div className="animate-in fade-in fixed inset-0 z-100 flex items-center justify-center bg-slate-950/95 p-4 backdrop-blur-sm duration-300 md:p-8">
-          <button
-            onClick={() => setSelectedImageIndex(null)}
-            className="absolute top-6 right-6 z-110 rounded-full p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
-          >
-            <X size={32} />
-          </button>
+      {/* Empty state */}
+      {filteredItems.length === 0 && (
+        <div className="py-24 text-center">
+          <p className="font-display text-[1.5rem] italic text-ink">
+            Aucun moment dans cette catégorie pour l'instant.
+          </p>
+          <p className="mt-3 text-[0.9rem] text-ink-mute">
+            Revenez bientôt — la galerie s'enrichit chaque semaine.
+          </p>
+        </div>
+      )}
 
-          {/* Navigation Controls */}
+      {/* Lightbox */}
+      {selectedImageIndex !== null && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 p-4 backdrop-blur-md md:p-8"
+          onClick={() => setSelectedImageIndex(null)}
+        >
+          {/* Top bar */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between p-5 md:p-7">
+            <p className="tabular text-[0.78rem] tracking-[0.18em] text-white/55 uppercase">
+              {String(selectedImageIndex + 1).padStart(2, "0")} /{" "}
+              {String(filteredItems.length).padStart(2, "0")}
+            </p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImageIndex(null);
+              }}
+              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white hover:text-white"
+              aria-label="Fermer"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Prev/Next */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               handlePrev();
             }}
-            className="absolute left-4 z-110 rounded-full p-3 text-white/50 transition-colors hover:bg-white/10 hover:text-white md:left-8"
+            className="absolute left-4 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white hover:text-white md:left-8"
+            aria-label="Précédent"
           >
-            <ChevronLeft size={48} />
+            <ChevronLeft size={22} />
           </button>
-
           <button
             onClick={(e) => {
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-4 z-110 rounded-full p-3 text-white/50 transition-colors hover:bg-white/10 hover:text-white md:right-8"
+            className="absolute right-4 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white hover:text-white md:right-8"
+            aria-label="Suivant"
           >
-            <ChevronRight size={48} />
+            <ChevronRight size={22} />
           </button>
 
-          <div className="animate-in zoom-in relative flex max-h-[90vh] w-full max-w-5xl flex-col items-center duration-500">
+          {/* Image + caption */}
+          <div
+            className="relative flex max-h-[88vh] w-full max-w-5xl flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img
               src={filteredItems[selectedImageIndex].image}
               alt={filteredItems[selectedImageIndex].title}
-              className="max-h-[80vh] max-w-full rounded-3xl border-4 border-white/10 object-contain shadow-2xl"
+              className="max-h-[78vh] max-w-full rounded-[1.25rem] object-contain"
             />
-            <div className="mt-6 text-center text-white">
-              <span className="mb-3 inline-block rounded-full bg-blue-600 px-4 py-1.5 text-[10px] font-bold tracking-widest uppercase">
-                {filteredItems[selectedImageIndex].category}
-              </span>
-              <h3 className="text-2xl font-bold md:text-3xl">
+            <div className="mt-6 max-w-2xl text-center text-white">
+              <p className="text-[0.7rem] uppercase tracking-[0.22em] text-white/45">
+                {filteredItems[selectedImageIndex].category} ·{" "}
+                {filteredItems[selectedImageIndex].year}
+              </p>
+              <h3 className="font-display mt-2 text-[1.5rem] leading-tight font-medium md:text-[2rem]">
                 {filteredItems[selectedImageIndex].title}
               </h3>
             </div>
           </div>
-
-          {/* Click outside to close */}
-          <div
-            className="absolute inset-0 -z-10"
-            onClick={() => setSelectedImageIndex(null)}
-          ></div>
         </div>
       )}
 
-      {/* CTA Section */}
-      {/* <div className="mt-24 text-center">
-        <div className="mx-auto max-w-3xl rounded-[3rem] border border-blue-50 bg-white p-12 shadow-sm">
-          <h3 className="mb-4 text-2xl font-bold text-slate-900">
-            Want to see our campus in person?
-          </h3>
-          <p className="mb-8 text-slate-500">
-            Photos capture a moment, but a visit captures the feeling. Join us
-            for our next tour.
+      {/* Tour CTA — quiet editorial */}
+      <div className="mt-20 grid grid-cols-1 items-center gap-6 rounded-[1.75rem] border border-black/[0.06] bg-white p-9 md:grid-cols-2 md:p-12">
+        <div>
+          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+            Visiter le campus
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <button className="rounded-2xl bg-slate-900 px-10 py-4 font-bold text-white shadow-xl shadow-slate-200 transition-all hover:bg-slate-800">
-              Schedule a Tour
-            </button>
-            <button className="rounded-2xl border border-blue-100 bg-blue-50 px-10 py-4 font-bold text-blue-600 transition-all hover:bg-blue-100">
-              Watch Video Tour
-            </button>
-          </div>
+          <h2 className="tracking-headline mt-3 text-3xl font-semibold leading-[1.1] text-ink md:text-[2.5rem]">
+            Les photos racontent, <span className="font-display italic font-normal text-brand-deep">la visite révèle.</span>
+          </h2>
         </div>
-      </div> */}
+        <div className="flex flex-col gap-2 md:items-end">
+          <a
+            href="/contact"
+            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
+          >
+            Réserver une visite
+            <ArrowUpRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
+          <a
+            href="/enrollment"
+            className="text-[0.85rem] font-medium text-ink-mute underline decoration-ink/15 decoration-1 underline-offset-[6px] transition-colors hover:text-ink hover:decoration-ink"
+          >
+            S'inscrire pour 2026
+          </a>
+        </div>
+      </div>
     </section>
   );
 };

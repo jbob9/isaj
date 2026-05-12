@@ -1,11 +1,174 @@
+/* ---------- Typography ---------- */
+/* Fraunces (display serif, optical sizing, soft contrast) + Inter Tight (modern sans) */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter+Tight:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
-.font-serif {
-  font-family: "Playfair+Display", serif;
+@theme {
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", "Apple Garamond", Georgia, serif;
+
+  /* Brand ink — single, consistent cool-leaning near-black */
+  --color-ink: #0b1220;
+  --color-ink-soft: #1e2a3d;
+  --color-ink-mute: #54607a;
+
+  /* Slightly warmer paper, less "sky blue card" */
+  --color-paper: #f4f6fb;
+  --color-paper-warm: #fbf9f5;
+
+  /* Single, considered accent */
+  --color-brand: #2657ee;
+  --color-brand-deep: #1b3fb5;
+  --color-brand-soft: #e7eeff;
 }
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-ink);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  letter-spacing: -0.005em;
+}
+
+/* Display class — Fraunces with optical sizing + soft characterful kerning */
+.font-display {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  letter-spacing: -0.025em;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 96, "SOFT" 60;
+}
+
+/* Tight tracking for headlines (premium feel) */
+.tracking-headline {
+  letter-spacing: -0.035em;
+}
+
+.balance {
+  text-wrap: balance;
+}
+.pretty {
+  text-wrap: pretty;
+}
+
+/* Tabular numbers for stats */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Surfaces ---------- */
 .blob-shape-1 {
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 }
 .blob-shape-2 {
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+/* Tinted shadow utility — colored shadow for the blue-paper background */
+.shadow-ink {
+  box-shadow:
+    0 1px 2px rgba(11, 18, 32, 0.04),
+    0 8px 24px -8px rgba(38, 87, 238, 0.12),
+    0 24px 48px -24px rgba(11, 18, 32, 0.16);
+}
+.shadow-ink-lg {
+  box-shadow:
+    0 1px 2px rgba(11, 18, 32, 0.04),
+    0 12px 32px -8px rgba(38, 87, 238, 0.14),
+    0 40px 80px -32px rgba(11, 18, 32, 0.22);
+}
+
+/* Soft inner border for glassy cards */
+.ring-hairline {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ---------- Grain overlay (premium texture) ---------- */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- Motion ---------- */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Subtle marquee */
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-drift {
+  animation: drift 40s linear infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Selection */
+::selection {
+  background: #2657ee;
+  color: #ffffff;
 }
