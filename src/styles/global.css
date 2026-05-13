@@ -1,12 +1,12 @@
 /* ---------- Typography ---------- */
-/* Fraunces (display serif, optical sizing, soft contrast) + Inter Tight (modern sans) */
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter+Tight:wght@400;500;600;700;800&display=swap");
+/* Plus Jakarta Sans (humanist sans, warm & readable) + Lora (scholarly serif, on-screen optimised) */
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", "Apple Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Lora", "Georgia", "Times New Roman", serif;
 
   /* Brand ink — single, consistent cool-leaning near-black */
   --color-ink: #0b1220;
@@ -37,18 +37,14 @@ body {
   letter-spacing: -0.005em;
 }
 
-/* Display class — Fraunces with optical sizing + soft characterful kerning */
+/* Display class — Lora for elegant, on-screen readable serif accents */
 .font-display {
   font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144, "SOFT" 50;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
 }
 
 .font-serif {
   font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 96, "SOFT" 60;
 }
 
 /* Tight tracking for headlines (premium feel) */
