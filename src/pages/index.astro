@@ -2,6 +2,7 @@
 import AllActivities from "../components/home/all-activities.astro";
 import CampusShowcase from "../components/home/campus-showcase.astro";
 import Categories from "../components/home/categories.astro";
+import VideoShowcase from "../components/home/video-showcase";
 import CTA from "../components/home/cta.astro";
 import Empowerment from "../components/home/empowerment.astro";
 import FAQ from "../components/home/faq";
@@ -18,6 +19,7 @@ import Layout from "../layouts/Layout.astro";
   <Stats />
   <GradesTimeline />
   <CampusShowcase />
+  <VideoShowcase client:load />
   <Categories />
   <Lessons />
   <AllActivities />

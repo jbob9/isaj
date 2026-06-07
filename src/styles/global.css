@@ -1,26 +1,26 @@
 /* ---------- Typography ---------- */
-/* Plus Jakarta Sans (humanist sans, warm & readable) + Lora (scholarly serif, on-screen optimised) */
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+/* Nunito (warm rounded humanist sans) + Bitter (character-rich slab serif, on-screen optimised) */
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Nunito:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+  --font-sans: "Nunito", ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Lora", "Georgia", "Times New Roman", serif;
+  --font-serif: "Bitter", "Georgia", "Times New Roman", serif;
 
-  /* Brand ink — single, consistent cool-leaning near-black */
-  --color-ink: #0b1220;
-  --color-ink-soft: #1e2a3d;
-  --color-ink-mute: #54607a;
+  /* Deep navy text — clear blue, not cold grey */
+  --color-ink: #0c1d3e;
+  --color-ink-soft: #193060;
+  --color-ink-mute: #3a5494;
 
-  /* Slightly warmer paper, less "sky blue card" */
-  --color-paper: #f4f6fb;
-  --color-paper-warm: #fbf9f5;
+  /* Light blue backgrounds — clearly blue, not grey */
+  --color-paper: #edf2ff;
+  --color-paper-warm: #f3f7ff;
 
-  /* Single, considered accent */
+  /* Vibrant blue accent */
   --color-brand: #2657ee;
   --color-brand-deep: #1b3fb5;
-  --color-brand-soft: #e7eeff;
+  --color-brand-soft: #d8e6ff;
 }
 
 html {
@@ -37,19 +37,19 @@ body {
   letter-spacing: -0.005em;
 }
 
-/* Display class — Lora for elegant, on-screen readable serif accents */
+/* Display class — Bitter slab serif for warm, grounded accent text */
 .font-display {
   font-family: var(--font-serif);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 
 .font-serif {
   font-family: var(--font-serif);
 }
 
-/* Tight tracking for headlines (premium feel) */
+/* Moderate tight tracking — Nunito's rounded forms work best at -0.025em */
 .tracking-headline {
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
 }
 
 .balance {
@@ -72,18 +72,18 @@ body {
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
 }
 
-/* Tinted shadow utility — colored shadow for the blue-paper background */
+/* Tinted shadow utility — blue throughout */
 .shadow-ink {
   box-shadow:
-    0 1px 2px rgba(11, 18, 32, 0.04),
-    0 8px 24px -8px rgba(38, 87, 238, 0.12),
-    0 24px 48px -24px rgba(11, 18, 32, 0.16);
+    0 1px 2px rgba(12, 29, 62, 0.05),
+    0 8px 24px -8px rgba(38, 87, 238, 0.14),
+    0 24px 48px -24px rgba(12, 29, 62, 0.16);
 }
 .shadow-ink-lg {
   box-shadow:
-    0 1px 2px rgba(11, 18, 32, 0.04),
-    0 12px 32px -8px rgba(38, 87, 238, 0.14),
-    0 40px 80px -32px rgba(11, 18, 32, 0.22);
+    0 1px 2px rgba(12, 29, 62, 0.05),
+    0 12px 32px -8px rgba(38, 87, 238, 0.16),
+    0 40px 80px -32px rgba(12, 29, 62, 0.22);
 }
 
 /* Soft inner border for glassy cards */
