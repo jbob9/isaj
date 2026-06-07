@@ -10,6 +10,7 @@ import Hero from "../components/home/hero.astro";
 import Lessons from "../components/home/lessons.astro";
 import Stats from "../components/home/stats.astro";
 import Testimonials from "../components/home/testimonials.astro";
+import VideoShowcase from "../components/home/video-showcase";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -18,6 +19,7 @@ import Layout from "../layouts/Layout.astro";
   <Stats />
   <GradesTimeline />
   <CampusShowcase />
+  <VideoShowcase client:load />
   <Categories />
   <Lessons />
   <AllActivities />
