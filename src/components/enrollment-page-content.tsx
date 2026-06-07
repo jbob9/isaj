@@ -60,7 +60,7 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
     `.trim();
 
     const subject = `Nouvelles inscriptions: ${formData.childFirstName} ${formData.childLastName}`;
-    const recipient = "admissions@isaj.com";
+    const recipient = "admissions@isaj.edu.ht";
 
     // Construct Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;

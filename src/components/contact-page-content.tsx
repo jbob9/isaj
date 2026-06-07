@@ -46,7 +46,7 @@ Cette demande a été générée via le portail de contact de l'Institution le S
     `.trim();
 
     const subject = `Nouvelle enquête: ${formData.parentName} (${formData.interestedGrade})`;
-    const recipient = "admissions@isaj.com";
+    const recipient = "admissions@isaj.edu.ht";
 
     // Construct Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
@@ -87,9 +87,9 @@ Cette demande a été générée via le portail de contact de l'Institution le S
                   Campus principal
                 </h4>
                 <p className="text-sm leading-relaxed text-gray-500">
-                  Lilavois,
+                  5, Impasse Bernard, Bon-Repos
                   <br />
-                  Ouest, Croix-des-bouquest
+                  Croix-des-Bouquets, Haïti
                 </p>
               </div>
             </div>
@@ -103,9 +103,9 @@ Cette demande a été générée via le portail de contact de l'Institution le S
                   Appelez-nous
                 </h4>
                 <p className="text-sm leading-relaxed text-gray-500">
-                  Bureau principal: (555) 123-4567
+                  (509) 4251-8828
                   <br />
-                  Admissions: (555) 987-6543
+                  +1 (774) 498-9660
                 </p>
               </div>
             </div>
