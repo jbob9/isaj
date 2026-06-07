@@ -2,10 +2,10 @@ import { ArrowUpRight, CheckCircle2, Clock, Mail, MapPin, Phone } from "lucide-r
 import { useState } from "react";
 
 const gradeOptions = [
-  "Petits explorateurs · Préscolaire (2–5 ans)",
-  "Fondamentaux · 1ʳᵉ à 5ᵉ (6–11 ans)",
-  "Croissance et identité · 6ᵉ à 8ᵉ (12–14 ans)",
-  "Futurs leaders · 9ᵉ à 12ᵉ (15–18 ans)",
+  "Préscolaire — API (2 à 6 ans)",
+  "Fondamentale 1ᵉʳ & 2ᵉ Cycles — API (dès 5 ans ½)",
+  "Fondamentale 3ᵉ Cycle — École Mixte le Saint Justien (dès 10 ans)",
+  "Secondaire — Institution le Saint Justien / ISAJ",
 ];
 
 const ContactPageContent = () => {
@@ -48,7 +48,7 @@ Demande générée via le portail de contact ISAJ.
     `.trim();
 
     const subject = `Nouvelle enquête : ${formData.parentName} (${formData.interestedGrade})`;
-    const recipient = "admissions@isaj.com";
+    const recipient = "admissions@isaj.edu.ht";
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
 
     window.open(gmailUrl, "_blank");
@@ -65,7 +65,7 @@ Demande générée via le portail de contact ISAJ.
         <p className="mb-4 text-[0.72rem] tracking-[0.22em] text-ink-mute uppercase">
           Entrer en contact
         </p>
-        <h1 className="tracking-headline balance text-5xl leading-[1.02] font-semibold text-ink md:text-[5rem]">
+        <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5rem]">
           Commençons une <span className="font-display text-brand-deep font-normal italic">conversation.</span>
         </h1>
         <p className="pretty mt-7 max-w-xl text-[1.05rem] leading-relaxed text-ink-mute">
@@ -81,13 +81,13 @@ Demande générée via le portail de contact ISAJ.
               {
                 icon: MapPin,
                 label: "Campus principal",
-                lines: ["Lilavois 34, Croix des Bouquets", "Département de l'Ouest, Haïti"],
+                lines: ["5, Impasse Bernard, Bon-Repos", "Croix-des-Bouquets, Haïti"],
                 tag: "Adresse",
               },
               {
                 icon: Phone,
                 label: "Par téléphone",
-                lines: ["Bureau principal · (555) 123-4567", "Admissions · (555) 987-6543"],
+                lines: ["(509) 4251-8828", "+1 (774) 498-9660"],
                 tag: "Direct",
               },
               {

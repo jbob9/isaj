@@ -156,7 +156,7 @@ Envoyé via le portail d'inscription ISAJ.
         <p className="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
           Inscription · Année scolaire 2026
         </p>
-        <h1 className="tracking-headline balance text-5xl leading-[1.02] font-semibold text-ink md:text-[5rem]">
+        <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5rem]">
           Rejoignez la <span className="font-display italic font-normal text-brand-deep">famille</span> ISAJ.
         </h1>
         <p className="pretty mt-7 max-w-xl text-[1.05rem] leading-relaxed text-ink-mute">

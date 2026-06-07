@@ -40,7 +40,7 @@ const FAQ = () => {
             <p className="mb-4 text-[0.72rem] tracking-[0.22em] text-ink-mute uppercase">
               Centre d'aide
             </p>
-            <h2 className="tracking-headline balance text-4xl leading-[1.05] font-semibold text-ink md:text-[3.25rem]">
+            <h2 className="tracking-headline balance text-[1.75rem] leading-[1.05] font-semibold text-ink sm:text-4xl md:text-[3.25rem]">
               Vous avez des <span className="font-display text-brand-deep font-normal italic">questions ?</span>
             </h2>
             <p className="pretty mt-6 max-w-md text-[0.95rem] leading-relaxed text-ink-mute">
@@ -72,7 +72,7 @@ const FAQ = () => {
                     onClick={() => setOpenIndex(open ? null : index)}
                     className="group flex w-full items-center justify-between gap-6 py-7 text-left transition-colors hover:text-brand-deep"
                   >
-                    <h3 className={`font-display text-[1.35rem] leading-tight tracking-[-0.015em] md:text-[1.55rem] ${open ? "text-brand-deep" : "text-ink"}`}>
+                    <h3 className={`font-display text-[1.05rem] leading-tight tracking-[-0.015em] sm:text-[1.2rem] md:text-[1.55rem] ${open ? "text-brand-deep" : "text-ink"}`}>
                       {faq.question}
                     </h3>
                     <span

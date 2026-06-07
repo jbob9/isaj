@@ -161,7 +161,7 @@ const GalleryContentPage = () => {
           <p className="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
             Galerie · {galleryItems.length} moments
           </p>
-          <h1 className="tracking-headline balance text-5xl leading-[1.02] font-semibold text-ink md:text-[5.5rem]">
+          <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5.5rem]">
             Moments de <span className="font-display italic font-normal text-brand-deep">découverte.</span>
           </h1>
         </div>
