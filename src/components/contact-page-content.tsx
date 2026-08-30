@@ -1,7 +1,8 @@
 import { ArrowUpRight, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   contactDetails,
+  schoolIdentity,
   schoolLevels,
   gmailRecipient,
 } from "../data/site-content";
@@ -10,10 +11,18 @@ const gradeOptions = schoolLevels.map(
   (level) => `${level.title} — ${level.grades}`,
 );
 
+const purposeLabels: Record<string, string> = {
+  general: "Information générale",
+  partner: "Devenir partenaire",
+  admission: "Admission et inscription",
+  visit: "Visiter l'établissement",
+};
+
 type FormState = "idle" | "preparing" | "draft" | "blocked";
 
 const ContactPageContent = () => {
   const [formState, setFormState] = useState<FormState>("idle");
+  const [purpose, setPurpose] = useState("general");
   const [formData, setFormData] = useState({
     parentName: "",
     email: "",
@@ -21,6 +30,13 @@ const ContactPageContent = () => {
     phone: "",
     message: "",
   });
+
+  useEffect(() => {
+    const requestedPurpose = new URLSearchParams(window.location.search).get(
+      "purpose",
+    );
+    if (requestedPurpose === "partner") setPurpose("partner");
+  }, []);
 
   const handleInputChange = (
     event: React.ChangeEvent<
@@ -41,6 +57,7 @@ const ContactPageContent = () => {
       `- Nom : ${formData.parentName.trim()}`,
       `- Email : ${formData.email.trim()}`,
       `- Téléphone : ${formData.phone.trim() || "Non fourni"}`,
+      `- Objet : ${purposeLabels[purpose] ?? purposeLabels.general}`,
       `- Niveau d'intérêt : ${formData.interestedGrade}`,
       "",
       "MESSAGE",
@@ -48,7 +65,7 @@ const ContactPageContent = () => {
       "",
       "Ce brouillon a été préparé par le site ISAJ. Aucun message n'est envoyé automatiquement.",
     ].join("\n");
-    const subject = `Demande de contact — ${formData.parentName.trim()}`;
+    const subject = `${purposeLabels[purpose] ?? purposeLabels.general} — ${formData.parentName.trim()}`;
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(gmailRecipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
     const draftWindow = window.open(gmailUrl, "_blank", "noopener,noreferrer");
     setFormState(draftWindow ? "draft" : "blocked");
@@ -99,7 +116,7 @@ const ContactPageContent = () => {
     <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8 lg:pt-24 lg:pb-32">
       <div className="mb-20 max-w-3xl">
         <p className="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
-          Entrer en contact
+          Contact · Préscolaire, fondamentale et secondaire
         </p>
         <h1 className="tracking-headline balance text-ink text-[2rem] leading-[1.02] font-semibold sm:text-5xl md:text-[5rem]">
           Parlons de{" "}
@@ -131,10 +148,7 @@ const ContactPageContent = () => {
                     Campus principal
                   </p>
                   <p className="text-ink-mute mt-0.5 text-[0.9rem] leading-relaxed">
-                    5, Impasse Bernard, Bon-Repos
-                  </p>
-                  <p className="text-ink-mute mt-0.5 text-[0.9rem] leading-relaxed">
-                    Croix-des-Bouquets, Haïti
+                    {schoolIdentity.address}
                   </p>
                 </div>
               </div>
@@ -213,6 +227,25 @@ const ContactPageContent = () => {
                 <span className="text-ink-mute text-[0.72rem] tracking-[0.18em] uppercase">
                   Formulaire de contact
                 </span>
+              </div>
+              <div className="space-y-2">
+                <label
+                  htmlFor="purpose"
+                  className="text-ink-mute text-[0.78rem] font-medium"
+                >
+                  Objet de votre demande
+                </label>
+                <select
+                  id="purpose"
+                  value={purpose}
+                  onChange={(event) => setPurpose(event.target.value)}
+                  className={`${inputClass} appearance-none`}
+                >
+                  <option value="general">Information générale</option>
+                  <option value="partner">Devenir partenaire</option>
+                  <option value="admission">Admission et inscription</option>
+                  <option value="visit">Visiter l'établissement</option>
+                </select>
               </div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div className="space-y-2">

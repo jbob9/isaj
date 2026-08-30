@@ -13,9 +13,9 @@ type Video = {
 const videos: Video[] = [
   {
     id: 1,
-    title: "Visite du campus ISAJ",
+    title: "Vidéo de l'ISAJ à confirmer",
     description:
-      "Découvrez nos espaces d'apprentissage, de sport et de créativité.",
+      "Le contenu et le contexte de cette vidéo restent à confirmer par l'établissement.",
     src: "/videos/kids.mp4",
     poster: "/kids-1.jpeg",
     tag: "Campus",
@@ -74,8 +74,8 @@ const VideoShowcase = () => {
           </h2>
         </div>
         <p className="pretty text-ink-mute text-[0.95rem] leading-relaxed lg:col-span-4">
-          Des moments authentiques filmés au cœur du campus — pour ressentir la
-          vie quotidienne à l'Institution le Saint Justien.
+          Les vidéos de l'ISAJ seront présentées avec leur contexte et leur
+          autorisation de publication confirmés.
         </p>
       </div>
 

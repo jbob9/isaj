@@ -1,4 +1,5 @@
-- Prefers conservative, fact-checked content: remove template or unverified claims rather than inventing replacements, and visibly mark unresolved information for later confirmation. Confidence: 0.98
+- Prefers conservative, fact-checked content: use owner-provided institutional source material as the authority, integrate confirmed core information, remove template or unverified claims rather than inventing replacements, and visibly mark unresolved information for later confirmation. Confidence: 0.99
+- Prefers selective, focused website improvements: add useful content where it strengthens the user journey, but avoid overcrowding the interface or creating empty/redundant pages; include recommendations that preserve clarity and quality. Confidence: 0.94
 - Prefers a plan-first workflow for substantial changes, followed by implementation and a clearly separated list of items that remain blocked or cannot be verified. Confidence: 0.96
 - Values comprehensive verification before completion, including build checks, formatting, content scans, link/form checks, and reporting any unavailable tooling or untested areas. Confidence: 0.93
 - Prefers authentic, owner-approved media and institutional information over stock imagery, generated content, or assumed facts. Confidence: 0.92

@@ -4,13 +4,30 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "/", label: "Accueil", match: (p: string) => p === "/" },
   {
+    href: "/about",
+    label: "À propos",
+    match: (p: string) => p.startsWith("/about"),
+  },
+  {
     href: "/curriculum",
     label: "Programme",
     match: (p: string) => p.startsWith("/curriculum") || p.startsWith("/grade"),
   },
-  { href: "/gallery", label: "Galerie", match: (p: string) => p.startsWith("/gallery") },
-  { href: "/teams", label: "Notre équipe", match: (p: string) => p.startsWith("/teams") },
-  { href: "/contact", label: "Contact", match: (p: string) => p.startsWith("/contact") },
+  {
+    href: "/gallery",
+    label: "Galerie",
+    match: (p: string) => p.startsWith("/gallery"),
+  },
+  {
+    href: "/teams",
+    label: "Notre équipe",
+    match: (p: string) => p.startsWith("/teams"),
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+    match: (p: string) => p.startsWith("/contact"),
+  },
 ];
 
 const Navbar = () => {
@@ -44,7 +61,9 @@ const Navbar = () => {
             <span className="font-display text-[1.6rem] leading-none font-semibold tracking-tight text-[var(--color-ink)]">
               ISAJ
             </span>
-            <span className="font-display text-[1.6rem] leading-none text-[var(--color-brand)]">.</span>
+            <span className="font-display text-[1.6rem] leading-none text-[var(--color-brand)]">
+              .
+            </span>
           </a>
 
           <div className="hidden items-center gap-1 md:flex">
@@ -63,7 +82,9 @@ const Navbar = () => {
                   {l.label}
                   <span
                     className={`pointer-events-none absolute inset-x-4 -bottom-0.5 h-px origin-left bg-[var(--color-ink)] transition-transform duration-300 ${
-                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      active
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   />
                 </a>
@@ -104,7 +125,7 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="md:hidden">
-          <div className="mx-4 mb-4 rounded-3xl border border-black/[0.06] bg-white/95 p-3 shadow-ink backdrop-blur-xl">
+          <div className="shadow-ink mx-4 mb-4 rounded-3xl border border-black/[0.06] bg-white/95 p-3 backdrop-blur-xl">
             {links.map((l) => {
               const active = l.match(path);
               return (

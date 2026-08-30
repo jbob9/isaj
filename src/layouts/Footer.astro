@@ -1,6 +1,6 @@
 ---
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react";
-import { contactDetails } from "../data/site-content";
+import { contactDetails, schoolIdentity } from "../data/site-content";
 ---
 
 <footer
@@ -55,6 +55,12 @@ import { contactDetails } from "../data/site-content";
             >
           </li><li>
             <a
+              href="/about"
+              class="text-white/75 transition-colors hover:text-white"
+              >À propos</a
+            >
+          </li><li>
+            <a
               href="/curriculum"
               class="text-white/75 transition-colors hover:text-white"
               >Programme</a
@@ -94,9 +100,9 @@ import { contactDetails } from "../data/site-content";
             >
           </li><li>
             <a
-              href="/contact"
+              href="/contact?purpose=partner"
               class="text-white/75 transition-colors hover:text-white"
-              >Poser une question</a
+              >Devenir partenaire</a
             >
           </li>
         </ul>
@@ -112,9 +118,7 @@ import { contactDetails } from "../data/site-content";
               size={14}
               className="mt-1 shrink-0 text-white/40"
               strokeWidth={1.6}
-            /><span
-              >5, Impasse Bernard, Bon-Repos<br />Croix-des-Bouquets, Haïti</span
-            >
+            /><span>{schoolIdentity.address}</span>
           </li><li class="flex items-start gap-2 text-white/75">
             <Mail
               size={14}

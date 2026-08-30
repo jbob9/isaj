@@ -1,7 +1,6 @@
 ---
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
-import { institutionalDrafts } from "../data/site-content";
 
 const principles = [
   {
@@ -52,33 +51,57 @@ const principles = [
 
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
     <div
-      class="rounded-[2.25rem] border border-black/[0.06] bg-white p-8 md:p-14"
+      class="grid grid-cols-1 gap-px overflow-hidden rounded-[2.25rem] bg-black/[0.06] md:grid-cols-2"
     >
-      <p class="text-brand-deep text-[0.72rem] tracking-[0.22em] uppercase">
-        Équipe et direction
-      </p>
-      <h2
-        class="tracking-headline text-ink mt-5 max-w-3xl text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3.25rem]"
-      >
-        Les noms, rôles et parcours sont <span
-          class="font-display text-brand-deep font-normal italic"
-          >à confirmer.</span
+      <article class="bg-ink p-8 text-white md:p-14">
+        <p class="text-[0.72rem] tracking-[0.22em] text-white/45 uppercase">
+          Direction fondatrice
+        </p>
+        <h2
+          class="tracking-headline mt-5 max-w-3xl text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3.25rem]"
         >
-      </h2>
-      <p class="text-ink-mute mt-6 max-w-2xl text-[0.98rem] leading-relaxed">
-        Cette page ne présente pas de personnel fictif. L'ISAJ pourra fournir
-        une liste officielle des membres de son équipe, avec leur fonction et
-        leur autorisation de publication.
-      </p>
-      <a
-        href="/contact"
-        class="group bg-ink hover:bg-ink-soft mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[0.9rem] font-medium text-white transition-all active:scale-[0.98]"
-        >Demander les informations à jour <ArrowUpRight
-          size={15}
-          className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-        /></a
-      >
+          Osnel <span class="font-display font-normal text-white/75 italic"
+            >Saint-Juste.</span
+          >
+        </h2>
+        <p class="mt-6 max-w-xl text-[0.98rem] leading-relaxed text-white/65">
+          Jeune normalien diplômé de l'École Normale Supérieure (ENS), Monsieur
+          Osnel Saint-Juste a pris l'initiative de créer l'ISAJ pour contribuer
+          à l'accès à une éducation structurée et fondée sur des valeurs
+          humaines et civiques.
+        </p>
+      </article>
+      <article class="bg-white p-8 md:p-14">
+        <p class="text-ink-mute text-[0.72rem] tracking-[0.22em] uppercase">
+          Co-fondateur
+        </p>
+        <h2
+          class="tracking-headline text-ink mt-5 max-w-3xl text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3.25rem]"
+        >
+          Federme <span class="font-display text-brand-deep font-normal italic"
+            >Badette.</span
+          >
+        </h2>
+        <p class="text-ink-mute mt-6 max-w-xl text-[0.98rem] leading-relaxed">
+          Jeune universitaire, Monsieur Federme Badette s'est engagé avec
+          détermination, dynamisme et persévérance dans la concrétisation du
+          projet éducatif de l'ISAJ.
+        </p>
+      </article>
     </div>
+    <p class="text-ink-mute mt-6 text-[0.82rem]">
+      La présentation de l'équipe pédagogique et administrative sera ajoutée
+      après validation de la liste officielle et des autorisations de
+      publication.
+    </p>
+    <a
+      href="/contact"
+      class="group bg-ink hover:bg-ink-soft mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[0.9rem] font-medium text-white transition-all active:scale-[0.98]"
+      >Demander les informations à jour <ArrowUpRight
+        size={15}
+        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      /></a
+    >
   </section>
 
   <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
@@ -117,51 +140,19 @@ const principles = [
   </section>
 
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-    <div class="mb-12 max-w-2xl">
-      <p class="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
-        Informations en préparation
-      </p>
-      <h2
-        class="tracking-headline text-ink text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3rem]"
-      >
-        Les informations institutionnelles seront <span
-          class="font-display text-brand-deep font-normal italic"
-          >complétées.</span
-        >
-      </h2>
-    </div>
     <div
-      class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.5rem] bg-black/[0.06] md:grid-cols-2"
+      class="rounded-[1.5rem] border border-black/[0.06] bg-white p-7 lg:p-9"
     >
-      {
-        institutionalDrafts
-          .filter((item) => item.title === "Direction fondatrice")
-          .map((item) => (
-            <article class="bg-white p-7 lg:p-9">
-              <p class="text-brand-deep text-[0.7rem] tracking-[0.18em] uppercase">
-                À confirmer
-              </p>
-              <h3 class="font-display text-ink mt-5 text-[1.35rem] font-medium">
-                {item.title}
-              </h3>
-              <p class="text-ink-mute mt-3 text-[0.92rem] leading-relaxed">
-                {item.text}
-              </p>
-            </article>
-          ))
-      }
-      <article class="bg-white p-7 lg:p-9">
-        <p class="text-brand-deep text-[0.7rem] tracking-[0.18em] uppercase">
-          À confirmer
-        </p>
-        <h3 class="font-display text-ink mt-5 text-[1.35rem] font-medium">
-          Personnel de l'établissement
-        </h3>
-        <p class="text-ink-mute mt-3 text-[0.92rem] leading-relaxed">
-          Les membres de l'équipe et leurs fonctions seront ajoutés après
-          validation et accord de publication.
-        </p>
-      </article>
+      <p class="text-brand-deep text-[0.7rem] tracking-[0.18em] uppercase">
+        À confirmer
+      </p>
+      <h2 class="font-display text-ink mt-5 text-[1.5rem] font-medium">
+        Équipe pédagogique et administrative
+      </h2>
+      <p class="text-ink-mute mt-3 max-w-2xl text-[0.92rem] leading-relaxed">
+        Les membres de l'équipe et leurs fonctions seront ajoutés après
+        validation de la liste officielle et accord de publication.
+      </p>
     </div>
   </section>
 

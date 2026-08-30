@@ -3,8 +3,8 @@ export const gradeProfiles = [
     id: "1",
     title: "Académie des Petits Isajiens",
     subtitle: "Les premières années de la scolarité",
-    grades: "Préscolaire",
-    ageRange: "Âges à confirmer",
+    grades: "Préscolaire · 2 à 6 ans",
+    ageRange: "2 à 6 ans",
     overview:
       "Un accompagnement adapté aux premières années de la scolarité, dans un environnement bienveillant et attentif au développement de chaque enfant.",
     color: "blue",
@@ -50,9 +50,9 @@ export const gradeProfiles = [
   },
   {
     id: "2",
-    title: "Fondamentale · 1ᵉʳ et 2ᵉ cycles",
+    title: "Académie des Petits Isajiens",
     subtitle: "Construire les apprentissages fondamentaux",
-    grades: "Niveaux à confirmer",
+    grades: "1ᵉʳ et 2ᵉ cycles fondamentaux",
     ageRange: "Âges à confirmer",
     overview:
       "Un cadre pour consolider la lecture, l'écriture, les mathématiques et les autres apprentissages fondamentaux.",
@@ -99,7 +99,7 @@ export const gradeProfiles = [
   },
   {
     id: "3",
-    title: "École Mixte le Saint Justien",
+    title: "École Mixte Le Saint Justien",
     subtitle: "Consolider son parcours fondamental",
     grades: "3ᵉ cycle fondamental",
     ageRange: "Âges à confirmer",
@@ -148,7 +148,7 @@ export const gradeProfiles = [
   },
   {
     id: "4",
-    title: "Institution le Saint Justien",
+    title: "Institution Le Saint Justien",
     subtitle: "Poursuivre son parcours secondaire",
     grades: "Secondaire",
     ageRange: "Âges à confirmer",

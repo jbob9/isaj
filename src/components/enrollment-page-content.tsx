@@ -140,7 +140,7 @@ const EnrollmentPageContent = () => {
       </a>
       <div className="mt-10 mb-16 max-w-3xl">
         <p className="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
-          Demande d'inscription
+          Admissions · Préscolaire, fondamentale et secondaire
         </p>
         <h1 className="tracking-headline balance text-ink text-[2rem] leading-[1.02] font-semibold sm:text-5xl md:text-[5rem]">
           Parlons du{" "}
@@ -151,7 +151,9 @@ const EnrollmentPageContent = () => {
         </h1>
         <p className="pretty text-ink-mute mt-7 max-w-xl text-[1.05rem] leading-relaxed">
           Remplissez les informations ci-dessous. Le site préparera un brouillon
-          Gmail à vérifier et à envoyer vous-même.
+          Gmail à vérifier et à envoyer vous-même. Les pièces, dates et
+          conditions administratives seront communiquées par l'ISAJ après votre
+          demande.
         </p>
       </div>
 

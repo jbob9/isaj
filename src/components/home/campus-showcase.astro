@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { MapPin } from "lucide-react";
+import { schoolIdentity } from "../../data/site-content";
 
 const facilities = [
   {
@@ -46,7 +47,7 @@ const facilities = [
       </div>
       <div class="text-ink-mute flex items-center gap-2 text-[0.85rem]">
         <MapPin size={15} strokeWidth={1.6} /><span
-          >Bon-Repos, Croix-des-Bouquets</span
+          >{schoolIdentity.address}</span
         >
       </div>
     </div>
