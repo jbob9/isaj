@@ -1,15 +1,19 @@
-import { ArrowUpRight, CheckCircle2, Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
+import {
+  contactDetails,
+  schoolLevels,
+  gmailRecipient,
+} from "../data/site-content";
 
-const gradeOptions = [
-  "Préscolaire — API (2 à 6 ans)",
-  "Fondamentale 1ᵉʳ & 2ᵉ Cycles — API (dès 5 ans ½)",
-  "Fondamentale 3ᵉ Cycle — École Mixte le Saint Justien (dès 10 ans)",
-  "Secondaire — Institution le Saint Justien / ISAJ",
-];
+const gradeOptions = schoolLevels.map(
+  (level) => `${level.title} — ${level.grades}`,
+);
+
+type FormState = "idle" | "preparing" | "draft" | "blocked";
 
 const ContactPageContent = () => {
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
+  const [formState, setFormState] = useState<FormState>("idle");
   const [formData, setFormData] = useState({
     parentName: "",
     email: "",
@@ -19,292 +23,302 @@ const ContactPageContent = () => {
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = event.target;
+    setFormData((previous) => ({ ...previous, [name]: value }));
+    if (formState !== "idle") setFormState("idle");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormState("submitting");
-
-    const emailBody = `
-Institution le Saint Justien (ISAJ) — DEMANDE DE CONTACT
-========================================================
-
-EXPÉDITEUR :
-- Nom : ${formData.parentName}
-- Email : ${formData.email}
-- Téléphone : ${formData.phone || "Non fourni"}
-- Niveau d'intérêt : ${formData.interestedGrade}
-
-MESSAGE :
-------------------------------------
-${formData.message}
-------------------------------------
-
-Demande générée via le portail de contact ISAJ.
-    `.trim();
-
-    const subject = `Nouvelle enquête : ${formData.parentName} (${formData.interestedGrade})`;
-    const recipient = "admissions@isaj.edu.ht";
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-
-    window.open(gmailUrl, "_blank");
-    setTimeout(() => setFormState("success"), 800);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setFormState("preparing");
+    const emailBody = [
+      "INSTITUTION LE SAINT JUSTIEN (ISAJ) — DEMANDE DE CONTACT",
+      "",
+      `- Nom : ${formData.parentName.trim()}`,
+      `- Email : ${formData.email.trim()}`,
+      `- Téléphone : ${formData.phone.trim() || "Non fourni"}`,
+      `- Niveau d'intérêt : ${formData.interestedGrade}`,
+      "",
+      "MESSAGE",
+      formData.message.trim(),
+      "",
+      "Ce brouillon a été préparé par le site ISAJ. Aucun message n'est envoyé automatiquement.",
+    ].join("\n");
+    const subject = `Demande de contact — ${formData.parentName.trim()}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(gmailRecipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    const draftWindow = window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    setFormState(draftWindow ? "draft" : "blocked");
   };
 
   const inputClass =
     "w-full rounded-2xl border border-black/[0.07] bg-white px-4 py-3.5 text-[0.95rem] text-ink placeholder:text-ink-mute/60 transition-all outline-none focus:border-brand focus:ring-2 focus:ring-brand/15";
 
+  if (formState === "draft" || formState === "blocked") {
+    return (
+      <section className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8 lg:py-32">
+        <div className="mx-auto mb-7 flex h-16 w-16 items-center justify-center rounded-full border border-black/[0.07] bg-[#fbfcfe]">
+          <CheckCircle2 size={26} className="text-brand" strokeWidth={1.8} />
+        </div>
+        <p className="text-ink-mute text-[0.72rem] tracking-[0.22em] uppercase">
+          {formState === "draft"
+            ? "Brouillon Gmail préparé"
+            : "Gmail n'a pas pu s'ouvrir"}
+        </p>
+        <h1 className="tracking-headline text-ink mt-4 text-4xl leading-[1.05] font-semibold md:text-[3.5rem]">
+          Votre message est prêt à être vérifié.
+        </h1>
+        <p className="text-ink-mute mx-auto mt-6 max-w-xl text-[1rem] leading-relaxed">
+          {formState === "draft"
+            ? "Vérifiez le brouillon puis cliquez sur Envoyer dans Gmail. Le site ne transmet ni ne stocke votre message."
+            : `Ouvrez Gmail manuellement et écrivez à ${gmailRecipient}.`}
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <button
+            type="button"
+            onClick={() => setFormState("idle")}
+            className="bg-ink hover:bg-ink-soft inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[0.9rem] font-medium text-white transition-all active:scale-[0.98]"
+          >
+            Modifier le message
+          </button>
+          <a
+            href={`mailto:${gmailRecipient}`}
+            className="text-ink inline-flex items-center gap-2 rounded-full border border-black/[0.08] px-6 py-3.5 text-[0.9rem] font-medium transition-colors hover:bg-black/[0.03]"
+          >
+            Écrire à l'ISAJ
+          </a>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8 lg:pt-24 lg:pb-32">
-      {/* Header */}
       <div className="mb-20 max-w-3xl">
-        <p className="mb-4 text-[0.72rem] tracking-[0.22em] text-ink-mute uppercase">
+        <p className="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
           Entrer en contact
         </p>
-        <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5rem]">
-          Commençons une <span className="font-display text-brand-deep font-normal italic">conversation.</span>
+        <h1 className="tracking-headline balance text-ink text-[2rem] leading-[1.02] font-semibold sm:text-5xl md:text-[5rem]">
+          Parlons de{" "}
+          <span className="font-display text-brand-deep font-normal italic">
+            l'ISAJ.
+          </span>
         </h1>
-        <p className="pretty mt-7 max-w-xl text-[1.05rem] leading-relaxed text-ink-mute">
-          Inscriptions, programmes, visites guidées ou simple bonjour — notre équipe vous répond généralement sous 24 h.
+        <p className="pretty text-ink-mute mt-7 max-w-xl text-[1.05rem] leading-relaxed">
+          Pour les inscriptions, les programmes, les visites ou toute autre
+          question, écrivez directement à l'établissement.
         </p>
       </div>
 
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* Left — info */}
         <aside className="lg:col-span-5">
           <ul className="divide-y divide-black/[0.07] border-y border-black/[0.07]">
-            {[
-              {
-                icon: MapPin,
-                label: "Campus principal",
-                lines: ["5, Impasse Bernard, Bon-Repos", "Croix-des-Bouquets, Haïti"],
-                tag: "Adresse",
-              },
-              {
-                icon: Phone,
-                label: "Par téléphone",
-                lines: ["(509) 4251-8828", "+1 (774) 498-9660"],
-                tag: "Direct",
-              },
-              {
-                icon: Mail,
-                label: "Par courriel",
-                lines: ["admissions@isaj.edu.ht", "Réponse sous 24 heures"],
-                tag: "Écrire",
-              },
-              {
-                icon: Clock,
-                label: "Horaires d'accueil",
-                lines: ["Lundi — Vendredi · 8h00 — 16h00", "Week-end · Fermé"],
-                tag: "Horaires",
-              },
-            ].map((item) => (
-              <li key={item.label} className="group grid grid-cols-12 items-start gap-4 py-7">
-                <span className="col-span-2 text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase">
-                  {item.tag}
-                </span>
-                <div className="col-span-10 flex items-start gap-4">
-                  <item.icon size={18} strokeWidth={1.6} className="mt-1 text-ink-mute transition-colors group-hover:text-brand" />
-                  <div>
-                    <p className="font-display text-[1.25rem] leading-snug text-ink">{item.label}</p>
-                    {item.lines.map((l) => (
-                      <p key={l} className="mt-0.5 text-[0.9rem] leading-relaxed text-ink-mute">
-                        {l}
-                      </p>
-                    ))}
-                  </div>
+            <li className="group grid grid-cols-12 items-start gap-4 py-7">
+              <span className="text-ink-mute col-span-2 text-[0.72rem] tracking-[0.18em] uppercase">
+                Adresse
+              </span>
+              <div className="col-span-10 flex items-start gap-4">
+                <MapPin
+                  size={18}
+                  className="text-ink-mute mt-1"
+                  strokeWidth={1.6}
+                />
+                <div>
+                  <p className="font-display text-ink text-[1.25rem] leading-snug">
+                    Campus principal
+                  </p>
+                  <p className="text-ink-mute mt-0.5 text-[0.9rem] leading-relaxed">
+                    5, Impasse Bernard, Bon-Repos
+                  </p>
+                  <p className="text-ink-mute mt-0.5 text-[0.9rem] leading-relaxed">
+                    Croix-des-Bouquets, Haïti
+                  </p>
                 </div>
-              </li>
-            ))}
+              </div>
+            </li>
+            <li className="group grid grid-cols-12 items-start gap-4 py-7">
+              <span className="text-ink-mute col-span-2 text-[0.72rem] tracking-[0.18em] uppercase">
+                Téléphone
+              </span>
+              <div className="col-span-10 flex items-start gap-4">
+                <Phone
+                  size={18}
+                  className="text-ink-mute mt-1"
+                  strokeWidth={1.6}
+                />
+                <div>
+                  <p className="font-display text-ink text-[1.25rem] leading-snug">
+                    Par téléphone
+                  </p>
+                  {contactDetails.phones.map((phone) => (
+                    <a
+                      key={phone.href}
+                      href={phone.href}
+                      className="text-ink-mute hover:text-ink mt-0.5 block text-[0.9rem] leading-relaxed transition-colors"
+                    >
+                      {phone.display}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </li>
+            <li className="group grid grid-cols-12 items-start gap-4 py-7">
+              <span className="text-ink-mute col-span-2 text-[0.72rem] tracking-[0.18em] uppercase">
+                Courriel
+              </span>
+              <div className="col-span-10 flex items-start gap-4">
+                <Mail
+                  size={18}
+                  className="text-ink-mute mt-1"
+                  strokeWidth={1.6}
+                />
+                <div>
+                  <p className="font-display text-ink text-[1.25rem] leading-snug">
+                    Écrire à l'ISAJ
+                  </p>
+                  <a
+                    href={`mailto:${contactDetails.email}`}
+                    className="text-ink-mute hover:text-ink mt-0.5 block text-[0.9rem] leading-relaxed break-all transition-colors"
+                  >
+                    {contactDetails.email}
+                  </a>
+                </div>
+              </div>
+            </li>
           </ul>
-
-          {/* Community card */}
-          <div className="grain relative mt-10 overflow-hidden rounded-[1.75rem] bg-ink p-9 text-white">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-32 -right-20 h-80 w-80 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(38,87,238,0.25) 0%, transparent 60%)" }}
-            />
+          <div className="grain bg-ink relative mt-10 overflow-hidden rounded-[1.75rem] p-9 text-white">
             <p className="relative text-[0.72rem] tracking-[0.22em] text-white/45 uppercase">
-              Communauté
+              Information
             </p>
             <h3 className="font-display relative mt-3 text-[1.75rem] leading-tight font-medium text-white italic">
-              «&nbsp;Rejoignez la famille ISAJ.&nbsp;»
+              Une question sur l'école ?
             </h3>
             <p className="relative mt-4 max-w-sm text-[0.9rem] leading-relaxed text-white/55">
-              Suivez le quotidien du campus, les réussites des élèves et les coulisses sur nos réseaux sociaux.
+              Demandez directement les informations officielles et à jour auprès
+              de l'équipe de l'ISAJ.
             </p>
-            <div className="relative mt-7 flex gap-2">
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-white hover:text-white"
-              >
-                <svg role="img" className="size-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"></path>
-                </svg>
-              </a>
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-white hover:text-white"
-              >
-                <svg className="size-4 fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path>
-                </svg>
-              </a>
-            </div>
           </div>
         </aside>
 
-        {/* Right — form */}
         <div className="lg:col-span-7">
           <div className="rounded-[2rem] border border-black/[0.06] bg-white p-8 md:p-12">
-            {formState === "success" ? (
-              <div className="py-16 text-center">
-                <div className="mx-auto mb-7 flex h-16 w-16 items-center justify-center rounded-full border border-black/[0.07] bg-[#fbfcfe]">
-                  <CheckCircle2 size={26} className="text-brand" strokeWidth={1.8} />
-                </div>
-                <h2 className="font-display text-[2.25rem] leading-tight font-medium text-ink">
-                  Requête initialisée.
-                </h2>
-                <p className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-ink-mute">
-                  Nous avons ouvert un onglet Gmail contenant votre demande pré-remplie. Envoyez l'e-mail pour finaliser la prise de contact.
+            <form onSubmit={handleSubmit} className="space-y-7">
+              <div className="mb-2 flex items-baseline justify-between">
+                <p className="font-display text-ink text-[1.5rem] leading-snug italic">
+                  Écrivez-nous.
                 </p>
-                <button
-                  onClick={() => setFormState("idle")}
-                  className="group mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[0.9rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
-                >
-                  Envoyer un autre message
-                  <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </button>
+                <span className="text-ink-mute text-[0.72rem] tracking-[0.18em] uppercase">
+                  Formulaire de contact
+                </span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-7">
-                <div className="mb-2 flex items-baseline justify-between">
-                  <p className="font-display text-[1.5rem] leading-snug text-ink italic">
-                    Parlez-nous de votre famille.
-                  </p>
-                  <span className="text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase">
-                    Étape 1 / 1
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                      Nom du parent
-                    </label>
-                    <input
-                      required
-                      name="parentName"
-                      value={formData.parentName}
-                      onChange={handleInputChange}
-                      type="text"
-                      placeholder="ex. Marie Pierre"
-                      className={inputClass}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                      Adresse email
-                    </label>
-                    <input
-                      required
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      type="email"
-                      placeholder="ex. marie@exemple.com"
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                      Niveau d'intérêt
-                    </label>
-                    <div className="relative">
-                      <select
-                        name="interestedGrade"
-                        value={formData.interestedGrade}
-                        onChange={handleInputChange}
-                        className={`${inputClass} appearance-none pr-10`}
-                      >
-                        {gradeOptions.map((g) => (
-                          <option key={g}>{g}</option>
-                        ))}
-                      </select>
-                      <svg
-                        aria-hidden="true"
-                        viewBox="0 0 24 24"
-                        className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-ink-mute"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                      Téléphone <span className="text-ink-mute/60">(facultatif)</span>
-                    </label>
-                    <input
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      type="tel"
-                      placeholder="+509 00 00 0000"
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                    Comment pouvons-nous vous aider ?
+                  <label
+                    htmlFor="parentName"
+                    className="text-ink-mute text-[0.78rem] font-medium"
+                  >
+                    Nom
                   </label>
-                  <textarea
+                  <input
+                    id="parentName"
                     required
-                    name="message"
-                    value={formData.message}
+                    name="parentName"
+                    value={formData.parentName}
                     onChange={handleInputChange}
-                    rows={5}
-                    placeholder="Parlez-nous de votre enfant et posez vos questions…"
-                    className={`${inputClass} resize-none`}
+                    type="text"
+                    className={inputClass}
                   />
                 </div>
-
-                <button
-                  disabled={formState === "submitting"}
-                  className="group flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.99] disabled:opacity-60"
+                <div className="space-y-2">
+                  <label
+                    htmlFor="email"
+                    className="text-ink-mute text-[0.78rem] font-medium"
+                  >
+                    Adresse email
+                  </label>
+                  <input
+                    id="email"
+                    required
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    type="email"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label
+                    htmlFor="interestedGrade"
+                    className="text-ink-mute text-[0.78rem] font-medium"
+                  >
+                    Niveau d'intérêt
+                  </label>
+                  <select
+                    id="interestedGrade"
+                    name="interestedGrade"
+                    value={formData.interestedGrade}
+                    onChange={handleInputChange}
+                    className={`${inputClass} appearance-none`}
+                  >
+                    {gradeOptions.map((grade) => (
+                      <option key={grade}>{grade}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label
+                    htmlFor="phone"
+                    className="text-ink-mute text-[0.78rem] font-medium"
+                  >
+                    Téléphone{" "}
+                    <span className="text-ink-mute/60">(facultatif)</span>
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    type="tel"
+                    pattern="[+]?[0-9 ()-]{8,}"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label
+                  htmlFor="message"
+                  className="text-ink-mute text-[0.78rem] font-medium"
                 >
-                  {formState === "submitting" ? (
-                    <span className="inline-flex items-center gap-2">
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Préparation…
-                    </span>
-                  ) : (
-                    <>
-                      Préparer le courriel
-                      <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </>
-                  )}
-                </button>
-
-                <p className="text-center text-[0.78rem] leading-relaxed text-ink-mute">
-                  Un onglet Gmail s'ouvrira avec votre demande pré-remplie, prête à être envoyée à notre équipe.
-                </p>
-              </form>
-            )}
+                  Votre message
+                </label>
+                <textarea
+                  id="message"
+                  required
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={5}
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
+              <button
+                disabled={formState === "preparing"}
+                className="group bg-ink hover:bg-ink-soft flex w-full items-center justify-center gap-2 rounded-full py-4 text-[0.95rem] font-medium text-white transition-all active:scale-[0.99] disabled:opacity-60"
+              >
+                {formState === "preparing"
+                  ? "Préparation…"
+                  : "Préparer le brouillon Gmail"}
+                <ArrowUpRight size={16} />
+              </button>
+              <p className="text-ink-mute text-center text-[0.78rem] leading-relaxed">
+                Aucun message n'est envoyé automatiquement par ce site.
+              </p>
+            </form>
           </div>
         </div>
       </div>

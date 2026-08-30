@@ -1,24 +1,22 @@
 ---
-import {
-  Apple,
-  Flame,
-  Globe,
-  Microscope,
-  Music,
-  Palette,
-  Sparkles,
-  Trophy,
-} from "lucide-react";
+import { BookOpen, Music, Palette } from "lucide-react";
 
 const activities = [
-  { title: "Arts créatifs", desc: "Peinture, poterie et design numérique pour stimuler l'imagination.", icon: Palette },
-  { title: "Sports d'élite", desc: "Du football à la natation — développer la force et le travail d'équipe.", icon: Trophy },
-  { title: "Laboratoire STEM", desc: "Expériences scientifiques pratiques et démarche d'investigation.", icon: Microscope },
-  { title: "Académie de musique", desc: "Cours d'instrument et chorale pour tous niveaux.", icon: Music },
-  { title: "Langues du monde", desc: "Programmes d'immersion en espagnol, français et anglais.", icon: Globe },
-  { title: "Arts culinaires", desc: "Cours pour jeunes cuisiniers, axés sur la nutrition et la saveur.", icon: Apple },
-  { title: "Survie en plein air", desc: "Techniques de camping et projets de conservation de la nature.", icon: Flame },
-  { title: "Art dramatique", desc: "Ateliers et grandes productions annuelles sur scène.", icon: Sparkles },
+  {
+    title: "Activités de classe",
+    desc: "Les activités proposées en classe seront présentées avec les informations confirmées par l'établissement.",
+    icon: BookOpen,
+  },
+  {
+    title: "Projets scolaires",
+    desc: "Les projets et réalisations de l'ISAJ seront ajoutés après validation de l'équipe de l'école.",
+    icon: Palette,
+  },
+  {
+    title: "Activités à confirmer",
+    desc: "Contactez l'ISAJ pour connaître les activités, clubs et projets actuellement disponibles.",
+    icon: Music,
+  },
 ];
 ---
 
@@ -26,47 +24,60 @@ const activities = [
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="mb-16 grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+        <p
+          class="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase"
+        >
           Au-delà de la salle de classe
         </p>
-        <h2 class="tracking-headline balance text-[1.75rem] font-semibold leading-[1.05] text-ink sm:text-4xl md:text-[3.25rem]">
-          Notre monde de <span class="font-display italic font-normal text-brand-deep">découvertes</span> infinies
+        <h2
+          class="tracking-headline balance text-ink text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3.25rem]"
+        >
+          Les activités et projets de <span
+            class="font-display text-brand-deep font-normal italic">l'ISAJ</span
+          >
         </h2>
       </div>
-      <p class="pretty text-[0.95rem] leading-relaxed text-ink-mute lg:col-span-5">
-        À l'Institution Saint Justien, l'éducation va bien au-delà des manuels. Un écosystème d'activités conçues pour aider chaque enfant à révéler son potentiel unique.
+      <p
+        class="pretty text-ink-mute text-[0.95rem] leading-relaxed lg:col-span-5"
+      >
+        La liste des activités réellement proposées sera publiée après
+        vérification auprès de l'établissement.
       </p>
     </div>
 
-    {/* Bento — varied sizes */}
-    <div class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.75rem] bg-black/[0.06] sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.75rem] bg-black/[0.06] sm:grid-cols-3"
+    >
       {
-        activities.map((a, i) => (
-          <div class="group relative bg-white p-7 transition-colors hover:bg-[#fbfcfe] lg:p-8">
+        activities.map((activity, index) => (
+          <article class="group relative bg-white p-7 transition-colors hover:bg-[#fbfcfe] lg:p-8">
             <div class="flex items-start justify-between">
-              <a.icon size={22} strokeWidth={1.6} className="text-ink transition-colors group-hover:text-brand" />
-              <span class="tabular text-[0.7rem] text-ink-mute">{String(i + 1).padStart(2, "0")}</span>
+              <activity.icon
+                size={22}
+                strokeWidth={1.6}
+                className="text-ink transition-colors group-hover:text-brand"
+              />
+              <span class="tabular text-ink-mute text-[0.7rem]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
             </div>
-
-            <h3 class="mt-10 font-display text-[1.35rem] font-medium leading-tight tracking-[-0.015em] text-ink">
-              {a.title}
+            <h3 class="font-display text-ink mt-10 text-[1.35rem] leading-tight font-medium tracking-[-0.015em]">
+              {activity.title}
             </h3>
-            <p class="mt-2 text-[0.88rem] leading-relaxed text-ink-mute">
-              {a.desc}
+            <p class="text-ink-mute mt-2 text-[0.88rem] leading-relaxed">
+              {activity.desc}
             </p>
-
-            <div class="mt-6 h-px w-8 bg-ink/15 transition-all duration-500 group-hover:w-16 group-hover:bg-brand"></div>
-          </div>
+            <div class="bg-ink/15 group-hover:bg-brand mt-6 h-px w-8 transition-all duration-500 group-hover:w-16" />
+          </article>
         ))
       }
     </div>
 
-    <p class="mt-12 flex flex-wrap items-center gap-2 text-[0.9rem] text-ink-mute">
-      <span class="font-display italic text-ink">«</span>
-      Rejoignez plus de
-      <span class="font-medium text-ink">100 enfants</span>
-      dans nos activités quotidiennes.
-      <span class="font-display italic text-ink">»</span>
+    <p class="text-ink-mute mt-12 text-[0.9rem]">
+      Consultez la page <a
+        href="/contact"
+        class="text-ink font-medium underline underline-offset-4">Contact</a
+      > pour demander la liste à jour.
     </p>
   </div>
 </section>

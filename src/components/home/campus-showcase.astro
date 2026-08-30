@@ -4,68 +4,83 @@ import { MapPin } from "lucide-react";
 
 const facilities = [
   {
-    title: "Bibliothèque numérique",
-    desc: "Une vaste collection de ressources physiques et numériques pour les jeunes esprits.",
-    image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=1200",
-    tag: "Étude",
+    title: "Espace de l'ISAJ",
+    desc: "Photographie locale de l'établissement. La description précise du lieu sera confirmée par l'ISAJ.",
+    image: "/isaj-1.jpeg",
+    tag: "ISAJ",
   },
   {
-    title: "Nos terminales",
-    desc: "Une éducation de qualité — prêtes à affronter les défis du monde moderne.",
-    image: "/graduate.jpeg",
-    tag: "Lycée",
+    title: "Vie de l'établissement",
+    desc: "Photographie locale de l'ISAJ. Le contexte de cette image reste à confirmer.",
+    image: "/isaj-2.jpeg",
+    tag: "À confirmer",
   },
   {
-    title: "Studio des arts créatifs",
-    desc: "Un lieu où les élèves s'expriment à travers la peinture, l'argile et les médias numériques.",
-    image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=1200",
-    tag: "Arts",
+    title: "Activités scolaires",
+    desc: "Les activités représentées et leur disponibilité seront identifiées avec l'équipe de l'école.",
+    image: "/isaj-3.jpeg",
+    tag: "À confirmer",
   },
 ];
 ---
 
 <section class="overflow-hidden bg-white py-24 lg:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mb-16 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
+    <div
+      class="mb-16 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end"
+    >
       <div class="max-w-2xl">
-        <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
-          Visitez notre campus
+        <p
+          class="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase"
+        >
+          L'ISAJ en images
         </p>
-        <h2 class="tracking-headline balance text-4xl font-semibold leading-[1.05] text-ink md:text-[3.25rem]">
-          Des espaces conçus pour <span class="font-display italic font-normal text-brand-deep">inspirer</span> l'excellence
+        <h2
+          class="tracking-headline balance text-ink text-4xl leading-[1.05] font-semibold md:text-[3.25rem]"
+        >
+          Des images de <span
+            class="font-display text-brand-deep font-normal italic"
+            >l'établissement</span
+          >
         </h2>
       </div>
-      <div class="flex items-center gap-2 text-[0.85rem] text-ink-mute">
-        <MapPin size={15} strokeWidth={1.6} />
-        <span>5, Impasse Bernard, Bon-Repos, Croix-des-Bouquets</span>
+      <div class="text-ink-mute flex items-center gap-2 text-[0.85rem]">
+        <MapPin size={15} strokeWidth={1.6} /><span
+          >Bon-Repos, Croix-des-Bouquets</span
+        >
       </div>
     </div>
 
-    {/* Zig-zag, asymmetric: tall / short / short / tall */}
     <div class="grid grid-cols-12 gap-6 md:gap-8">
       {
-        facilities.map((item, idx) => {
+        facilities.map((item, index) => {
           const layouts = [
             "col-span-12 md:col-span-7 md:row-span-2",
             "col-span-12 md:col-span-5",
-            "col-span-12 md:col-span-5",,
+            "col-span-12 md:col-span-5",
           ];
-          const heights = ["h-[28rem] md:h-[36rem]", "h-72 md:h-[17rem]", "h-72 md:h-[17rem]", "h-[28rem] md:h-[36rem]"];
+          const heights = [
+            "h-[28rem] md:h-[36rem]",
+            "h-72 md:h-[17rem]",
+            "h-72 md:h-[17rem]",
+          ];
           return (
-            <figure class={`group relative overflow-hidden rounded-[1.75rem] ${layouts[idx]}`}>
+            <figure
+              class={`group relative overflow-hidden rounded-[1.75rem] ${layouts[index]}`}
+            >
               <Image
                 src={item.image}
-                alt={item.title}
+                alt="Photographie de l'ISAJ"
                 width={1200}
                 height={900}
-                class={`${heights[idx]} w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105`}
+                class={`${heights[index]} w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105`}
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/15 to-transparent"></div>
+              <div class="from-ink/85 via-ink/15 absolute inset-0 bg-gradient-to-t to-transparent" />
               <figcaption class="absolute inset-x-0 bottom-0 p-7 md:p-9">
-                <span class="inline-block rounded-full bg-white/15 px-2.5 py-0.5 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-white/80 backdrop-blur">
+                <span class="inline-block rounded-full bg-white/15 px-2.5 py-0.5 text-[0.7rem] font-medium tracking-[0.18em] text-white/80 uppercase backdrop-blur">
                   {item.tag}
                 </span>
-                <h3 class="mt-3 font-display text-[1.7rem] font-medium leading-tight text-white md:text-[2rem]">
+                <h3 class="font-display mt-3 text-[1.7rem] leading-tight font-medium text-white md:text-[2rem]">
                   {item.title}
                 </h3>
                 <p class="mt-2 max-w-md text-[0.9rem] leading-relaxed text-white/75">

@@ -7,59 +7,20 @@ import {
   Mail,
   Phone,
   School,
-  ShieldCheck,
   User,
 } from "lucide-react";
 import { useState } from "react";
+import { gmailRecipient, schoolLevels } from "../data/site-content";
 
-type PlanId = "monthly" | "annual";
+const gradeOptions = schoolLevels.map(
+  (level) => `${level.title} — ${level.grades}`,
+);
 
-const plans: {
-  id: PlanId;
-  name: string;
-  price: string;
-  cadence: string;
-  blurb: string;
-  badge?: string;
-  value: string;
-}[] = [
-  {
-    id: "monthly",
-    name: "Mensuel",
-    price: "149",
-    cadence: "/ mois",
-    blurb: "Idéal pour découvrir nos programmes mois après mois.",
-    value: "Mensuel ($149/mo)",
-  },
-  {
-    id: "annual",
-    name: "Annuel",
-    price: "1 430",
-    cadence: "/ année",
-    blurb: "Le meilleur rapport qualité-prix pour un suivi sur le long terme.",
-    badge: "Économisez 20 %",
-    value: "Annuel ($1,430/yr)",
-  },
-];
-
-const benefits = [
-  "Accès illimité à tous les ateliers",
-  "Rapports d'avancement personnalisés",
-  "Inscription prioritaire aux excursions",
-  "Événements familiaux réservés aux membres",
-  "Réduction automatique de 10 % pour les frères et sœurs",
-];
-
-const gradeOptions = [
-  "Préscolaire (2–5 ans)",
-  "Élémentaire · 1ʳᵉ à 5ᵉ",
-  "Collège · 6ᵉ à 8ᵉ",
-  "Lycée · 9ᵉ à 12ᵉ",
-];
+type FormState = "idle" | "preparing" | "draft" | "blocked";
 
 const EnrollmentPageContent = () => {
   const [step, setStep] = useState<1 | 2>(1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formState, setFormState] = useState<FormState>("idle");
   const [formData, setFormData] = useState({
     childFirstName: "",
     childLastName: "",
@@ -67,73 +28,98 @@ const EnrollmentPageContent = () => {
     grade: "",
     parentEmail: "",
     phone: "",
-    plan: plans[0].value,
+    message: "",
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = event.target;
+    setFormData((previous) => ({ ...previous, [name]: value }));
+    if (formState !== "idle") setFormState("idle");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const emailBody = `
-DEMANDE D'INSCRIPTION — INSTITUTION LE SAINT JUSTIEN
-====================================================
+  const isValidBirthDate = () => {
+    if (!formData.dob) return false;
+    const date = new Date(`${formData.dob}T00:00:00`);
+    return !Number.isNaN(date.valueOf()) && date <= new Date();
+  };
 
-ENFANT
-- Nom complet : ${formData.childFirstName} ${formData.childLastName}
-- Date de naissance : ${formData.dob}
-- Entrée en classe : ${formData.grade}
+  const handleContinue = () => {
+    if (
+      formData.childFirstName.trim() &&
+      formData.childLastName.trim() &&
+      formData.grade &&
+      isValidBirthDate()
+    ) {
+      setStep(2);
+    }
+  };
 
-CONTACT PARENTAL
-- Email : ${formData.parentEmail}
-- Téléphone : ${formData.phone}
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setFormState("preparing");
 
-ABONNEMENT
-- Plan : ${formData.plan}
-
-Envoyé via le portail d'inscription ISAJ.
-    `.trim();
-    const subject = `Nouvelle inscription : ${formData.childFirstName} ${formData.childLastName}`;
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent("admissions@isaj.com")}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(gmailUrl, "_blank");
-    setIsSubmitted(true);
+    const emailBody = [
+      "DEMANDE D'INFORMATIONS SUR L'INSCRIPTION — INSTITUTION LE SAINT JUSTIEN",
+      "",
+      "ENFANT",
+      `- Nom complet : ${formData.childFirstName.trim()} ${formData.childLastName.trim()}`,
+      `- Date de naissance : ${formData.dob}`,
+      `- Niveau souhaité : ${formData.grade}`,
+      "",
+      "CONTACT PARENTAL",
+      `- Email : ${formData.parentEmail.trim()}`,
+      `- Téléphone : ${formData.phone.trim()}`,
+      "",
+      "MESSAGE",
+      formData.message.trim() || "Aucun message complémentaire.",
+      "",
+      "Ce brouillon a été préparé par le site ISAJ. Aucun message n'est envoyé automatiquement.",
+    ].join("\n");
+    const subject = `Demande d'inscription — ${formData.childFirstName.trim()} ${formData.childLastName.trim()}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(gmailRecipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    const draftWindow = window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    setFormState(draftWindow ? "draft" : "blocked");
   };
 
   const inputClass =
     "w-full rounded-2xl border border-black/[0.07] bg-white px-4 py-3.5 text-[0.95rem] text-ink placeholder:text-ink-mute/60 transition-all outline-none focus:border-brand focus:ring-2 focus:ring-brand/15";
 
-  if (isSubmitted) {
+  if (formState === "draft" || formState === "blocked") {
     return (
       <section className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-black/[0.07] bg-[#fbfcfe]">
           <CheckCircle2 size={26} className="text-brand" strokeWidth={1.8} />
         </div>
-        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
-          Inscription initialisée
+        <p className="text-ink-mute text-[0.72rem] tracking-[0.22em] uppercase">
+          {formState === "draft"
+            ? "Brouillon Gmail préparé"
+            : "Gmail n'a pas pu s'ouvrir"}
         </p>
-        <h1 className="tracking-headline mt-4 text-4xl leading-[1.05] font-semibold text-ink md:text-[3.5rem]">
-          Votre demande est <span className="font-display italic font-normal text-brand-deep">en route.</span>
+        <h1 className="tracking-headline text-ink mt-4 text-4xl leading-[1.05] font-semibold md:text-[3.5rem]">
+          Votre demande est prête à être vérifiée.
         </h1>
-        <p className="mx-auto mt-6 max-w-md text-[1rem] leading-relaxed text-ink-mute">
-          Nous avons ouvert un onglet Gmail avec votre dossier d'inscription pré-rempli. Envoyez le courriel pour finaliser la procédure — notre équipe vous répondra sous 24&nbsp;h.
+        <p className="text-ink-mute mx-auto mt-6 max-w-xl text-[1rem] leading-relaxed">
+          {formState === "draft"
+            ? "Un brouillon Gmail a été préparé. Vérifiez son contenu puis cliquez sur Envoyer dans Gmail. Le site ne transmet ni ne stocke votre demande."
+            : `Ouvrez Gmail manuellement et écrivez à ${gmailRecipient}. Le site ne transmet ni ne stocke votre demande.`}
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a
-            href="/"
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
+          <button
+            type="button"
+            onClick={() => setFormState("idle")}
+            className="bg-ink hover:bg-ink-soft inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all active:scale-[0.98]"
           >
-            Retour à l'accueil
-            <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
+            Modifier la demande
+          </button>
           <a
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] px-6 py-3.5 text-[0.9rem] font-medium text-ink transition-colors hover:bg-black/[0.03]"
+            href={`mailto:${gmailRecipient}`}
+            className="text-ink inline-flex items-center gap-2 rounded-full border border-black/[0.08] px-6 py-3.5 text-[0.9rem] font-medium transition-colors hover:bg-black/[0.03]"
           >
-            Contacter l'assistance
+            Écrire à l'ISAJ
           </a>
         </div>
       </section>
@@ -142,311 +128,265 @@ Envoyé via le portail d'inscription ISAJ.
 
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-16 lg:pb-32">
-      {/* Breadcrumb */}
       <a
         href="/"
-        className="group inline-flex items-center gap-2 text-[0.85rem] text-ink-mute transition-colors hover:text-ink"
+        className="group text-ink-mute hover:text-ink inline-flex items-center gap-2 text-[0.85rem] transition-colors"
       >
-        <ArrowLeft size={15} className="transition-transform group-hover:-translate-x-0.5" />
+        <ArrowLeft
+          size={15}
+          className="transition-transform group-hover:-translate-x-0.5"
+        />
         Retour à l'accueil
       </a>
-
-      {/* Header */}
       <div className="mt-10 mb-16 max-w-3xl">
-        <p className="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
-          Inscription · Année scolaire 2026
+        <p className="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
+          Demande d'inscription
         </p>
-        <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5rem]">
-          Rejoignez la <span className="font-display italic font-normal text-brand-deep">famille</span> ISAJ.
+        <h1 className="tracking-headline balance text-ink text-[2rem] leading-[1.02] font-semibold sm:text-5xl md:text-[5rem]">
+          Parlons du{" "}
+          <span className="font-display text-brand-deep font-normal italic">
+            parcours
+          </span>{" "}
+          de votre enfant.
         </h1>
-        <p className="pretty mt-7 max-w-xl text-[1.05rem] leading-relaxed text-ink-mute">
-          Deux minutes suffisent. Démarrez dès aujourd'hui le parcours d'apprentissage personnalisé de votre enfant — créativité, exigence, et accompagnement humain.
+        <p className="pretty text-ink-mute mt-7 max-w-xl text-[1.05rem] leading-relaxed">
+          Remplissez les informations ci-dessous. Le site préparera un brouillon
+          Gmail à vérifier et à envoyer vous-même.
         </p>
       </div>
 
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* ============ Left aside ============ */}
         <aside className="space-y-8 lg:col-span-4">
-          {/* Member benefits */}
           <div>
-            <p className="mb-5 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
-              Inclus dans l'abonnement
+            <p className="text-ink-mute mb-5 text-[0.72rem] tracking-[0.22em] uppercase">
+              Avant d'envoyer
             </p>
             <ul className="divide-y divide-black/[0.07] border-y border-black/[0.07]">
-              {benefits.map((b) => (
-                <li key={b} className="flex items-start gap-3 py-4">
-                  <span className="mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/10">
-                    <Check size={10} strokeWidth={2.4} className="text-brand-deep" />
+              {[
+                "Vérifiez les informations saisies",
+                "Le brouillon s'ouvre dans Gmail",
+                "Cliquez sur Envoyer pour transmettre la demande",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 py-4">
+                  <span className="bg-brand/10 mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full">
+                    <Check
+                      size={10}
+                      strokeWidth={2.4}
+                      className="text-brand-deep"
+                    />
                   </span>
-                  <span className="text-[0.92rem] leading-relaxed text-ink">{b}</span>
+                  <span className="text-ink text-[0.92rem] leading-relaxed">
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Security card */}
-          <div className="grain relative overflow-hidden rounded-[1.75rem] bg-ink p-7 text-white">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(38,87,238,0.22) 0%, transparent 60%)" }}
-            />
-            <ShieldCheck size={22} strokeWidth={1.6} className="text-white/85" />
+          <div className="grain bg-ink relative overflow-hidden rounded-[1.75rem] p-7 text-white">
+            <Mail size={22} strokeWidth={1.6} className="text-white/85" />
             <p className="font-display mt-5 text-[1.25rem] leading-tight italic">
-              Vos données restent <span className="text-white/75">en sécurité.</span>
+              Une question avant l'inscription ?
             </p>
             <p className="mt-3 text-[0.82rem] leading-relaxed text-white/55">
-              Toutes les informations transmises sont chiffrées. Nous ne partageons jamais vos données avec des tiers.
+              Écrivez directement à {gmailRecipient}.
             </p>
           </div>
-
-          {/* Quote */}
-          <figure className="rounded-[1.5rem] border border-black/[0.06] bg-white p-7">
-            <p className="font-display text-[1.15rem] leading-snug italic text-ink">
-              «&nbsp;L'attention personnalisée dont bénéficie mon fils est remarquable.&nbsp;»
-            </p>
-            <figcaption className="mt-4 text-[0.78rem] text-ink-mute">
-              Jessica Pierre · Parent, CE1
-            </figcaption>
-          </figure>
         </aside>
 
-        {/* ============ Right form ============ */}
         <div className="lg:col-span-8">
           <div className="overflow-hidden rounded-[2rem] border border-black/[0.06] bg-white">
-            {/* Form Progress Header */}
             <div className="border-b border-black/[0.06] px-8 py-7 md:px-12 md:py-9">
-              <div className="flex items-end justify-between gap-6">
-                <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
-                    Étape {step} sur 2
-                  </p>
-                  <h2 className="font-display mt-2 text-[1.85rem] leading-tight font-medium tracking-[-0.015em] text-ink md:text-[2.25rem]">
-                    {step === 1 ? "Informations de l'enfant" : "Parent & abonnement"}
-                  </h2>
-                </div>
-                <div className="hidden items-center gap-2 sm:flex">
-                  <span
-                    className={`h-1 w-10 rounded-full transition-colors ${step >= 1 ? "bg-ink" : "bg-black/10"}`}
-                  />
-                  <span
-                    className={`h-1 w-10 rounded-full transition-colors ${step === 2 ? "bg-ink" : "bg-black/10"}`}
-                  />
-                </div>
-              </div>
+              <p className="text-ink-mute text-[0.72rem] tracking-[0.22em] uppercase">
+                Étape {step} sur 2
+              </p>
+              <h2 className="font-display text-ink mt-2 text-[1.85rem] leading-tight font-medium md:text-[2.25rem]">
+                {step === 1
+                  ? "Informations de l'enfant"
+                  : "Coordonnées du parent"}
+              </h2>
             </div>
-
             <form onSubmit={handleSubmit} className="p-8 md:p-12">
               {step === 1 ? (
                 <div className="space-y-7">
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                        <User size={13} strokeWidth={1.8} /> Prénom de l'enfant
+                      <label
+                        htmlFor="childFirstName"
+                        className="text-ink-mute flex items-center gap-1.5 text-[0.78rem] font-medium"
+                      >
+                        <User size={13} />
+                        Prénom de l'enfant
                       </label>
                       <input
+                        id="childFirstName"
                         required
                         type="text"
                         name="childFirstName"
                         value={formData.childFirstName}
                         onChange={handleInputChange}
                         className={inputClass}
-                        placeholder="ex. Léa"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                        <User size={13} strokeWidth={1.8} /> Nom de famille
+                      <label
+                        htmlFor="childLastName"
+                        className="text-ink-mute flex items-center gap-1.5 text-[0.78rem] font-medium"
+                      >
+                        <User size={13} />
+                        Nom de famille
                       </label>
                       <input
+                        id="childLastName"
                         required
                         type="text"
                         name="childLastName"
                         value={formData.childLastName}
                         onChange={handleInputChange}
                         className={inputClass}
-                        placeholder="ex. Joseph"
                       />
                     </div>
                   </div>
-
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                        <Calendar size={13} strokeWidth={1.8} /> Date de naissance
+                      <label
+                        htmlFor="dob"
+                        className="text-ink-mute flex items-center gap-1.5 text-[0.78rem] font-medium"
+                      >
+                        <Calendar size={13} />
+                        Date de naissance
                       </label>
                       <input
+                        id="dob"
                         required
                         type="date"
                         name="dob"
+                        max={new Date().toISOString().slice(0, 10)}
                         value={formData.dob}
                         onChange={handleInputChange}
                         className={inputClass}
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                        <School size={13} strokeWidth={1.8} /> Entrée en classe
+                      <label
+                        htmlFor="grade"
+                        className="text-ink-mute flex items-center gap-1.5 text-[0.78rem] font-medium"
+                      >
+                        <School size={13} />
+                        Niveau souhaité
                       </label>
-                      <div className="relative">
-                        <select
-                          required
-                          name="grade"
-                          value={formData.grade}
-                          onChange={handleInputChange}
-                          className={`${inputClass} appearance-none pr-10`}
-                        >
-                          <option value="">Sélectionner le niveau</option>
-                          {gradeOptions.map((g) => (
-                            <option key={g}>{g}</option>
-                          ))}
-                        </select>
-                        <svg
-                          aria-hidden="true"
-                          viewBox="0 0 24 24"
-                          className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-ink-mute"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
+                      <select
+                        id="grade"
+                        required
+                        name="grade"
+                        value={formData.grade}
+                        onChange={handleInputChange}
+                        className={`${inputClass} appearance-none`}
+                      >
+                        <option value="">Sélectionner le niveau</option>
+                        {gradeOptions.map((grade) => (
+                          <option key={grade}>{grade}</option>
+                        ))}
+                      </select>
                     </div>
                   </div>
-
                   <button
                     type="button"
                     disabled={
-                      !formData.childFirstName ||
-                      !formData.childLastName ||
-                      !formData.dob ||
-                      !formData.grade
+                      !formData.childFirstName.trim() ||
+                      !formData.childLastName.trim() ||
+                      !formData.grade ||
+                      !isValidBirthDate()
                     }
-                    onClick={() => setStep(2)}
-                    className="group mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40"
+                    onClick={handleContinue}
+                    className="group bg-ink hover:bg-ink-soft mt-4 flex w-full items-center justify-center gap-2 rounded-full py-4 text-[0.95rem] font-medium text-white transition-all active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    Continuer vers les détails parents
-                    <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    Continuer <ArrowUpRight size={16} />
                   </button>
                 </div>
               ) : (
                 <div className="space-y-8">
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                        <Mail size={13} strokeWidth={1.8} /> Email du parent
+                      <label
+                        htmlFor="parentEmail"
+                        className="text-ink-mute flex items-center gap-1.5 text-[0.78rem] font-medium"
+                      >
+                        <Mail size={13} />
+                        Email du parent
                       </label>
                       <input
+                        id="parentEmail"
                         required
                         type="email"
                         name="parentEmail"
                         value={formData.parentEmail}
                         onChange={handleInputChange}
                         className={inputClass}
-                        placeholder="parent@exemple.com"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                        <Phone size={13} strokeWidth={1.8} /> Téléphone
+                      <label
+                        htmlFor="phone"
+                        className="text-ink-mute flex items-center gap-1.5 text-[0.78rem] font-medium"
+                      >
+                        <Phone size={13} />
+                        Téléphone
                       </label>
                       <input
+                        id="phone"
                         required
                         type="tel"
                         name="phone"
+                        pattern="[+]?[0-9 ()-]{8,}"
                         value={formData.phone}
                         onChange={handleInputChange}
                         className={inputClass}
-                        placeholder="+509 00 00 0000"
                       />
                     </div>
                   </div>
-
-                  <div className="space-y-4">
-                    <p className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
-                      Choisissez votre abonnement
-                    </p>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      {plans.map((p) => {
-                        const checked = formData.plan === p.value;
-                        return (
-                          <label
-                            key={p.id}
-                            className="group relative block cursor-pointer"
-                          >
-                            <input
-                              type="radio"
-                              name="plan"
-                              value={p.value}
-                              checked={checked}
-                              onChange={handleInputChange}
-                              className="peer sr-only"
-                            />
-                            <div
-                              className={`relative rounded-2xl border p-6 transition-all ${
-                                checked
-                                  ? "border-ink bg-[#fbfcfe] shadow-ink"
-                                  : "border-black/[0.07] hover:border-black/15"
-                              }`}
-                            >
-                              <div className="flex items-start justify-between">
-                                <p className="font-display text-[1.1rem] font-medium text-ink">
-                                  {p.name}
-                                </p>
-                                {p.badge && (
-                                  <span className="rounded-full border border-brand/30 bg-brand/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-[0.08em] text-brand-deep uppercase">
-                                    {p.badge}
-                                  </span>
-                                )}
-                              </div>
-                              <div className="mt-3 flex items-baseline gap-1">
-                                <span className="tabular text-[1.85rem] font-semibold tracking-[-0.025em] text-ink">
-                                  ${p.price}
-                                </span>
-                                <span className="text-[0.78rem] text-ink-mute">{p.cadence}</span>
-                              </div>
-                              <p className="mt-3 text-[0.78rem] leading-relaxed text-ink-mute">
-                                {p.blurb}
-                              </p>
-                              <span
-                                className={`absolute right-4 top-4 inline-flex h-5 w-5 items-center justify-center rounded-full border transition-all ${
-                                  checked ? "border-ink bg-ink text-white" : "border-black/15"
-                                }`}
-                              >
-                                {checked && <Check size={11} strokeWidth={2.6} />}
-                              </span>
-                            </div>
-                          </label>
-                        );
-                      })}
-                    </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="message"
+                      className="text-ink-mute text-[0.78rem] font-medium"
+                    >
+                      Message complémentaire{" "}
+                      <span className="text-ink-mute/60">(facultatif)</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={5}
+                      className={`${inputClass} resize-none`}
+                    />
                   </div>
-
                   <div className="flex flex-col gap-3 pt-2 sm:flex-row">
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-black/[0.08] px-6 py-4 text-[0.9rem] font-medium text-ink transition-colors hover:bg-black/[0.03]"
+                      className="text-ink inline-flex items-center justify-center gap-2 rounded-full border border-black/[0.08] px-6 py-4 text-[0.9rem] font-medium transition-colors hover:bg-black/[0.03]"
                     >
                       <ArrowLeft size={15} />
                       Retour
                     </button>
                     <button
                       type="submit"
-                      className="group flex flex-1 items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.99]"
+                      disabled={formState === "preparing"}
+                      className="group bg-ink hover:bg-ink-soft flex flex-1 items-center justify-center gap-2 rounded-full py-4 text-[0.95rem] font-medium text-white transition-all active:scale-[0.99] disabled:opacity-60"
                     >
-                      Finaliser l'inscription
-                      <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      {formState === "preparing"
+                        ? "Préparation…"
+                        : "Préparer le brouillon Gmail"}
+                      <ArrowUpRight size={16} />
                     </button>
                   </div>
                 </div>
               )}
             </form>
           </div>
-
-          <p className="mt-6 text-center text-[0.78rem] leading-relaxed text-ink-mute">
-            Un onglet Gmail s'ouvrira avec votre dossier d'inscription pré-rempli, prêt à être envoyé à notre bureau des admissions.
+          <p className="text-ink-mute mt-6 text-center text-[0.78rem] leading-relaxed">
+            Aucun message n'est envoyé automatiquement par ce site.
           </p>
         </div>
       </div>

@@ -2,6 +2,16 @@
 import "../styles/global.css";
 import Footer from "./Footer.astro";
 import Navbar from "./navbar";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "ISAJ — Institution le Saint Justien",
+  description = "Institution le Saint Justien (ISAJ), à Bon-Repos, Croix-des-Bouquets, Haïti.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -11,12 +21,8 @@ import Navbar from "./navbar";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#edf2ff" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <meta
-      name="description"
-      content="Institution le Saint Justien (ISAJ) — Une éducation cohérente et de calibre mondial, de la maternelle au lycée, à Croix des Bouquets."
-    />
-    <title>ISAJ — Institution le Saint Justien</title>
+    <meta name="description" content={description} />
+    <title>{title}</title>
   </head>
   <body class="antialiased">
     <a
@@ -27,11 +33,7 @@ import Navbar from "./navbar";
     <div
       class="relative min-h-screen overflow-hidden bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-brand)] selection:text-white"
     >
-      {/* Ambient backdrop — single warm glow + a cool one, very subtle */}
-      <div
-        aria-hidden="true"
-        class="pointer-events-none fixed inset-0 -z-10"
-      >
+      <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10">
         <div
           class="absolute top-[-10%] left-[-5%] h-[60vh] w-[60vh] rounded-full bg-[#b8cfff] opacity-55 blur-[120px]"
         >

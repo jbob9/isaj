@@ -1,146 +1,103 @@
 ---
 import { Image } from "astro:assets";
-import { ArrowUpRight, Check, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import imgA from "../../assets/2.jpeg";
 import imgB from "../../assets/5.jpeg";
 import imgC from "../../assets/8.jpeg";
 ---
 
-<section class="relative mx-auto max-w-7xl px-4 pt-10 pb-24 sm:px-6 lg:px-8 lg:pt-16 lg:pb-32">
-  {/* Eyebrow chip — lowercase, refined */}
+<section
+  class="relative mx-auto max-w-7xl px-4 pt-10 pb-24 sm:px-6 lg:px-8 lg:pt-16 lg:pb-32"
+>
   <div class="mb-10 flex justify-center">
-    <a
-      href="/enrollment"
-      class="group inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/60 px-3 py-1.5 text-[0.78rem] font-medium text-ink-soft backdrop-blur-md transition-colors hover:bg-white/90"
+    <span
+      class="text-ink-soft inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/60 px-3 py-1.5 text-[0.78rem] font-medium backdrop-blur-md"
     >
-      <span class="relative flex h-1.5 w-1.5">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75"></span>
-        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand"></span>
-      </span>
-      Admissions ouvertes pour 2026
-      <ArrowUpRight size={13} className="opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-    </a>
+      <span class="bg-brand inline-flex h-1.5 w-1.5 rounded-full"></span>
+      Institution le Saint Justien
+    </span>
   </div>
 
   <div class="relative mx-auto max-w-5xl text-center">
     <h1
-      class="tracking-headline balance text-[2.6rem] font-semibold leading-[1.02] text-ink sm:text-6xl md:text-[5.25rem] md:leading-[0.98]"
+      class="tracking-headline balance text-ink text-[2.6rem] leading-[1.02] font-semibold sm:text-6xl md:text-[5.25rem] md:leading-[0.98]"
     >
-      Mettre en avant
-      <span class="font-display italic font-normal text-brand-deep">
-        les intérêts<span class="text-brand">.</span>
-      </span>
+      Une école pour
+      <span class="font-display text-brand-deep font-normal italic"
+        >grandir.</span
+      >
       <br class="hidden sm:block" />
-      <span class="text-ink-soft">de votre enfant</span>
+      <span class="text-ink-soft">Apprendre. Construire.</span>
     </h1>
 
     <p
-      class="pretty mx-auto mt-7 max-w-xl text-base leading-relaxed text-ink-mute md:text-lg"
+      class="pretty text-ink-mute mx-auto mt-7 max-w-xl text-base leading-relaxed md:text-lg"
     >
-      De la maternelle au lycée — une éducation cohérente, exigeante et chaleureuse, à chaque étape du parcours.
+      L'Institution le Saint Justien accompagne les élèves dans leur parcours
+      scolaire. Les informations détaillées sur les niveaux et les activités
+      sont à confirmer avec l'établissement.
     </p>
 
-    <div class="mt-9 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+    <div
+      class="mt-9 flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
+    >
       <a
         href="/enrollment"
-        class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
+        class="group bg-ink hover:bg-ink-soft inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all active:scale-[0.98]"
       >
-        Inscrivez votre enfant
-        <ArrowUpRight size={17} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        Demander une inscription
+        <ArrowUpRight
+          size={17}
+          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        />
       </a>
       <a
         href="/curriculum"
-        class="group inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-[0.95rem] font-medium text-ink underline decoration-ink/20 decoration-1 underline-offset-[6px] transition-colors hover:decoration-ink/60"
+        class="group text-ink decoration-ink/20 hover:decoration-ink/60 inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-[0.95rem] font-medium underline decoration-1 underline-offset-[6px] transition-colors"
       >
         Découvrir le programme
       </a>
     </div>
 
-    {/* Trust strip — lowercase, no heavy uppercase */}
-    <ul class="mx-auto mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[0.8rem] text-ink-mute">
-      <li class="inline-flex items-center gap-1.5">
-        <Check size={14} className="text-brand" /> Tous les niveaux
-      </li>
-      <li class="hidden sm:inline-block">·</li>
-      <li class="inline-flex items-center gap-1.5">
-        <Check size={14} className="text-brand" /> Éducateurs certifiés
-      </li>
-      <li class="hidden sm:inline-block">·</li>
-      <li class="inline-flex items-center gap-1.5">
-        <Check size={14} className="text-brand" /> Reconnu par l'État
-      </li>
-    </ul>
+    <p
+      class="text-ink-mute mx-auto mt-10 max-w-xl text-[0.82rem] leading-relaxed"
+    >
+      Pour les informations officielles sur l'établissement, contactez
+      directement l'ISAJ.
+    </p>
   </div>
 
-  {/* Image collage — broken grid, layered, varied aspect ratios */}
   <div class="relative mt-20 hidden md:block">
-    {/* Decorative spark */}
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 40 40"
-      class="absolute -top-6 left-[18%] h-9 w-9 -rotate-12 text-ink/30"
-      fill="none"
-    >
-      <path
-        d="M20 2v36M2 20h36M6 6l28 28M34 6L6 34"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-      ></path>
-    </svg>
-
     <div class="grid grid-cols-12 items-end gap-6">
       <figure class="col-span-4">
         <Image
           src={imgA}
-          alt="Une élève souriante dans la cour de l'école"
-          class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-ink-lg"
+          alt="Photographie de l'ISAJ"
+          class="shadow-ink-lg aspect-[4/5] w-full rounded-[2rem] object-cover"
         />
-        <figcaption class="mt-3 px-1 text-left text-[0.72rem] uppercase tracking-[0.18em] text-ink-mute">
-          École primaire · Bon-Repos
-        </figcaption>
       </figure>
-
       <figure class="col-span-4 -mb-12 translate-y-6">
         <Image
           src={imgB}
-          alt="Élèves en activité créative"
-          class="aspect-[3/4] w-full rounded-[2rem] object-cover shadow-ink-lg"
+          alt="Photographie de l'ISAJ"
+          class="shadow-ink-lg aspect-[3/4] w-full rounded-[2rem] object-cover"
         />
       </figure>
-
       <figure class="col-span-4">
         <Image
           src={imgC}
-          alt="Cérémonie de remise de diplômes"
-          class="aspect-[5/6] w-full rounded-[2rem] object-cover shadow-ink-lg"
+          alt="Photographie de l'ISAJ"
+          class="shadow-ink-lg aspect-[5/6] w-full rounded-[2rem] object-cover"
         />
-        <figcaption class="mt-3 flex items-center justify-end gap-1.5 px-1 text-[0.72rem] uppercase tracking-[0.18em] text-ink-mute">
-          <Star size={11} className="fill-amber-400 text-amber-400" />
-          Promotion 2025
-        </figcaption>
       </figure>
-    </div>
-
-    {/* Floating quote-card overlay */}
-    <div
-      class="absolute -bottom-4 left-1/2 hidden w-[min(380px,90%)] -translate-x-1/2 rounded-2xl border border-black/5 bg-white/90 px-5 py-4 shadow-ink backdrop-blur-md lg:block"
-    >
-      <p class="text-[0.85rem] leading-snug text-ink-soft">
-        <span class="font-display italic text-ink">«</span> Un environnement où chaque enfant trouve sa voie. <span class="font-display italic text-ink">»</span>
-      </p>
-      <p class="mt-1 text-[0.7rem] uppercase tracking-[0.18em] text-ink-mute">
-        Parent · 4ᵉ année
-      </p>
     </div>
   </div>
 
-  {/* Mobile single image */}
   <div class="relative mt-12 md:hidden">
     <Image
       src={imgA}
-      alt="Élève souriante"
-      class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-ink-lg"
+      alt="Photographie de l'ISAJ"
+      class="shadow-ink-lg aspect-[4/5] w-full rounded-[2rem] object-cover"
     />
   </div>
 </section>

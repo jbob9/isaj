@@ -1,0 +1,5 @@
+- Prefers conservative, fact-checked content: remove template or unverified claims rather than inventing replacements, and visibly mark unresolved information for later confirmation. Confidence: 0.98
+- Prefers a plan-first workflow for substantial changes, followed by implementation and a clearly separated list of items that remain blocked or cannot be verified. Confidence: 0.96
+- Values comprehensive verification before completion, including build checks, formatting, content scans, link/form checks, and reporting any unavailable tooling or untested areas. Confidence: 0.93
+- Prefers authentic, owner-approved media and institutional information over stock imagery, generated content, or assumed facts. Confidence: 0.92
+- Prefers structured, actionable communication with concrete checklists and explicit status/results. Confidence: 0.9

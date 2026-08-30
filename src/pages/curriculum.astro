@@ -5,158 +5,27 @@ import {
   ArrowUpRight,
   Brain,
   Compass,
+  GraduationCap,
   Microscope,
-  Rocket,
 } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
+import { institutionalDrafts } from "../data/site-content";
+import { gradeProfiles } from "../data/grade-profiles";
 
-const curriculumLevels = [
-  {
-    title: "Académie des Petits Isajiens",
-    kicker: "La fondation de la curiosité",
-    grades: "2 à 6 ans · Préscolaire (API)",
-    icon: Compass,
-    details: [
-      {
-        label: "Étapes cognitives",
-        items: [
-          "La permanence de l'objet par le jeu",
-          "Reconnaissance des formes et des couleurs",
-          "Exposition auditive bilingue",
-        ],
-      },
-      {
-        label: "Développement social",
-        items: [
-          "Ateliers de régulation émotionnelle",
-          "Fondements du jeu coopératif",
-          "Histoires qui développent l'empathie",
-        ],
-      },
-      {
-        label: "Croissance physique",
-        items: [
-          "Activités de motricité fine",
-          "Exploration de la nature en plein air",
-          "Mouvement rythmique et danse",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Fondamentale · 1ᵉʳ & 2ᵉ Cycles",
-    kicker: "Maîtrise des fondamentaux",
-    grades: "Dès 5 ans ½ · 1ʳᵉ à 6ᵉ année (API)",
-    icon: Microscope,
-    details: [
-      {
-        label: "Corps académique",
-        items: [
-          "Méthodologie mathématique",
-          "Programmes d'alphabétisation immersive",
-          "Perspectives historiques du monde",
-        ],
-      },
-      {
-        label: "Intégration STIM",
-        items: [
-          "Introduction à la logique et au codage",
-          "Science du jardinage durable",
-          "Projets de conception",
-        ],
-      },
-      {
-        label: "Expression créative",
-        items: [
-          "Ateliers d'arts visuels",
-          "Théorie et pratique musicales",
-          "Confiance à l'oral et prise de parole",
-        ],
-      },
-    ],
-  },
-  {
-    title: "École Mixte le Saint Justien",
-    kicker: "Naviguer vers l'indépendance",
-    grades: "Dès 10 ans · 3ᵉ Cycle Fondamental",
-    icon: Brain,
-    details: [
-      {
-        label: "Noyau avancé",
-        items: [
-          "Lectures et critiques littéraires",
-          "Pré-algèbre et géométrie",
-          "Études géopolitiques mondiales",
-        ],
-      },
-      {
-        label: "Laboratoire d'innovation",
-        items: [
-          "Principes du développement d'applications",
-          "Robotique et ingénierie",
-          "Défense de l'environnement",
-        ],
-      },
-      {
-        label: "Découverte de soi",
-        items: [
-          "Leadership et éthique",
-          "Rotation des intérêts professionnels",
-          "Coaching en santé et bien-être",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Institution le Saint Justien",
-    kicker: "Préparation à l'impact",
-    grades: "Après le Fondamental · Secondaire (ISAJ)",
-    icon: Rocket,
-    details: [
-      {
-        label: "Excellence académique",
-        items: [
-          "Parcours de niveau avancé (AP)",
-          "Éducation économique et financière",
-          "Psychologie et sciences du comportement",
-        ],
-      },
-      {
-        label: "Préparation au monde réel",
-        items: [
-          "Stages en entreprise",
-          "Programme passerelle universitaire",
-          "Entrepreneuriat social",
-        ],
-      },
-      {
-        label: "Citoyen du monde",
-        items: [
-          "Maîtrise multilingue",
-          "Échanges internationaux",
-          "Projets à impact communautaire",
-        ],
-      },
-    ],
-  },
-];
-
-const overviewFigures = [
-  { value: "4", label: "Cycles complets" },
-  { value: "5", suffix: "+", label: "Langues enseignées" },
-  { value: "12", label: "Ateliers spécialisés" },
-  { value: "1:8", label: "Ratio en maternelle" },
-];
+const icons = [Compass, Microscope, Brain, GraduationCap];
+const curriculumLevels = gradeProfiles.map((level, index) => ({
+  ...level,
+  icon: icons[index],
+}));
 ---
 
 <Layout>
   <section
     class="mx-auto max-w-7xl px-4 pt-12 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24"
   >
-    {/* Breadcrumb */}
     <a
       href="/"
-      class="group inline-flex items-center gap-2 text-[0.85rem] text-ink-mute transition-colors hover:text-ink"
+      class="group text-ink-mute hover:text-ink inline-flex items-center gap-2 text-[0.85rem] transition-colors"
     >
       <ArrowLeft
         size={15}
@@ -165,56 +34,77 @@ const overviewFigures = [
       Retour à l'accueil
     </a>
 
-    {/* Header */}
-    <div class="mt-10 grid grid-cols-1 items-end gap-10 lg:grid-cols-12 lg:gap-16">
+    <div
+      class="mt-10 grid grid-cols-1 items-end gap-10 lg:grid-cols-12 lg:gap-16"
+    >
       <div class="lg:col-span-8">
         <p
-          class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute"
+          class="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase"
         >
-          Prospectus · Année scolaire 2026
+          Programme scolaire
         </p>
         <h1
-          class="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5.5rem]"
+          class="tracking-headline balance text-ink text-[2rem] leading-[1.02] font-semibold sm:text-5xl md:text-[5.5rem]"
         >
           Le programme,
-          <span class="font-display italic font-normal text-brand-deep"
-            >chapitre par chapitre.</span
+          <span class="font-display text-brand-deep font-normal italic"
+            >niveau par niveau.</span
           >
         </h1>
       </div>
       <p
-        class="pretty max-w-md text-[1rem] leading-relaxed text-ink-mute lg:col-span-4"
+        class="pretty text-ink-mute max-w-md text-[1rem] leading-relaxed lg:col-span-4"
       >
-        Un regard transparent et détaillé sur la manière dont nous cultivons le
-        potentiel à chaque étape du développement éducatif d'un enfant.
+        Découvrez les grandes étapes du parcours présenté par l'Institution le
+        Saint Justien. Les détails administratifs et les tranches d'âge sont à
+        confirmer auprès de l'établissement.
       </p>
     </div>
 
-    {/* Overview strip */}
     <div
       class="mt-16 grid grid-cols-2 gap-y-8 border-y border-black/[0.07] py-8 lg:grid-cols-4"
     >
-      {
-        overviewFigures.map((f, i) => (
-          <div
-            class={`px-4 ${i > 0 ? "lg:border-l lg:border-black/[0.07]" : ""}`}
-          >
-            <div class="tabular text-[2rem] font-semibold leading-none tracking-[-0.025em] text-ink md:text-[2.5rem]">
-              {f.value}
-              {f.suffix && <span class="text-ink-mute/50">{f.suffix}</span>}
-            </div>
-            <p class="mt-2.5 text-[0.78rem] leading-snug text-ink-mute">
-              {f.label}
-            </p>
-          </div>
-        ))
-      }
+      <div class="px-4">
+        <div
+          class="tabular text-ink text-[2rem] leading-none font-semibold md:text-[2.5rem]"
+        >
+          04
+        </div><p class="text-ink-mute mt-2.5 text-[0.78rem] leading-snug">
+          Niveaux présentés
+        </p>
+      </div>
+      <div class="border-black/[0.07] px-4 lg:border-l">
+        <div
+          class="text-ink text-[2rem] leading-none font-semibold md:text-[2.5rem]"
+        >
+          ISAJ
+        </div><p class="text-ink-mute mt-2.5 text-[0.78rem] leading-snug">
+          Parcours scolaire
+        </p>
+      </div>
+      <div class="border-black/[0.07] px-4 lg:border-l">
+        <div
+          class="text-ink text-[2rem] leading-none font-semibold md:text-[2.5rem]"
+        >
+          À
+        </div><p class="text-ink-mute mt-2.5 text-[0.78rem] leading-snug">
+          Confirmer avec l'école
+        </p>
+      </div>
+      <div class="border-black/[0.07] px-4 lg:border-l">
+        <div
+          class="text-ink text-[2rem] leading-none font-semibold md:text-[2.5rem]"
+        >
+          01
+        </div><p class="text-ink-mute mt-2.5 text-[0.78rem] leading-snug">
+          Source officielle à venir
+        </p>
+      </div>
     </div>
 
-    {/* Table of contents */}
     <div class="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
       <p
-        class="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute lg:col-span-3"
+        class="text-ink-mute text-[0.72rem] tracking-[0.22em] uppercase lg:col-span-3"
       >
         Sommaire
       </p>
@@ -224,20 +114,18 @@ const overviewFigures = [
             <li>
               <a
                 href={`#chapitre-${idx + 1}`}
-                class="group flex items-baseline justify-between gap-4 border-b border-black/[0.06] py-3.5 transition-colors hover:text-brand-deep"
+                class="group hover:text-brand-deep flex items-baseline justify-between gap-4 border-b border-black/[0.06] py-3.5 transition-colors"
               >
                 <span class="flex items-baseline gap-5">
-                  <span class="tabular text-[0.78rem] font-medium text-ink-mute">
+                  <span class="tabular text-ink-mute text-[0.78rem] font-medium">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <span class="font-display text-[1.15rem] leading-tight text-ink transition-colors group-hover:text-brand-deep">
+                  <span class="font-display text-ink group-hover:text-brand-deep text-[1.15rem] leading-tight transition-colors">
                     {level.title}
                   </span>
                 </span>
-                <span
-                  class="hidden flex-1 self-end border-b border-dotted border-black/15 mx-3 mb-2 md:block"
-                />
-                <span class="text-[0.8rem] text-ink-mute whitespace-nowrap">
+                <span class="mx-3 mb-2 hidden flex-1 self-end border-b border-dotted border-black/15 md:block" />
+                <span class="text-ink-mute text-[0.8rem] whitespace-nowrap">
                   {level.grades}
                 </span>
               </a>
@@ -248,7 +136,6 @@ const overviewFigures = [
     </div>
   </section>
 
-  {/* ============== Chapters ============== */}
   {
     curriculumLevels.map((level, idx) => (
       <section
@@ -257,11 +144,10 @@ const overviewFigures = [
       >
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
           <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* Sidebar */}
             <div class="lg:col-span-4">
               <div class="lg:sticky lg:top-28">
                 <div class="flex items-center justify-between">
-                  <p class="tabular text-[0.78rem] font-medium tracking-[0.18em] text-ink-mute uppercase">
+                  <p class="tabular text-ink-mute text-[0.78rem] font-medium tracking-[0.18em] uppercase">
                     Chapitre {String(idx + 1).padStart(2, "0")} / 04
                   </p>
                   <level.icon
@@ -270,24 +156,23 @@ const overviewFigures = [
                     className="text-ink-mute"
                   />
                 </div>
-
-                <h2 class="tracking-headline mt-10 text-[1.75rem] font-semibold leading-[1.05] text-ink sm:text-4xl md:text-[3rem]">
+                <h2 class="tracking-headline text-ink mt-10 text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3rem]">
                   {level.title}
                 </h2>
-
-                <p class="font-display mt-4 text-[1.25rem] leading-snug italic text-ink-soft">
-                  {level.kicker}.
+                <p class="font-display text-ink-soft mt-4 text-[1.25rem] leading-snug italic">
+                  {level.subtitle}.
                 </p>
-
-                <p class="mt-6 text-[0.85rem] text-brand-deep">
-                  {level.grades}
+                <p class="text-brand-deep mt-6 text-[0.85rem]">
+                  {level.grades} · {level.ageRange}
                 </p>
-
+                <p class="text-ink-mute mt-6 max-w-md text-[0.92rem] leading-relaxed">
+                  {level.overview}
+                </p>
                 <a
-                  href={`/grade/${idx + 1}`}
-                  class="group mt-10 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-ink underline decoration-ink/15 decoration-1 underline-offset-[6px] transition-colors hover:text-brand-deep hover:decoration-brand-deep"
+                  href={`/grade/${level.id}`}
+                  class="group text-ink decoration-ink/15 hover:text-brand-deep hover:decoration-brand-deep mt-10 inline-flex items-center gap-1.5 text-[0.9rem] font-medium underline decoration-1 underline-offset-[6px] transition-colors"
                 >
-                  Demander le programme complet
+                  Voir le détail du niveau
                   <ArrowUpRight
                     size={14}
                     className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -295,22 +180,20 @@ const overviewFigures = [
                 </a>
               </div>
             </div>
-
-            {/* Detail columns */}
             <div class="lg:col-span-8">
               <div class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.5rem] bg-black/[0.06] md:grid-cols-3">
                 {level.details.map((detail, dIdx) => (
                   <div class="flex flex-col bg-[var(--color-paper)] p-7 lg:p-8">
-                    <span class="tabular text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase">
+                    <span class="tabular text-ink-mute text-[0.72rem] tracking-[0.18em] uppercase">
                       {String(dIdx + 1).padStart(2, "0")}
                     </span>
-                    <h3 class="font-display mt-8 text-[1.1rem] font-medium leading-tight text-ink">
+                    <h3 class="font-display text-ink mt-8 text-[1.1rem] leading-tight font-medium">
                       {detail.label}
                     </h3>
                     <ul class="mt-5 space-y-3">
                       {detail.items.map((item) => (
-                        <li class="flex items-start gap-2.5 text-[0.88rem] leading-snug text-ink-soft">
-                          <span class="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-ink/30" />
+                        <li class="text-ink-soft flex items-start gap-2.5 text-[0.88rem] leading-snug">
+                          <span class="bg-ink/30 mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -325,58 +208,84 @@ const overviewFigures = [
     ))
   }
 
-  {/* ============== Bottom CTA ============== */}
+  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <div class="mb-12 max-w-2xl">
+      <p class="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
+        Informations institutionnelles
+      </p>
+      <h2
+        class="tracking-headline text-ink text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3rem]"
+      >
+        Ce que nous vérifions <span
+          class="font-display text-brand-deep font-normal italic"
+          >avec l'ISAJ.</span
+        >
+      </h2>
+    </div>
+    <div
+      class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.5rem] bg-black/[0.06] md:grid-cols-2"
+    >
+      {
+        institutionalDrafts.map((item) => (
+          <article class="bg-white p-7 lg:p-9">
+            <p class="text-brand-deep text-[0.7rem] tracking-[0.18em] uppercase">
+              À confirmer
+            </p>
+            <h3 class="font-display text-ink mt-5 text-[1.35rem] font-medium">
+              {item.title}
+            </h3>
+            <p class="text-ink-mute mt-3 text-[0.92rem] leading-relaxed">
+              {item.text}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
   <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
     <div
-      class="grain relative overflow-hidden rounded-[2.25rem] bg-ink p-10 text-white md:rounded-[2.5rem] md:p-16"
+      class="grain bg-ink relative overflow-hidden rounded-[2.25rem] p-10 text-white md:rounded-[2.5rem] md:p-16"
     >
       <div
-        aria-hidden="true"
         class="pointer-events-none absolute -top-32 right-0 h-[40rem] w-[40rem] rounded-full"
         style="background: radial-gradient(circle, rgba(38,87,238,0.22) 0%, transparent 60%)"
       >
       </div>
-
       <div class="relative grid grid-cols-1 items-end gap-10 md:grid-cols-12">
         <div class="md:col-span-7">
-          <p class="text-[0.72rem] uppercase tracking-[0.22em] text-white/45">
-            Visite portes ouvertes
+          <p class="text-[0.72rem] tracking-[0.22em] text-white/45 uppercase">
+            Parlons du parcours
           </p>
           <h2
-            class="tracking-headline balance mt-4 text-[1.75rem] font-semibold leading-[1.05] sm:text-4xl md:text-[3.5rem]"
+            class="tracking-headline balance mt-4 text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3.5rem]"
           >
-            Prêts à façonner <span
-              class="font-display italic font-normal text-white/75"
-              >leur avenir</span
-            >&nbsp;?
+            Une question sur un <span
+              class="font-display font-normal text-white/75 italic">niveau</span
+            > ?
           </h2>
           <p class="mt-6 max-w-lg text-[0.95rem] leading-relaxed text-white/55">
-            Participez à notre prochaine visite pour échanger avec nos chefs de
-            service, voir les classes en mouvement et poser toutes vos
-            questions.
+            Contactez l'établissement pour obtenir les informations actuelles
+            sur les niveaux, les âges et les conditions d'admission.
           </p>
         </div>
         <div class="flex flex-col gap-3 md:col-span-5 md:items-end">
           <a
             href="/contact"
-            class="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[0.95rem] font-medium text-ink transition-all hover:bg-white/90 active:scale-[0.98]"
-          >
-            Réserver une visite
-            <ArrowUpRight
+            class="group text-ink inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[0.95rem] font-medium transition-all hover:bg-white/90 active:scale-[0.98]"
+            >Nous contacter <ArrowUpRight
               size={16}
-              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-            />
-          </a>
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            /></a
+          >
           <a
             href="/enrollment"
             class="group inline-flex items-center gap-1.5 text-[0.88rem] font-medium text-white/85 underline decoration-white/25 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-white"
-          >
-            Démarrer l'inscription
-            <ArrowRight
+            >Demander une inscription <ArrowRight
               size={13}
               className="transition-transform group-hover:translate-x-0.5"
-            />
-          </a>
+            /></a
+          >
         </div>
       </div>
     </div>

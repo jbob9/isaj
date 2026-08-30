@@ -1,24 +1,24 @@
 ---
 const lessons = [
   {
-    title: "Identification par lettre",
-    level: "Préscolaire",
-    image: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=600",
+    title: "Apprentissages fondamentaux",
+    level: "Programme à confirmer",
+    image: "/isaj-1.jpeg",
   },
   {
-    title: "Connaissances générales",
-    level: "4ᵉ année",
-    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&q=80&w=600",
+    title: "Connaissances et découverte",
+    level: "Programme à confirmer",
+    image: "/isaj-2.jpeg",
   },
   {
-    title: "Quiz de géographie",
-    level: "1ʳᵉ année",
-    image: "https://images.unsplash.com/photo-1510531704581-5b2870972060?auto=format&fit=crop&q=80&w=600",
+    title: "Expression et créativité",
+    level: "Programme à confirmer",
+    image: "/isaj-3.jpeg",
   },
   {
-    title: "Formation en arts visuels",
-    level: "Cours de dessin",
-    image: "https://images.unsplash.com/photo-1617234112618-337d8fb28d42?auto=format&fit=crop&q=80&w=600",
+    title: "Projets scolaires",
+    level: "Informations à confirmer",
+    image: "/isaj-4.jpeg",
   },
 ];
 ---
@@ -26,46 +26,56 @@ const lessons = [
 <section class="bg-white py-24 lg:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="mb-16 max-w-3xl">
-      <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
-        Une leçon marquante à la fois
+      <p class="text-ink-mute mb-4 text-[0.72rem] tracking-[0.22em] uppercase">
+        Le programme
       </p>
-      <h2 class="tracking-headline balance text-[1.75rem] font-semibold leading-[1.05] text-ink sm:text-4xl md:text-[3.25rem]">
-        Façonner <span class="font-display italic font-normal text-brand-deep">l'avenir</span> des enfants
+      <h2
+        class="tracking-headline balance text-ink text-[1.75rem] leading-[1.05] font-semibold sm:text-4xl md:text-[3.25rem]"
+      >
+        Découvrir les <span
+          class="font-display text-brand-deep font-normal italic"
+          >apprentissages</span
+        > de l'ISAJ
       </h2>
     </div>
 
     <ul class="divide-y divide-black/[0.06] border-y border-black/[0.06]">
       {
-        lessons.map((lesson, idx) => (
+        lessons.map((lesson, index) => (
           <li>
             <a
               href="/curriculum"
               class="group grid grid-cols-12 items-center gap-4 py-7 transition-colors hover:bg-[#fbfcfe] md:py-9"
             >
-              <span class="tabular col-span-2 text-[0.78rem] font-medium text-ink-mute md:col-span-1">
-                {String(idx + 1).padStart(2, "0")}
+              <span class="tabular text-ink-mute col-span-2 text-[0.78rem] font-medium md:col-span-1">
+                {String(index + 1).padStart(2, "0")}
               </span>
-
               <div class="col-span-10 flex items-center gap-5 md:col-span-7">
                 <div class="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl md:h-16 md:w-16">
                   <img
                     src={lesson.image}
-                    alt={lesson.title}
+                    alt="Photographie de l'ISAJ"
                     class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 </div>
-                <h3 class="font-display text-[1.1rem] font-medium leading-tight tracking-[-0.015em] text-ink transition-colors group-hover:text-brand-deep sm:text-[1.35rem] md:text-[1.85rem]">
+                <h3 class="font-display text-ink group-hover:text-brand-deep text-[1.1rem] leading-tight font-medium tracking-[-0.015em] transition-colors sm:text-[1.35rem] md:text-[1.85rem]">
                   {lesson.title}
                 </h3>
               </div>
-
-              <p class="col-span-12 text-[0.85rem] text-ink-mute md:col-span-3">
+              <p class="text-ink-mute col-span-12 text-[0.85rem] md:col-span-3">
                 {lesson.level}
               </p>
-
               <div class="col-span-12 hidden justify-end md:col-span-1 md:flex">
-                <span class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/8 text-ink-mute transition-all duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-white">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <span class="text-ink-mute group-hover:border-ink group-hover:bg-ink inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/8 transition-all duration-300 group-hover:text-white">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  >
                     <path d="M7 17L17 7M9 7h8v8" />
                   </svg>
                 </span>
