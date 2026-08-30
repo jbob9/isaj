@@ -1,37 +1,34 @@
 ---
 import {
   ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
   Brain,
-  CheckCircle2,
   Compass,
-  Globe,
   Microscope,
-  Palette,
   Rocket,
-  Sparkles,
 } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
 
 const curriculumLevels = [
   {
-    title: "Petits explorateurs",
-    subtitle: "La Fondation de la Curiosité",
-    grades: "Enfants en bas âge - Préscolaire",
+    title: "Académie des Petits Isajiens",
+    kicker: "La fondation de la curiosité",
+    grades: "2 à 6 ans · Préscolaire (API)",
     icon: Compass,
-    color: "blue",
     details: [
       {
         label: "Étapes cognitives",
         items: [
           "La permanence de l'objet par le jeu",
-          "Reconnaissance des formes et des couleurs de base",
+          "Reconnaissance des formes et des couleurs",
           "Exposition auditive bilingue",
         ],
       },
       {
         label: "Développement social",
         items: [
-          "Ateliers de régulation émotionnelles",
+          "Ateliers de régulation émotionnelle",
           "Fondements du jeu coopératif",
           "Histoires qui développent l'empathie",
         ],
@@ -47,11 +44,10 @@ const curriculumLevels = [
     ],
   },
   {
-    title: "Fondements fondamentaux",
-    subtitle: "Maîtrise des fondamentaux",
-    grades: "Niveaux 1 à 5",
+    title: "Fondamentale · 1ᵉʳ & 2ᵉ Cycles",
+    kicker: "Maîtrise des fondamentaux",
+    grades: "Dès 5 ans ½ · 1ʳᵉ à 6ᵉ année (API)",
     icon: Microscope,
-    color: "indigo",
     details: [
       {
         label: "Corps académique",
@@ -62,9 +58,9 @@ const curriculumLevels = [
         ],
       },
       {
-        label: "Intégration des STIM",
+        label: "Intégration STIM",
         items: [
-          "Introduction à la logique/au codage",
+          "Introduction à la logique et au codage",
           "Science du jardinage durable",
           "Projets de conception",
         ],
@@ -72,32 +68,31 @@ const curriculumLevels = [
       {
         label: "Expression créative",
         items: [
-          "Temps d'atelier d'arts visuels",
+          "Ateliers d'arts visuels",
           "Théorie et pratique musicales",
-          "Confiance en soi lors de la prise de parole en public",
+          "Confiance à l'oral et prise de parole",
         ],
       },
     ],
   },
   {
-    title: "Croissance et identité",
-    subtitle: "Naviguer vers l'indépendance",
-    grades: "6e à 8e année",
+    title: "École Mixte le Saint Justien",
+    kicker: "Naviguer vers l'indépendance",
+    grades: "Dès 10 ans · 3ᵉ Cycle Fondamental",
     icon: Brain,
-    color: "cyan",
     details: [
       {
         label: "Noyau avancé",
         items: [
-          "Revues de la littérature analytique",
+          "Lectures et critiques littéraires",
           "Pré-algèbre et géométrie",
-          "études géopolitiques mondiales",
+          "Études géopolitiques mondiales",
         ],
       },
       {
         label: "Laboratoire d'innovation",
         items: [
-          "Principes de base du développement d'applications",
+          "Principes du développement d'applications",
           "Robotique et ingénierie",
           "Défense de l'environnement",
         ],
@@ -113,11 +108,10 @@ const curriculumLevels = [
     ],
   },
   {
-    title: "Futurs leaders",
-    subtitle: "Préparation à l'impact",
-    grades: "9e à 12e année",
+    title: "Institution le Saint Justien",
+    kicker: "Préparation à l'impact",
+    grades: "Après le Fondamental · Secondaire (ISAJ)",
     icon: Rocket,
-    color: "emerald",
     details: [
       {
         label: "Excellence académique",
@@ -130,129 +124,193 @@ const curriculumLevels = [
       {
         label: "Préparation au monde réel",
         items: [
-          "Stage en entreprise",
+          "Stages en entreprise",
           "Programme passerelle universitaire",
-          "l'entrepreneuriat social",
+          "Entrepreneuriat social",
         ],
       },
       {
         label: "Citoyen du monde",
         items: [
-          "Objectifs de maîtrise multilingue",
-          "Préparation aux échanges internationaux",
+          "Maîtrise multilingue",
+          "Échanges internationaux",
           "Projets à impact communautaire",
         ],
       },
     ],
   },
 ];
+
+const overviewFigures = [
+  { value: "4", label: "Cycles complets" },
+  { value: "5", suffix: "+", label: "Langues enseignées" },
+  { value: "12", label: "Ateliers spécialisés" },
+  { value: "1:8", label: "Ratio en maternelle" },
+];
 ---
 
 <Layout>
-  <span class="hidden text-cyan-500"></span>
   <section
-    class="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8"
+    class="mx-auto max-w-7xl px-4 pt-12 pb-20 sm:px-6 lg:px-8 lg:pt-16 lg:pb-24"
   >
-    <div
-      class="mb-16 flex flex-col items-center justify-between gap-8 md:flex-row"
+    {/* Breadcrumb */}
+    <a
+      href="/"
+      class="group inline-flex items-center gap-2 text-[0.85rem] text-ink-mute transition-colors hover:text-ink"
     >
-      <div>
-        <a
-          href="/"
-          class="group mb-6 flex items-center text-slate-500 transition-colors hover:text-blue-600"
-        >
-          <ArrowLeft
-            size={20}
-            className="mr-2 transform transition-transform group-hover:-translate-x-1"
-          />
-          Back to Home
-        </a>
-        <h1 class="text-4xl leading-tight font-bold text-slate-900 md:text-6xl">
-          ISAJ <span class="font-serif text-blue-600 italic">Prospectus</span> 2026
-        </h1>
-        <p class="mt-4 max-w-2xl text-lg text-slate-500">
-          Un regard transparent et détaillé sur la manière dont nous cultivons
-          le potentiel à chaque étape unique du développement éducatif d'un
-          enfant.
-        </p>
-      </div>
+      <ArrowLeft
+        size={15}
+        className="transition-transform group-hover:-translate-x-0.5"
+      />
+      Retour à l'accueil
+    </a>
 
-      <div class="hidden gap-4 lg:flex">
-        <div
-          class="rounded-4xl border border-blue-50 bg-white p-6 text-center shadow-xl"
+    {/* Header */}
+    <div class="mt-10 grid grid-cols-1 items-end gap-10 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-8">
+        <p
+          class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute"
         >
-          <Globe className="mx-auto mb-2 text-blue-500" size={24} />
-          <div class="text-2xl font-bold">5+</div>
-          <div class="text-[10px] font-bold text-slate-400 uppercase">
-            Langues
-          </div>
-        </div>
-        <div
-          class="rounded-4xl border border-blue-50 bg-white p-6 text-center shadow-xl"
+          Prospectus · Année scolaire 2026
+        </p>
+        <h1
+          class="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5.5rem]"
         >
-          <Palette className="mx-auto mb-2 text-indigo-500" size={24} />
-          <div class="text-2xl font-bold">10+</div>
-          <div class="text-[10px] font-bold text-slate-400 uppercase">
-            Ateliers
-          </div>
-        </div>
+          Le programme,
+          <span class="font-display italic font-normal text-brand-deep"
+            >chapitre par chapitre.</span
+          >
+        </h1>
       </div>
+      <p
+        class="pretty max-w-md text-[1rem] leading-relaxed text-ink-mute lg:col-span-4"
+      >
+        Un regard transparent et détaillé sur la manière dont nous cultivons le
+        potentiel à chaque étape du développement éducatif d'un enfant.
+      </p>
     </div>
 
-    <div class="space-y-24">
+    {/* Overview strip */}
+    <div
+      class="mt-16 grid grid-cols-2 gap-y-8 border-y border-black/[0.07] py-8 lg:grid-cols-4"
+    >
       {
-        curriculumLevels.map((level, idx) => (
-          <div class="group relative">
-            <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12">
-              {/* Sidebar Info */}
-              <div class="lg:col-span-4">
-                <div class="sticky top-32">
-                  <div class="mb-6 flex items-center gap-4">
-                    <div class="rounded-2xl border border-slate-50 bg-white p-4 shadow-lg transition-transform group-hover:scale-110">
-                      <level.icon
-                        className={`text-${level.color}-500`}
-                        size={32}
-                      />
-                    </div>
-                    <div>
-                      <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">
-                        {level.grades}
-                      </span>
-                      <h2 class="text-3xl font-bold text-slate-900">
-                        {level.title}
-                      </h2>
-                    </div>
-                  </div>
-                  <p class="mb-8 font-serif text-lg text-slate-500 italic">
-                    "{level.subtitle}"
-                  </p>
-                  <div
-                    class={`h-1 w-20 bg-${level.color}-500 mb-8 rounded-full`}
-                  />
-                  <a
-                    href={`/grade/${idx + 1}`}
-                    class="flex items-center text-sm font-bold text-blue-600 transition-all hover:gap-2"
-                  >
-                    Demander le programme complet{" "}
-                    <Sparkles className="ml-2" size={16} />
-                  </a>
-                </div>
-              </div>
+        overviewFigures.map((f, i) => (
+          <div
+            class={`px-4 ${i > 0 ? "lg:border-l lg:border-black/[0.07]" : ""}`}
+          >
+            <div class="tabular text-[2rem] font-semibold leading-none tracking-[-0.025em] text-ink md:text-[2.5rem]">
+              {f.value}
+              {f.suffix && <span class="text-ink-mute/50">{f.suffix}</span>}
+            </div>
+            <p class="mt-2.5 text-[0.78rem] leading-snug text-ink-mute">
+              {f.label}
+            </p>
+          </div>
+        ))
+      }
+    </div>
 
-              {/* Curriculum Breakdown */}
-              <div class="grid grid-cols-1 gap-8 md:grid-cols-3 lg:col-span-8">
+    {/* Table of contents */}
+    <div class="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <p
+        class="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute lg:col-span-3"
+      >
+        Sommaire
+      </p>
+      <ol class="space-y-1 lg:col-span-9">
+        {
+          curriculumLevels.map((level, idx) => (
+            <li>
+              <a
+                href={`#chapitre-${idx + 1}`}
+                class="group flex items-baseline justify-between gap-4 border-b border-black/[0.06] py-3.5 transition-colors hover:text-brand-deep"
+              >
+                <span class="flex items-baseline gap-5">
+                  <span class="tabular text-[0.78rem] font-medium text-ink-mute">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span class="font-display text-[1.15rem] leading-tight text-ink transition-colors group-hover:text-brand-deep">
+                    {level.title}
+                  </span>
+                </span>
+                <span
+                  class="hidden flex-1 self-end border-b border-dotted border-black/15 mx-3 mb-2 md:block"
+                />
+                <span class="text-[0.8rem] text-ink-mute whitespace-nowrap">
+                  {level.grades}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* ============== Chapters ============== */}
+  {
+    curriculumLevels.map((level, idx) => (
+      <section
+        id={`chapitre-${idx + 1}`}
+        class={`scroll-mt-24 ${idx % 2 === 1 ? "bg-white" : ""}`}
+      >
+        <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+          <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* Sidebar */}
+            <div class="lg:col-span-4">
+              <div class="lg:sticky lg:top-28">
+                <div class="flex items-center justify-between">
+                  <p class="tabular text-[0.78rem] font-medium tracking-[0.18em] text-ink-mute uppercase">
+                    Chapitre {String(idx + 1).padStart(2, "0")} / 04
+                  </p>
+                  <level.icon
+                    size={20}
+                    strokeWidth={1.6}
+                    className="text-ink-mute"
+                  />
+                </div>
+
+                <h2 class="tracking-headline mt-10 text-[1.75rem] font-semibold leading-[1.05] text-ink sm:text-4xl md:text-[3rem]">
+                  {level.title}
+                </h2>
+
+                <p class="font-display mt-4 text-[1.25rem] leading-snug italic text-ink-soft">
+                  {level.kicker}.
+                </p>
+
+                <p class="mt-6 text-[0.85rem] text-brand-deep">
+                  {level.grades}
+                </p>
+
+                <a
+                  href={`/grade/${idx + 1}`}
+                  class="group mt-10 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-ink underline decoration-ink/15 decoration-1 underline-offset-[6px] transition-colors hover:text-brand-deep hover:decoration-brand-deep"
+                >
+                  Demander le programme complet
+                  <ArrowUpRight
+                    size={14}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </a>
+              </div>
+            </div>
+
+            {/* Detail columns */}
+            <div class="lg:col-span-8">
+              <div class="grid grid-cols-1 gap-px overflow-hidden rounded-[1.5rem] bg-black/[0.06] md:grid-cols-3">
                 {level.details.map((detail, dIdx) => (
-                  <div class="rounded-[2.5rem] border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5 transition-colors hover:border-blue-200">
-                    <h4 class="mb-6 border-b border-slate-50 pb-4 font-bold text-slate-900">
+                  <div class="flex flex-col bg-[var(--color-paper)] p-7 lg:p-8">
+                    <span class="tabular text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase">
+                      {String(dIdx + 1).padStart(2, "0")}
+                    </span>
+                    <h3 class="font-display mt-8 text-[1.1rem] font-medium leading-tight text-ink">
                       {detail.label}
-                    </h4>
-                    <ul class="space-y-4">
-                      {detail.items.map((item, iIdx) => (
-                        <li class="flex items-start gap-3 text-sm leading-tight text-slate-600">
-                          <CheckCircle2
-                            size={16}
-                            className="text-blue-500 mt-0.5 shrink-0"
-                          />
+                    </h3>
+                    <ul class="mt-5 space-y-3">
+                      {detail.items.map((item) => (
+                        <li class="flex items-start gap-2.5 text-[0.88rem] leading-snug text-ink-soft">
+                          <span class="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-ink/30" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -261,44 +319,65 @@ const curriculumLevels = [
                 ))}
               </div>
             </div>
-            {/* Divider */}
-            {idx < curriculumLevels.length - 1 && (
-              <div class="absolute -bottom-12 left-0 flex w-full justify-center opacity-10">
-                <div class="h-12 w-1 rounded-full bg-blue-500" />
-              </div>
-            )}
           </div>
-        ))
-      }
-    </div>
+        </div>
+      </section>
+    ))
+  }
 
+  {/* ============== Bottom CTA ============== */}
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
     <div
-      class="relative mt-32 overflow-hidden rounded-[3rem] bg-slate-900 p-12 text-center text-white"
+      class="grain relative overflow-hidden rounded-[2.25rem] bg-ink p-10 text-white md:rounded-[2.5rem] md:p-16"
     >
-      <h3 class="relative z-10 mb-6 text-3xl font-bold md:text-4xl">
-        Prêts à façonner leur avenir ?
-      </h3>
-      <p class="relative z-10 mx-auto mb-10 max-w-xl text-slate-400">
-        Participez à notre prochaine journée portes ouvertes virtuelle pour
-        discuter directement avec nos chefs de service et découvrir nos
-        installations.
-      </p>
-      <div class="relative z-10 flex flex-col justify-center gap-4 sm:flex-row">
-        <a
-          href="/"
-          class="rounded-2xl bg-blue-600 px-10 py-4 font-bold text-white shadow-xl shadow-blue-500/20 transition-all hover:bg-blue-700"
-        >
-          Réservez une visite
-        </a>
-      </div>
-      {/* Background blobs */}
       <div
-        class="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-32 right-0 h-[40rem] w-[40rem] rounded-full"
+        style="background: radial-gradient(circle, rgba(38,87,238,0.22) 0%, transparent 60%)"
       >
       </div>
-      <div
-        class="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl"
-      >
+
+      <div class="relative grid grid-cols-1 items-end gap-10 md:grid-cols-12">
+        <div class="md:col-span-7">
+          <p class="text-[0.72rem] uppercase tracking-[0.22em] text-white/45">
+            Visite portes ouvertes
+          </p>
+          <h2
+            class="tracking-headline balance mt-4 text-[1.75rem] font-semibold leading-[1.05] sm:text-4xl md:text-[3.5rem]"
+          >
+            Prêts à façonner <span
+              class="font-display italic font-normal text-white/75"
+              >leur avenir</span
+            >&nbsp;?
+          </h2>
+          <p class="mt-6 max-w-lg text-[0.95rem] leading-relaxed text-white/55">
+            Participez à notre prochaine visite pour échanger avec nos chefs de
+            service, voir les classes en mouvement et poser toutes vos
+            questions.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 md:col-span-5 md:items-end">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[0.95rem] font-medium text-ink transition-all hover:bg-white/90 active:scale-[0.98]"
+          >
+            Réserver une visite
+            <ArrowUpRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
+          <a
+            href="/enrollment"
+            class="group inline-flex items-center gap-1.5 text-[0.88rem] font-medium text-white/85 underline decoration-white/25 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-white"
+          >
+            Démarrer l'inscription
+            <ArrowRight
+              size={13}
+              className="transition-transform group-hover:translate-x-0.5"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </section>

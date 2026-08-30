@@ -1,132 +1,305 @@
 ---
-import {
-  BrainCircuit,
-  GraduationCap,
-  Heart,
-  Palette,
-  Quote,
-  Star,
-} from "lucide-react";
+import { Image } from "astro:assets";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
 import director1 from "../assets/director-1.jpeg";
+import director3 from "../assets/3.jpeg";
 import teams from "../assets/teams.jpeg";
-import director from "../assets/3.jpeg";
-import { Image } from 'astro:assets';
+import img5 from "../assets/5.jpeg";
+import img7 from "../assets/7.jpeg";
+import img10 from "../assets/10.jpeg";
 
-const staff = [
+const mentors = [
   {
     name: "James Wilson",
-    role: "Art & Creativity",
-    image: director,
-    color: "bg-green-100",
-    icon: Palette,
+    role: "Arts & Créativité",
+    discipline: "Peinture · Design · Médias numériques",
+    image: director3,
   },
   {
     name: "Elena Rodriguez",
-    role: "STEM Specialist",
+    role: "Spécialiste STEM",
+    discipline: "Sciences · Robotique · Mathématiques",
     image: teams,
-    color: "bg-blue-100",
-    icon: BrainCircuit,
   },
- 
+  {
+    name: "Marie-Claire Joseph",
+    role: "Langues vivantes",
+    discipline: "Français · Anglais · Espagnol",
+    image: img5,
+  },
+  {
+    name: "Patrick Beaumont",
+    role: "Éducation physique",
+    discipline: "Athlétisme · Football · Natation",
+    image: img7,
+  },
+  {
+    name: "Naomi Saint-Louis",
+    role: "Sciences humaines",
+    discipline: "Histoire · Géographie · Civisme",
+    image: img10,
+  },
+];
+
+const principles = [
+  {
+    no: "01",
+    title: "L'élève d'abord",
+    body: "Chaque décision pédagogique part de l'enfant — de sa curiosité, de son rythme, de sa voix.",
+  },
+  {
+    no: "02",
+    title: "Exigence bienveillante",
+    body: "Hauts standards académiques portés par un accompagnement humain et patient.",
+  },
+  {
+    no: "03",
+    title: "Formation continue",
+    body: "Nos éducateurs se forment toute l'année — pour rester en mouvement avec le monde.",
+  },
+];
+
+const figures = [
+  { value: "20", suffix: "+", label: "Éducateurs certifiés" },
+  { value: "12", suffix: " ans", label: "Expérience moyenne" },
+  { value: "1:8", label: "Ratio élève / enseignant" },
+  { value: "5", label: "Disciplines spécialisées" },
 ];
 ---
 
 <Layout>
-  <section
-    id="team"
-    class="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-7xl overflow-hidden px-4 py-24 duration-700 sm:px-6 lg:px-8"
-  >
-    {/* Section Header */}
-    <div class="mb-20 text-center">
-      <span
-        class="mb-4 block text-xs font-bold tracking-widest text-blue-500 uppercase"
-        >Notre personnel dévoué</span
-      >
-      <h2 class="mb-4 text-4xl font-bold text-[#3D2C26] md:text-5xl">
-        The <span class="font-serif text-blue-500 italic">Cœur</span> de  L'Institution le Saint Justien (ISAJ)
-      </h2>
-      <p class="mx-auto max-w-2xl text-gray-500">
-        Rencontrez les éducateurs et les mentors passionnés qui se consacrent à façonner l'avenir de votre enfant avec amour et créativité.
+  {/* ============== Hero ============== */}
+  <section class="mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6 lg:px-8 lg:pt-24">
+    <div class="grid grid-cols-1 items-end gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+          Notre équipe
+        </p>
+        <h1
+          class="tracking-headline balance text-[2rem] font-semibold leading-[1.02] text-ink sm:text-5xl md:text-[5.5rem]"
+        >
+          Le <span class="font-display italic font-normal text-brand-deep">cœur</span> battant d'ISAJ.
+        </h1>
+      </div>
+      <p class="pretty max-w-md text-[1rem] leading-relaxed text-ink-mute lg:col-span-4">
+        Rencontrez les éducateurs et les mentors qui consacrent leurs journées à éveiller la curiosité et à révéler le potentiel de chaque enfant.
       </p>
     </div>
+  </section>
 
-    {/* Director Spotlight */}
-    <div
-      class="mb-32 grid grid-cols-1 items-center gap-16 rounded-[3rem] border border-gray-50 bg-white p-8 shadow-xl shadow-gray-100 md:p-16 lg:grid-cols-2"
-    >
-      <div class="relative">
+  {/* ============== Director Spotlight ============== */}
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-20">
+      {/* Image — broken-grid frame */}
+      <div class="relative lg:col-span-5">
+        <Image
+          src={director1}
+          width={700}
+          height={840}
+          alt="Osnel Saint Juste — Directeur fondateur de l'Institution le Saint Justien"
+          class="aspect-[5/6] w-full rounded-[2rem] object-cover shadow-ink-lg"
+        />
+        {/* Floating credential card */}
         <div
-          class="blob-shape-1 aspect-square w-full overflow-hidden border-8 border-white bg-blue-100 shadow-2xl md:aspect-4/5"
+          class="absolute -bottom-6 -right-6 hidden w-[15rem] rounded-2xl border border-black/[0.06] bg-white p-5 shadow-ink md:block"
         >
-          <Image
-            src={director1}
-            width={500}
-            height={500}
-            alt="School Director"
-            class="h-full w-full object-cover"
-          />
-        </div>
-        {/* Decorative element */}
-        <div
-          class="absolute -right-6 -bottom-6 animate-pulse rounded-full bg-yellow-400 p-6 shadow-lg"
-        >
-          <GraduationCap className="text-white" size={32} />
-        </div>
-      </div>
-
-      <div class="relative">
-        <Quote className="absolute -top-10 -left-6 text-blue-200" size={80} />
-        <h3
-          class="mb-4 text-sm font-bold tracking-widest text-blue-500 uppercase"
-        >
-          Directeur fondateur
-        </h3>
-        <h4 class="mb-6 text-3xl font-bold text-[#3D2C26] md:text-4xl">
-          Osnel Saint Juste
-        </h4>
-        <p class="mb-8 font-serif text-lg leading-relaxed text-gray-600 italic">
-          "L'éducation est le levier le plus puissant pour transformer une vie, une famille, une communauté. C'est cette conviction qui nous a poussés, malgré les obstacles, à ouvrir les portes de l'ISAJ en 2011 — pour que chaque enfant de la plaine du Cul-de-Sac ait sa chance."
-        </p>
-        <div class="flex items-center gap-4 border-t border-gray-100 pt-8">
-          <p class="text-xs font-medium text-gray-500">
-            Fondateur de l'ISAJ · Depuis 2011 · <span class="text-blue-600">Diplômé de l'École Normale Supérieure (ENS)</span>
+          <p class="text-[0.72rem] uppercase tracking-[0.18em] text-ink-mute">
+            À la tête de
+          </p>
+          <p class="mt-2 font-display text-[1.4rem] leading-tight italic text-ink">
+            20+ éducateurs certifiés
+          </p>
+          <p class="mt-2 text-[0.78rem] leading-snug text-ink-mute">
+            Présents sur le campus chaque jour.
           </p>
         </div>
       </div>
+
+      {/* Body */}
+      <div class="lg:col-span-7">
+        <p class=”mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute”>
+          Directeur fondateur
+        </p>
+        <h2 class=”text-[1.75rem] font-semibold leading-[1.05] tracking-[-0.025em] text-ink sm:text-4xl md:text-[3.25rem]”>
+          Osnel Saint Juste
+        </h2>
+
+        <blockquote class=”relative mt-8 max-w-2xl”>
+          <span
+            aria-hidden=”true”
+            class=”font-display absolute -left-3 -top-6 text-[5rem] leading-none text-brand/20”
+            >”</span
+          >
+          <p class=”font-display text-[1.45rem] leading-[1.4] italic text-ink md:text-[1.75rem]”>
+            L'éducation est le levier le plus puissant pour transformer une vie, une famille, une communauté. C'est cette conviction qui nous a poussés, malgré les obstacles, à ouvrir les portes de l'ISAJ — pour que chaque enfant de la plaine du Cul-de-Sac ait sa chance.
+          </p>
+        </blockquote>
+
+        <div class=”mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-black/[0.07] pt-6 text-[0.85rem] text-ink-mute”>
+          <span class=”inline-flex items-center gap-2”>
+            <span class=”h-1.5 w-1.5 rounded-full bg-brand”></span>
+            Fondateur de l'ISAJ · Depuis 2011
+          </span>
+          <span class=”inline-flex items-center gap-2”>
+            <span class=”h-1.5 w-1.5 rounded-full bg-brand”></span>
+            Diplômé de l'École Normale Supérieure (ENS)
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ============== Principles ============== */}
+  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <div class="mb-14 max-w-2xl">
+      <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+        Ce qui nous porte
+      </p>
+      <h2 class="tracking-headline balance text-[1.75rem] font-semibold leading-[1.05] text-ink sm:text-4xl md:text-[3.25rem]">
+        Trois principes <span class="font-display italic font-normal text-brand-deep">non négociables.</span>
+      </h2>
     </div>
 
-    {/* Staff Grid */}
-    <div class="mb-12 text-center">
-      <h3 class="text-2xl font-bold text-[#3D2C26]">Rencontrez nos Mentors</h3>
-    </div>
-
-    <div class="flex items-center justify-center gap-20">
+    <ol class="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] bg-black/[0.06] md:grid-cols-3">
       {
-        staff.map((member, idx) => (
-          <div class="group text-center">
-            <div
-              class={`relative mx-auto mb-6 size-64 transform transition-all duration-500 group-hover:-translate-y-2`}
-            >
-              <div
-                class={`absolute inset-0 ${member.color} blob-shape-2 rotate-12 opacity-60 transition-transform duration-700 group-hover:rotate-45`}
-              />
-              <div class="relative z-10 size-64 overflow-hidden rounded-full border-4 border-white shadow-lg">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  class="h-full w-full object-cover transition-all duration-500 group-hover:grayscale-0"
-                />
-              </div>
-              <div class="absolute -right-2 -bottom-2 z-20 transform rounded-xl bg-white p-3 shadow-lg transition-transform group-hover:scale-110">
-                <member.icon className="text-blue-500" size={18} />
-              </div>
-            </div>
-            <h5 class="mb-1 text-xl font-bold text-[#3D2C26]">{member.name}</h5>
-            <p class="text-sm font-medium text-gray-500">{member.role}</p>
-          </div>
+        principles.map((p) => (
+          <li class="flex flex-col bg-white p-9 lg:p-10">
+            <span class="tabular text-[0.78rem] font-medium text-ink-mute">{p.no} / 03</span>
+            <h3 class="mt-12 font-display text-[1.5rem] font-medium leading-tight tracking-[-0.015em] text-ink">
+              {p.title}
+            </h3>
+            <p class="mt-3 text-[0.92rem] leading-relaxed text-ink-mute">{p.body}</p>
+          </li>
         ))
       }
+    </ol>
+  </section>
+
+  {/* ============== Mentors Grid ============== */}
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="mb-14 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+      <div class="max-w-2xl">
+        <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+          Rencontrez nos mentors
+        </p>
+        <h2 class="tracking-headline balance text-[1.75rem] font-semibold leading-[1.05] text-ink sm:text-4xl md:text-[3rem]">
+          Des éducateurs qui <span class="font-display italic font-normal text-brand-deep">croient</span> en chaque élève.
+        </h2>
+      </div>
+      <p class="max-w-sm text-[0.92rem] leading-relaxed text-ink-mute">
+        Chaque discipline est portée par un spécialiste dédié — formé, expérimenté, et profondément investi.
+      </p>
+    </div>
+
+    {/* Editorial portrait grid — varied aspect ratios, alternating offsets */}
+    <ul class="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-7">
+      {
+        mentors.map((m, i) => (
+          <li class={`group ${i % 2 === 1 ? "lg:translate-y-12" : ""}`}>
+            <div class="relative overflow-hidden rounded-[1.25rem]">
+              <Image
+                src={m.image}
+                width={500}
+                height={650}
+                alt={`Portrait de ${m.name}, ${m.role}`}
+                class="aspect-[4/5] w-full object-cover transition-all duration-[1200ms] ease-out group-hover:scale-[1.04]"
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent" />
+            </div>
+            <div class="mt-4">
+              <p class="font-display text-[1.15rem] font-medium leading-tight text-ink">
+                {m.name}
+              </p>
+              <p class="mt-0.5 text-[0.82rem] text-brand-deep">{m.role}</p>
+              <p class="mt-2 text-[0.75rem] leading-snug text-ink-mute">
+                {m.discipline}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {/* ============== Team Figures (dark band) ============== */}
+  <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+    <div
+      class="grain relative overflow-hidden rounded-[2.25rem] bg-ink p-10 text-white md:rounded-[2.5rem] md:p-14"
+    >
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full"
+        style="background: radial-gradient(circle, rgba(38,87,238,0.22) 0%, transparent 60%)"
+      >
+      </div>
+
+      <div class="relative mb-12 max-w-2xl">
+        <p class="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-white/45">
+          L'équipe en chiffres
+        </p>
+        <h2 class="tracking-headline balance text-[1.75rem] font-semibold leading-[1.05] sm:text-4xl md:text-[3rem]">
+          Une équipe construite pour <span class="font-display italic font-normal text-white/75">durer.</span>
+        </h2>
+      </div>
+
+      <div class="relative grid grid-cols-2 gap-y-10 lg:grid-cols-4 lg:gap-y-0">
+        {
+          figures.map((f, i) => (
+            <div
+              class={`px-2 ${i > 0 ? "lg:border-l lg:border-white/10 lg:px-7" : "lg:pr-7"}`}
+            >
+              <div class="tabular text-[2.25rem] font-semibold leading-none tracking-[-0.04em] md:text-[2.75rem] lg:text-[3.25rem]">
+                {f.value}
+                {f.suffix && <span class="text-white/40">{f.suffix}</span>}
+              </div>
+              <p class="mt-3 max-w-[16ch] text-[0.78rem] leading-snug text-white/55">
+                {f.label}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ============== Join CTA ============== */}
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
+    <div
+      class="grid grid-cols-1 items-center gap-8 rounded-[2rem] border border-black/[0.06] bg-white p-9 md:grid-cols-2 md:p-12"
+    >
+      <div>
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-black/[0.08] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-ink-mute">
+          <Sparkles size={12} strokeWidth={1.8} />
+          Nous recrutons
+        </div>
+        <h2 class="tracking-headline text-3xl font-semibold leading-[1.1] text-ink md:text-[2.5rem]">
+          Vous voulez transmettre <span class="font-display italic font-normal text-brand-deep">votre passion</span> ?
+        </h2>
+        <p class="mt-4 max-w-md text-[0.95rem] leading-relaxed text-ink-mute">
+          Nous accueillons les enseignants qui croient à une éducation exigeante et humaine. Postes ouverts en sciences, langues et arts.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3 md:items-end">
+        <a
+          href="/contact"
+          class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
+        >
+          Soumettez votre candidature
+          <ArrowUpRight
+            size={16}
+            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </a>
+        <a
+          href="/curriculum"
+          class="group inline-flex items-center gap-1.5 text-[0.85rem] font-medium text-ink-mute underline decoration-ink/15 decoration-1 underline-offset-[6px] transition-colors hover:text-ink hover:decoration-ink"
+        >
+          Découvrir notre programme
+          <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

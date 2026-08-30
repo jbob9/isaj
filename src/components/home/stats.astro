@@ -1,88 +1,49 @@
 ---
-import { Microscope, Send, ShieldCheck, Trophy, Users } from "lucide-react";
+const stats = [
+  { value: "1:8", label: "Ratio élève / enseignant" },
+  { value: "100%", label: "Sécurité du campus" },
+  { value: "15", suffix: "+", label: "Laboratoires spécialisés" },
+  { value: "98%", label: "Taux de réussite" },
+];
 ---
 
-<div
-  class="relative z-20 mx-auto -mt-10 max-w-6xl px-4 sm:px-6 lg:-mt-16 lg:px-8"
+<section
+  class="relative z-20 mx-auto -mt-2 mb-4 max-w-6xl px-4 sm:px-6 lg:px-8"
 >
   <div
-    class="relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white shadow-2xl md:rounded-[3rem] lg:p-12"
+    class="relative grain overflow-hidden rounded-[2.25rem] bg-ink p-8 text-white shadow-ink-lg md:rounded-[2.5rem] md:p-10"
   >
-    {/* Paper airplane decoration */}
+    {/* hairline edge */}
     <div
-      class="absolute top-6 right-8 hidden animate-pulse text-blue-400/20 md:block"
+      class="pointer-events-none absolute inset-0 rounded-[inherit]"
+      style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 0 1px rgba(255,255,255,0.04)"
     >
-      <Send size={32} className="rotate-[-15deg]" />
     </div>
 
-    <div
-      class="grid grid-cols-1 items-center gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4"
-    >
-      {/* Stat 1: Ratio */}
-      <div class="flex items-center gap-5 px-4">
-        <div class="shrink-0 rounded-2xl bg-blue-500/20 p-4">
-          <Users className="text-blue-500" size={28} />
-        </div>
-        <div>
-          <div class="text-3xl font-bold">1:8</div>
-          <p
-            class="mt-1 text-[10px] leading-tight font-bold tracking-widest text-slate-400 uppercase"
+    <div class="relative grid grid-cols-2 gap-y-10 lg:grid-cols-4 lg:gap-y-0">
+      {
+        stats.map((s, i) => (
+          <div
+            class={`relative px-4 ${i > 0 ? "lg:border-l lg:border-white/8" : ""}`}
           >
-            Étudiant-enseignant<br />Ratio
-          </p>
-        </div>
-      </div>
-
-      {/* Stat 2: Security */}
-      <div class="flex items-center gap-5 px-4 lg:border-l lg:border-slate-800">
-        <div class="shrink-0 rounded-2xl bg-emerald-500/20 p-4">
-          <ShieldCheck className="text-emerald-500" size={28} />
-        </div>
-        <div>
-          <div class="text-3xl font-bold">100%</div>
-          <p
-            class="mt-1 text-[10px] leading-tight font-bold tracking-widest text-slate-400 uppercase"
-          >
-            Sécurité du campus
-          </p>
-        </div>
-      </div>
-
-      {/* Stat 3: Facilities */}
-      <div class="flex items-center gap-5 px-4 lg:border-l lg:border-slate-800">
-        <div class="shrink-0 rounded-2xl bg-indigo-500/20 p-4">
-          <Microscope className="text-indigo-400" size={28} />
-        </div>
-        <div>
-          <div class="text-3xl font-bold">15+</div>
-          <p
-            class="mt-1 text-[10px] leading-tight font-bold tracking-widest text-slate-400 uppercase"
-          >
-            Laboratoires d'activités<br />spécialisées
-          </p>
-        </div>
-      </div>
-
-      {/* Stat 4: Success */}
-      <div class="flex items-center gap-5 px-4 lg:border-l lg:border-slate-800">
-        <div class="shrink-0 rounded-2xl bg-amber-500/20 p-4">
-          <Trophy className="text-amber-500" size={28} />
-        </div>
-        <div>
-          <div class="text-3xl font-bold">98%</div>
-          <p
-            class="mt-1 text-[10px] leading-tight font-bold tracking-widest text-slate-400 uppercase"
-          >
-            Taux de réussite
-          </p>
-        </div>
-      </div>
+            <div class="tabular text-[2.25rem] font-semibold leading-none tracking-[-0.04em] text-white md:text-[2.75rem] lg:text-[3.25rem]">
+              {s.value}
+              {s.suffix && <span class="text-white/40">{s.suffix}</span>}
+            </div>
+            <p class="mt-3 max-w-[16ch] text-[0.78rem] leading-snug text-white/55">
+              {s.label}
+            </p>
+          </div>
+        ))
+      }
     </div>
 
-    {/* Decorative background blur */}
+    {/* Caption strip */}
     <div
-      class="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-blue-500/5 blur-3xl"
+      class="relative mt-10 flex flex-col items-start justify-between gap-3 border-t border-white/8 pt-6 text-[0.76rem] text-white/45 md:flex-row md:items-center"
     >
+      <span class="uppercase tracking-[0.22em]">L'école en chiffres · 2025</span>
+      <span class="font-display italic text-white/70">Croix des Bouquets, Haïti</span>
     </div>
   </div>
-</div>
+</section>

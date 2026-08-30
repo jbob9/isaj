@@ -1,149 +1,129 @@
-import { Images, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const links = [
+  { href: "/", label: "Accueil", match: (p: string) => p === "/" },
+  {
+    href: "/curriculum",
+    label: "Programme",
+    match: (p: string) => p.startsWith("/curriculum") || p.startsWith("/grade"),
+  },
+  { href: "/gallery", label: "Galerie", match: (p: string) => p.startsWith("/gallery") },
+  { href: "/teams", label: "Notre équipe", match: (p: string) => p.startsWith("/teams") },
+  { href: "/contact", label: "Contact", match: (p: string) => p.startsWith("/contact") },
+];
 
 const Navbar = () => {
-  const [currentView, setCurrentView] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [path, setPath] = useState("/");
 
-  const handleNavigate = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    setPath(window.location.pathname);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-blue-100 bg-[#F0F7FF]/80 backdrop-blur-md">
+    <nav
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-black/[0.06] bg-[var(--color-paper)]/85 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center justify-between md:h-18">
           <a
             href="/"
-            className="flex items-center"
-            onClick={() => handleNavigate()}
+            className="group flex items-center gap-2"
+            onClick={() => setIsOpen(false)}
           >
-            <span className="flex cursor-pointer items-center text-2xl font-bold text-slate-900">
-              ISAJ<span className="text-blue-600">.</span>
+            <span className="font-display text-[1.6rem] leading-none font-semibold tracking-tight text-[var(--color-ink)]">
+              ISAJ
             </span>
+            <span className="font-display text-[1.6rem] leading-none text-[var(--color-brand)]">.</span>
           </a>
 
-          <div className="hidden items-center space-x-8 md:flex">
-            <a
-              href="/"
-              onClick={() => handleNavigate()}
-              className={`text-sm font-medium transition-colors ${
-                currentView === "home"
-                  ? "text-blue-600"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Accueil
-            </a>
-            <div className="group relative">
-              <a
-                href="/curriculum"
-                onClick={() => handleNavigate()}
-                className="flex items-center text-sm font-medium text-slate-700 transition-colors group-hover:text-blue-600"
-              >
-                Programme
-              </a>
-            </div>
-            <a
-              href="/gallery"
-              onClick={() => handleNavigate()}
-              className={`text-sm font-medium transition-colors ${
-                currentView === "gallery"
-                  ? "text-blue-600"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Galerie
-            </a>
-            <a
-              href="/teams"
-              onClick={() => handleNavigate()}
-              className={`text-sm font-medium transition-colors ${
-                currentView === "team"
-                  ? "text-blue-600"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Notre équipe
-            </a>
-            <a
-              href="/contact"
-              onClick={() => handleNavigate()}
-              className={`text-sm font-medium transition-colors ${
-                currentView === "contact"
-                  ? "text-blue-600"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Contact
-            </a>
+          <div className="hidden items-center gap-1 md:flex">
+            {links.map((l) => {
+              const active = l.match(path);
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className={`group relative rounded-full px-4 py-2 text-[0.92rem] font-medium transition-colors ${
+                    active
+                      ? "text-[var(--color-ink)]"
+                      : "text-[var(--color-ink-mute)] hover:text-[var(--color-ink)]"
+                  }`}
+                >
+                  {l.label}
+                  <span
+                    className={`pointer-events-none absolute inset-x-4 -bottom-0.5 h-px origin-left bg-[var(--color-ink)] transition-transform duration-300 ${
+                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </div>
 
           <div className="hidden md:block">
             <a
               href="/enrollment"
-              className="rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-[var(--color-ink-soft)] active:scale-[0.97]"
             >
               Inscrire
+              <ArrowUpRight
+                size={15}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </a>
           </div>
 
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
             <a
-              href="/gallery"
-              className={`item-center flex gap-2 rounded-full border border-blue-200 bg-blue-100 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-600 uppercase`}
+              href="/enrollment"
+              className="rounded-full bg-[var(--color-ink)] px-4 py-2 text-xs font-medium text-white"
             >
-              <Images className="size-4" /> <span>Galleries</span>
+              Inscrire
             </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-700"
+              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              className="rounded-full p-2 text-[var(--color-ink)] transition-colors hover:bg-black/5"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
-        <div className="space-y-6 bg-white px-4 pt-2 pb-6 shadow-lg md:hidden">
-          <a
-            href="/"
-            onClick={() => handleNavigate()}
-            className="block w-full text-left text-base font-medium text-slate-700"
-          >
-            Accueil
-          </a>
-          <button className="block w-full text-left text-base font-medium text-slate-700">
-            Programme
-          </button>
-          <a
-            href="/teams"
-            onClick={() => handleNavigate()}
-            className="block w-full text-left text-base font-medium text-slate-700"
-          >
-            Notre équipe
-          </a>
-          <a
-            href="/contact"
-            onClick={() => handleNavigate()}
-            className="block w-full text-left text-base font-medium text-slate-700"
-          >
-            Contact
-          </a>
-          <a
-            href="/gallery"
-            className="block w-full text-left text-base font-medium text-slate-700"
-          >
-            Galerie
-          </a>
-          <a
-            href="/enrollment"
-            className="w-full rounded-full bg-slate-900 px-6 py-3 text-base font-medium text-white"
-          >
-            Inscrivez votre enfant
-          </a>
+        <div className="md:hidden">
+          <div className="mx-4 mb-4 rounded-3xl border border-black/[0.06] bg-white/95 p-3 shadow-ink backdrop-blur-xl">
+            {links.map((l) => {
+              const active = l.match(path);
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center justify-between rounded-2xl px-4 py-3 text-base font-medium transition-colors ${
+                    active
+                      ? "bg-[var(--color-brand-soft)] text-[var(--color-brand-deep)]"
+                      : "text-[var(--color-ink)] hover:bg-black/[0.03]"
+                  }`}
+                >
+                  {l.label}
+                  <ArrowUpRight size={16} className="opacity-50" />
+                </a>
+              );
+            })}
+          </div>
         </div>
       )}
     </nav>

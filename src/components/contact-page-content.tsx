@@ -1,22 +1,25 @@
-import { CheckCircle2, Clock, Mail, MapPin, Phone, Send } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Clock, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 
+const gradeOptions = [
+  "Préscolaire — API (2 à 6 ans)",
+  "Fondamentale 1ᵉʳ & 2ᵉ Cycles — API (dès 5 ans ½)",
+  "Fondamentale 3ᵉ Cycle — École Mixte le Saint Justien (dès 10 ans)",
+  "Secondaire — Institution le Saint Justien / ISAJ",
+];
+
 const ContactPageContent = () => {
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success">(
-    "idle",
-  );
+  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
   const [formData, setFormData] = useState({
     parentName: "",
     email: "",
-    interestedGrade: "Little Explorers (Toddler - Pre-K)",
+    interestedGrade: gradeOptions[0],
     phone: "",
     message: "",
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -26,154 +29,174 @@ const ContactPageContent = () => {
     e.preventDefault();
     setFormState("submitting");
 
-    // Format the information for the email body
     const emailBody = `
-Institution le Saint Justien (ISAJ) DEMANDE DE CONTACT
-========================
+Institution le Saint Justien (ISAJ) — DEMANDE DE CONTACT
+========================================================
 
-DÉTAILS DE L'EXPÉDITEUR :
-- Nom: ${formData.parentName}
-- Email: ${formData.email}
-- Téléphone: ${formData.phone || "Non fourni"}
-- Stade d'intérêt: ${formData.interestedGrade}
+EXPÉDITEUR :
+- Nom : ${formData.parentName}
+- Email : ${formData.email}
+- Téléphone : ${formData.phone || "Non fourni"}
+- Niveau d'intérêt : ${formData.interestedGrade}
 
-MESSAGE DU PARENT :
+MESSAGE :
 ------------------------------------
 ${formData.message}
 ------------------------------------
 
-Cette demande a été générée via le portail de contact de l'Institution le Saint Justien (ISAJ).
+Demande générée via le portail de contact ISAJ.
     `.trim();
 
-    const subject = `Nouvelle enquête: ${formData.parentName} (${formData.interestedGrade})`;
+    const subject = `Nouvelle enquête : ${formData.parentName} (${formData.interestedGrade})`;
     const recipient = "admissions@isaj.edu.ht";
-
-    // Construct Gmail URL
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
 
-    // Open Gmail in new tab
     window.open(gmailUrl, "_blank");
-
-    // Simulate a brief delay to show the spinner before the success message
-    setTimeout(() => {
-      setFormState("success");
-    }, 1000);
+    setTimeout(() => setFormState("success"), 800);
   };
+
+  const inputClass =
+    "w-full rounded-2xl border border-black/[0.07] bg-white px-4 py-3.5 text-[0.95rem] text-ink placeholder:text-ink-mute/60 transition-all outline-none focus:border-brand focus:ring-2 focus:ring-brand/15";
+
   return (
-    <section className="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl overflow-hidden px-4 py-12 duration-700 sm:px-6 md:py-24 lg:px-8">
-      <div className="mb-16 text-center md:mb-24">
-        <span className="mb-4 block text-xs font-bold tracking-widest text-blue-500 uppercase">
-         Entrer en contact
-        </span>
-        <h1 className="mb-6 text-4xl leading-tight font-bold text-[#3D2C26] md:text-6xl">
-          Commençons une{" "}
-          <span className="font-serif text-blue-500 italic">Conversation</span>
+    <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8 lg:pt-24 lg:pb-32">
+      {/* Header */}
+      <div className="mb-20 max-w-3xl">
+        <p className="mb-4 text-[0.72rem] tracking-[0.22em] text-ink-mute uppercase">
+          Entrer en contact
+        </p>
+        <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5rem]">
+          Commençons une <span className="font-display text-brand-deep font-normal italic">conversation.</span>
         </h1>
-        <p className="mx-auto max-w-2xl text-lg text-gray-500">
-          Que vous ayez des questions sur les inscriptions, les programmes d'études ou que vous souhaitiez simplement nous saluer, notre équipe est là pour vous.
+        <p className="pretty mt-7 max-w-xl text-[1.05rem] leading-relaxed text-ink-mute">
+          Inscriptions, programmes, visites guidées ou simple bonjour — notre équipe vous répond généralement sous 24 h.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
-        {/* Contact Info & Details */}
-        <div className="space-y-12 lg:col-span-5">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="group flex items-start gap-6 rounded-4xl border border-gray-50 bg-white p-8 shadow-xl shadow-gray-100/50 transition-colors hover:border-blue-200">
-              <div className="rounded-2xl bg-blue-100 p-4 text-blue-600 transition-transform group-hover:scale-110">
-                <MapPin size={28} />
-              </div>
-              <div>
-                <h4 className="mb-2 text-lg font-bold text-[#3D2C26]">
-                  Campus principal
-                </h4>
-                <p className="text-sm leading-relaxed text-gray-500">
-                  5, Impasse Bernard, Bon-Repos
-                  <br />
-                  Croix-des-Bouquets, Haïti
-                </p>
-              </div>
-            </div>
-
-            <div className="group flex items-start gap-6 rounded-4xl border border-gray-50 bg-white p-8 shadow-xl shadow-gray-100/50 transition-colors hover:border-blue-200">
-              <div className="rounded-2xl bg-blue-100 p-4 text-blue-600 transition-transform group-hover:scale-110">
-                <Phone size={28} />
-              </div>
-              <div>
-                <h4 className="mb-2 text-lg font-bold text-[#3D2C26]">
-                  Appelez-nous
-                </h4>
-                <p className="text-sm leading-relaxed text-gray-500">
-                  (509) 4251-8828
-                  <br />
-                  +1 (774) 498-9660
-                </p>
-              </div>
-            </div>
-
-            <div className="group flex items-start gap-6 rounded-4xl border border-gray-50 bg-white p-8 shadow-xl shadow-gray-100/50 transition-colors hover:border-green-200">
-              <div className="rounded-2xl bg-green-100 p-4 text-green-600 transition-transform group-hover:scale-110">
-                <Clock size={28} />
-              </div>
-              <div>
-                <h4 className="mb-2 text-lg font-bold text-[#3D2C26]">
-                  Horaires scolaires
-                </h4>
-                <p className="text-sm leading-relaxed text-gray-500">
-                  Lundi - Vendredi: 8:00 AM - 4:00 PM
-                  <br />
-                  Week-end : Fermé
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Social Proof / Small Map Placeholder */}
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-[#2D1B14] p-10 text-white">
-            <h3 className="relative z-10 mb-6 text-2xl font-bold">
-              Rejoignez notre communauté
-            </h3>
-            <p className="relative z-10 mb-8 text-sm leading-relaxed text-gray-400">
-              Suivez-nous sur les réseaux sociaux pour des mises à jour quotidiennes, les réussites des élèves et des aperçus des coulisses de la vie à l'Institution le Saint Justien (ISAJ).
-            </p>
-            <div className="relative z-10 flex gap-4">
-              <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-blue-500">
-                <Mail size={20} />
-              </div>
-              <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-blue-500">
-                <Phone size={20} />
-              </div>
-            </div>
-            {/* Decorative blob */}
-            <div className="absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl"></div>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <div className="lg:col-span-7">
-          <div className="relative rounded-[3rem] border border-gray-50 bg-white p-8 shadow-2xl shadow-gray-100 md:p-12">
-            {formState === "success" ? (
-              <div className="animate-in zoom-in py-20 text-center duration-500">
-                <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
-                  <CheckCircle2 size={40} className="text-green-600" />
+      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        {/* Left — info */}
+        <aside className="lg:col-span-5">
+          <ul className="divide-y divide-black/[0.07] border-y border-black/[0.07]">
+            {[
+              {
+                icon: MapPin,
+                label: "Campus principal",
+                lines: ["5, Impasse Bernard, Bon-Repos", "Croix-des-Bouquets, Haïti"],
+                tag: "Adresse",
+              },
+              {
+                icon: Phone,
+                label: "Par téléphone",
+                lines: ["(509) 4251-8828", "+1 (774) 498-9660"],
+                tag: "Direct",
+              },
+              {
+                icon: Mail,
+                label: "Par courriel",
+                lines: ["admissions@isaj.edu.ht", "Réponse sous 24 heures"],
+                tag: "Écrire",
+              },
+              {
+                icon: Clock,
+                label: "Horaires d'accueil",
+                lines: ["Lundi — Vendredi · 8h00 — 16h00", "Week-end · Fermé"],
+                tag: "Horaires",
+              },
+            ].map((item) => (
+              <li key={item.label} className="group grid grid-cols-12 items-start gap-4 py-7">
+                <span className="col-span-2 text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase">
+                  {item.tag}
+                </span>
+                <div className="col-span-10 flex items-start gap-4">
+                  <item.icon size={18} strokeWidth={1.6} className="mt-1 text-ink-mute transition-colors group-hover:text-brand" />
+                  <div>
+                    <p className="font-display text-[1.25rem] leading-snug text-ink">{item.label}</p>
+                    {item.lines.map((l) => (
+                      <p key={l} className="mt-0.5 text-[0.9rem] leading-relaxed text-ink-mute">
+                        {l}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-                <h2 className="mb-4 text-3xl font-bold text-[#3D2C26]">
-                  Requête initialisée !
+              </li>
+            ))}
+          </ul>
+
+          {/* Community card */}
+          <div className="grain relative mt-10 overflow-hidden rounded-[1.75rem] bg-ink p-9 text-white">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-32 -right-20 h-80 w-80 rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(38,87,238,0.25) 0%, transparent 60%)" }}
+            />
+            <p className="relative text-[0.72rem] tracking-[0.22em] text-white/45 uppercase">
+              Communauté
+            </p>
+            <h3 className="font-display relative mt-3 text-[1.75rem] leading-tight font-medium text-white italic">
+              «&nbsp;Rejoignez la famille ISAJ.&nbsp;»
+            </h3>
+            <p className="relative mt-4 max-w-sm text-[0.9rem] leading-relaxed text-white/55">
+              Suivez le quotidien du campus, les réussites des élèves et les coulisses sur nos réseaux sociaux.
+            </p>
+            <div className="relative mt-7 flex gap-2">
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-white hover:text-white"
+              >
+                <svg role="img" className="size-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"></path>
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-white hover:text-white"
+              >
+                <svg className="size-4 fill-current" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        {/* Right — form */}
+        <div className="lg:col-span-7">
+          <div className="rounded-[2rem] border border-black/[0.06] bg-white p-8 md:p-12">
+            {formState === "success" ? (
+              <div className="py-16 text-center">
+                <div className="mx-auto mb-7 flex h-16 w-16 items-center justify-center rounded-full border border-black/[0.07] bg-[#fbfcfe]">
+                  <CheckCircle2 size={26} className="text-brand" strokeWidth={1.8} />
+                </div>
+                <h2 className="font-display text-[2.25rem] leading-tight font-medium text-ink">
+                  Requête initialisée.
                 </h2>
-                <p className="mb-8 text-gray-500">
-                  Nous avons ouvert une fenêtre Gmail contenant votre demande formatée. Veuillez envoyer l'e-mail pour finaliser le processus de notification !
+                <p className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-ink-mute">
+                  Nous avons ouvert un onglet Gmail contenant votre demande pré-remplie. Envoyez l'e-mail pour finaliser la prise de contact.
                 </p>
                 <button
                   onClick={() => setFormState("idle")}
-                  className="rounded-xl bg-blue-500 px-8 py-3 font-bold text-white transition-colors hover:bg-blue-600"
+                  className="group mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[0.9rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
                 >
                   Envoyer un autre message
+                  <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              <form onSubmit={handleSubmit} className="space-y-7">
+                <div className="mb-2 flex items-baseline justify-between">
+                  <p className="font-display text-[1.5rem] leading-snug text-ink italic">
+                    Parlez-nous de votre famille.
+                  </p>
+                  <span className="text-[0.72rem] tracking-[0.18em] text-ink-mute uppercase">
+                    Étape 1 / 1
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                   <div className="space-y-2">
-                    <label className="ml-2 text-sm font-bold text-[#3D2C26]">
+                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
                       Nom du parent
                     </label>
                     <input
@@ -182,12 +205,12 @@ Cette demande a été générée via le portail de contact de l'Institution le S
                       value={formData.parentName}
                       onChange={handleInputChange}
                       type="text"
-                      placeholder="e.g. Jane Doe"
-                      className="w-full rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="ex. Marie Pierre"
+                      className={inputClass}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="ml-2 text-sm font-bold text-[#3D2C26]">
+                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
                       Adresse email
                     </label>
                     <input
@@ -196,46 +219,57 @@ Cette demande a été générée via le portail de contact de l'Institution le S
                       value={formData.email}
                       onChange={handleInputChange}
                       type="email"
-                      placeholder="e.g. jane@example.com"
-                      className="w-full rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="ex. marie@exemple.com"
+                      className={inputClass}
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                   <div className="space-y-2">
-                    <label className="ml-2 text-sm font-bold text-[#3D2C26]">
+                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
                       Niveau d'intérêt
                     </label>
-                    <select
-                      name="interestedGrade"
-                      value={formData.interestedGrade}
-                      onChange={handleInputChange}
-                      className="w-full appearance-none rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option>Petits explorateurs (Tout-petits - Préscolaire)</option>
-                      <option>Fondements de base (1re à 5e année)</option>
-                      <option>Croissance et identité (6e à 8e année)</option>
-                      <option>Futurs leaders (9e à 12e année)</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        name="interestedGrade"
+                        value={formData.interestedGrade}
+                        onChange={handleInputChange}
+                        className={`${inputClass} appearance-none pr-10`}
+                      >
+                        {gradeOptions.map((g) => (
+                          <option key={g}>{g}</option>
+                        ))}
+                      </select>
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-ink-mute"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="ml-2 text-sm font-bold text-[#3D2C26]">
-                      Numéro de téléphone
+                    <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                      Téléphone <span className="text-ink-mute/60">(facultatif)</span>
                     </label>
                     <input
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
                       type="tel"
-                      placeholder="(555) 000-0000"
-                      className="w-full rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="+509 00 00 0000"
+                      className={inputClass}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="ml-2 text-sm font-bold text-[#3D2C26]">
+                  <label className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
                     Comment pouvons-nous vous aider ?
                   </label>
                   <textarea
@@ -244,26 +278,30 @@ Cette demande a été générée via le portail de contact de l'Institution le S
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={5}
-                    placeholder="Parlez-nous de votre enfant et posez-nous toutes vos questions..."
-                    className="w-full resize-none rounded-2xl border-none bg-[#FAF9F6] p-4 transition-all outline-none focus:ring-2 focus:ring-blue-500"
-                  ></textarea>
+                    placeholder="Parlez-nous de votre enfant et posez vos questions…"
+                    className={`${inputClass} resize-none`}
+                  />
                 </div>
 
                 <button
                   disabled={formState === "submitting"}
-                  className="flex w-full items-center justify-center gap-3 rounded-2xl bg-blue-500 py-5 text-lg font-bold text-white shadow-lg shadow-blue-100 transition-all hover:bg-blue-600 disabled:bg-gray-300"
+                  className="group flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.99] disabled:opacity-60"
                 >
                   {formState === "submitting" ? (
-                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/30 border-t-white"></div>
+                    <span className="inline-flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      Préparation…
+                    </span>
                   ) : (
                     <>
-                     Préparer un courriel <Send size={20} />
+                      Préparer le courriel
+                      <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </>
                   )}
                 </button>
 
-                <p className="text-center text-xs text-gray-400">
-                  En cliquant sur « Préparer l'e-mail », nous ouvrirons un onglet Gmail avec votre demande pré-remplie pour l'envoyer en toute sécurité à notre équipe.
+                <p className="text-center text-[0.78rem] leading-relaxed text-ink-mute">
+                  Un onglet Gmail s'ouvrira avec votre demande pré-remplie, prête à être envoyée à notre équipe.
                 </p>
               </form>
             )}

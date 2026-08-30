@@ -2,9 +2,8 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Calendar,
+  Check,
   CheckCircle2,
-  CreditCard,
-  Heart,
   Mail,
   Phone,
   School,
@@ -13,11 +12,54 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-const EnrollmentPageContent = () => {
-  const [step, setStep] = useState(1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+type PlanId = "monthly" | "annual";
 
-  // Form States
+const plans: {
+  id: PlanId;
+  name: string;
+  price: string;
+  cadence: string;
+  blurb: string;
+  badge?: string;
+  value: string;
+}[] = [
+  {
+    id: "monthly",
+    name: "Mensuel",
+    price: "149",
+    cadence: "/ mois",
+    blurb: "Idéal pour découvrir nos programmes mois après mois.",
+    value: "Mensuel ($149/mo)",
+  },
+  {
+    id: "annual",
+    name: "Annuel",
+    price: "1 430",
+    cadence: "/ année",
+    blurb: "Le meilleur rapport qualité-prix pour un suivi sur le long terme.",
+    badge: "Économisez 20 %",
+    value: "Annuel ($1,430/yr)",
+  },
+];
+
+const benefits = [
+  "Accès illimité à tous les ateliers",
+  "Rapports d'avancement personnalisés",
+  "Inscription prioritaire aux excursions",
+  "Événements familiaux réservés aux membres",
+  "Réduction automatique de 10 % pour les frères et sœurs",
+];
+
+const gradeOptions = [
+  "Préscolaire (2–5 ans)",
+  "Élémentaire · 1ʳᵉ à 5ᵉ",
+  "Collège · 6ᵉ à 8ᵉ",
+  "Lycée · 9ᵉ à 12ᵉ",
+];
+
+const EnrollmentPageContent = () => {
+  const [step, setStep] = useState<1 | 2>(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     childFirstName: "",
     childLastName: "",
@@ -25,7 +67,7 @@ const EnrollmentPageContent = () => {
     grade: "",
     parentEmail: "",
     phone: "",
-    plan: "Monthly ($149/mo)",
+    plan: plans[0].value,
   });
 
   const handleInputChange = (
@@ -37,165 +79,170 @@ const EnrollmentPageContent = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Format the information for the email body
     const emailBody = `
-DEMANDE D'ABONNEMENT POUR UNE NOUVELLE INSCRIPTION
-------------------------------------
+DEMANDE D'INSCRIPTION — INSTITUTION LE SAINT JUSTIEN
+====================================================
 
-INFORMATIONS CONCERNANT L'ENFANT :
-- Nom et prénom: ${formData.childFirstName} ${formData.childLastName}
-- Date de naissance: ${formData.dob}
-- Entrée en classe: ${formData.grade}
+ENFANT
+- Nom complet : ${formData.childFirstName} ${formData.childLastName}
+- Date de naissance : ${formData.dob}
+- Entrée en classe : ${formData.grade}
 
-CONTACT PARENTAL :
-- E-mail: ${formData.parentEmail}
-- Téléphone: ${formData.phone}
+CONTACT PARENTAL
+- Email : ${formData.parentEmail}
+- Téléphone : ${formData.phone}
 
-DÉTAILS DE L'ABONNEMENT :
-- Plan sélectionné: ${formData.plan}
+ABONNEMENT
+- Plan : ${formData.plan}
 
-------------------------------------
-Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
+Envoyé via le portail d'inscription ISAJ.
     `.trim();
-
-    const subject = `Nouvelles inscriptions: ${formData.childFirstName} ${formData.childLastName}`;
-    const recipient = "admissions@isaj.edu.ht";
-
-    // Construct Gmail URL
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-
-    // Open Gmail in new tab
+    const subject = `Nouvelle inscription : ${formData.childFirstName} ${formData.childLastName}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent("admissions@isaj.com")}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
     window.open(gmailUrl, "_blank");
-
-    // Show success state
     setIsSubmitted(true);
   };
 
+  const inputClass =
+    "w-full rounded-2xl border border-black/[0.07] bg-white px-4 py-3.5 text-[0.95rem] text-ink placeholder:text-ink-mute/60 transition-all outline-none focus:border-brand focus:ring-2 focus:ring-brand/15";
+
   if (isSubmitted) {
     return (
-      <div className="animate-in fade-in zoom-in mx-auto max-w-3xl px-4 py-20 text-center duration-700">
-        <div className="mx-auto mb-10 flex h-24 w-24 items-center justify-center rounded-full bg-green-100 shadow-lg shadow-green-100/50">
-          <CheckCircle2 size={48} className="text-green-600" />
+      <section className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8 lg:py-32">
+        <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-black/[0.07] bg-[#fbfcfe]">
+          <CheckCircle2 size={26} className="text-brand" strokeWidth={1.8} />
         </div>
-        <h2 className="mb-6 text-4xl font-bold text-slate-900">
-          Inscription initialisée!
-        </h2>
-        <p className="mx-auto mb-10 max-w-lg text-xl leading-relaxed text-slate-500">
-         Nous avons ouvert une fenêtre Gmail contenant vos informations d'inscription correctement formatées. Veuillez envoyer l'e-mail pour finaliser la procédure de notification !
+        <p className="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+          Inscription initialisée
         </p>
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
+        <h1 className="tracking-headline mt-4 text-4xl leading-[1.05] font-semibold text-ink md:text-[3.5rem]">
+          Votre demande est <span className="font-display italic font-normal text-brand-deep">en route.</span>
+        </h1>
+        <p className="mx-auto mt-6 max-w-md text-[1rem] leading-relaxed text-ink-mute">
+          Nous avons ouvert un onglet Gmail avec votre dossier d'inscription pré-rempli. Envoyez le courriel pour finaliser la procédure — notre équipe vous répondra sous 24&nbsp;h.
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href="/"
-            className="rounded-2xl bg-blue-600 px-10 py-4 font-bold text-white shadow-xl shadow-blue-200 transition-all hover:bg-blue-700"
+            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98]"
           >
-            Retour à la page d'accueil
+            Retour à l'accueil
+            <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
           <a
             href="/contact"
-            className="rounded-2xl border-2 border-slate-100 bg-white px-10 py-4 font-bold text-slate-600 transition-all hover:bg-slate-50"
+            className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] px-6 py-3.5 text-[0.9rem] font-medium text-ink transition-colors hover:bg-black/[0.03]"
           >
             Contacter l'assistance
           </a>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <section className="animate-in fade-in slide-in-from-bottom-6 mx-auto max-w-7xl px-4 py-12 duration-700 sm:px-6 lg:px-8">
+    <section className="relative mx-auto max-w-7xl px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-16 lg:pb-32">
+      {/* Breadcrumb */}
       <a
         href="/"
-        className="group mb-12 flex items-center text-slate-500 transition-colors hover:text-blue-600"
+        className="group inline-flex items-center gap-2 text-[0.85rem] text-ink-mute transition-colors hover:text-ink"
       >
-        <ArrowLeft
-          size={20}
-          className="mr-2 transform transition-transform group-hover:-translate-x-1"
-        />
+        <ArrowLeft size={15} className="transition-transform group-hover:-translate-x-0.5" />
         Retour à l'accueil
       </a>
 
-      <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
-        {/* Left Side: Summary & Benefits */}
-        <div className="space-y-8 lg:col-span-4">
-          <div>
-            <h1 className="mb-6 text-4xl font-bold text-slate-900">
-              Abonnez-vous à <span className="text-blue-600" >Institution le Saint Justien (ISAJ)</span>
-            </h1>
-            <p className="leading-relaxed text-slate-500">
-              Démarrez dès aujourd'hui le parcours d'apprentissage personnalisé de votre enfant. Nos abonnements lui ouvrent un monde de créativité et d'épanouissement.
-            </p>
-          </div>
+      {/* Header */}
+      <div className="mt-10 mb-16 max-w-3xl">
+        <p className="mb-4 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+          Inscription · Année scolaire 2026
+        </p>
+        <h1 className="tracking-headline balance text-[2rem] leading-[1.02] font-semibold text-ink sm:text-5xl md:text-[5rem]">
+          Rejoignez la <span className="font-display italic font-normal text-brand-deep">famille</span> ISAJ.
+        </h1>
+        <p className="pretty mt-7 max-w-xl text-[1.05rem] leading-relaxed text-ink-mute">
+          Deux minutes suffisent. Démarrez dès aujourd'hui le parcours d'apprentissage personnalisé de votre enfant — créativité, exigence, et accompagnement humain.
+        </p>
+      </div>
 
-          <div className="rounded-[2.5rem] border border-blue-50 bg-white p-8 shadow-xl shadow-blue-900/5">
-            <h3 className="mb-6 flex items-center gap-2 font-bold text-slate-900">
-              <Heart className="text-blue-500" size={20} />
-              Avantages réservés aux membres
-            </h3>
-            <ul className="space-y-4">
-              {[
-                "Accès illimité à tous les ateliers",
-                "Rapports d'avancement personnalisés",
-                "Inscription prioritaire aux excursions",
-                "événements familiaux réservés aux membres",
-                "Une réduction de 10 % pour les frères et sœurs est automatiquement appliquée.",
-              ].map((benefit, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-3 text-sm leading-tight text-slate-600"
-                >
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50">
-                    <CheckCircle2 size={12} className="text-blue-600" />
-                  </div>
-                  {benefit}
+      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        {/* ============ Left aside ============ */}
+        <aside className="space-y-8 lg:col-span-4">
+          {/* Member benefits */}
+          <div>
+            <p className="mb-5 text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+              Inclus dans l'abonnement
+            </p>
+            <ul className="divide-y divide-black/[0.07] border-y border-black/[0.07]">
+              {benefits.map((b) => (
+                <li key={b} className="flex items-start gap-3 py-4">
+                  <span className="mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand/10">
+                    <Check size={10} strokeWidth={2.4} className="text-brand-deep" />
+                  </span>
+                  <span className="text-[0.92rem] leading-relaxed text-ink">{b}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white">
-            <ShieldCheck className="mb-4 text-blue-400" size={32} />
-            <h4 className="mb-2 font-bold">Inscription sécurisée</h4>
-            <p className="text-xs text-slate-400">
-              Vos données sont cryptées et sécurisées. Nous ne partageons jamais vos informations personnelles avec des tiers.
+          {/* Security card */}
+          <div className="grain relative overflow-hidden rounded-[1.75rem] bg-ink p-7 text-white">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(38,87,238,0.22) 0%, transparent 60%)" }}
+            />
+            <ShieldCheck size={22} strokeWidth={1.6} className="text-white/85" />
+            <p className="font-display mt-5 text-[1.25rem] leading-tight italic">
+              Vos données restent <span className="text-white/75">en sécurité.</span>
             </p>
-            {/* Decoration */}
-            <div className="absolute -right-10 -bottom-10 h-24 w-24 rounded-full bg-blue-600/10 blur-2xl transition-transform group-hover:scale-150"></div>
+            <p className="mt-3 text-[0.82rem] leading-relaxed text-white/55">
+              Toutes les informations transmises sont chiffrées. Nous ne partageons jamais vos données avec des tiers.
+            </p>
           </div>
-        </div>
 
-        {/* Right Side: Form */}
+          {/* Quote */}
+          <figure className="rounded-[1.5rem] border border-black/[0.06] bg-white p-7">
+            <p className="font-display text-[1.15rem] leading-snug italic text-ink">
+              «&nbsp;L'attention personnalisée dont bénéficie mon fils est remarquable.&nbsp;»
+            </p>
+            <figcaption className="mt-4 text-[0.78rem] text-ink-mute">
+              Jessica Pierre · Parent, CE1
+            </figcaption>
+          </figure>
+        </aside>
+
+        {/* ============ Right form ============ */}
         <div className="lg:col-span-8">
-          <div className="overflow-hidden rounded-[3rem] border border-blue-50 bg-white shadow-2xl shadow-blue-900/10">
+          <div className="overflow-hidden rounded-[2rem] border border-black/[0.06] bg-white">
             {/* Form Progress Header */}
-            <div className="relative flex items-center justify-between bg-blue-600 p-8 text-white md:p-12">
-              <div>
-                <span className="mb-2 block text-xs font-bold tracking-widest text-blue-200 uppercase opacity-80">
-                  Étape {step} sur 2
-                </span>
-                <h2 className="text-2xl font-bold md:text-3xl">
-                  {step === 1 ? "Child Information" : "Parent & Subscription"}
-                </h2>
+            <div className="border-b border-black/[0.06] px-8 py-7 md:px-12 md:py-9">
+              <div className="flex items-end justify-between gap-6">
+                <div>
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-ink-mute">
+                    Étape {step} sur 2
+                  </p>
+                  <h2 className="font-display mt-2 text-[1.85rem] leading-tight font-medium tracking-[-0.015em] text-ink md:text-[2.25rem]">
+                    {step === 1 ? "Informations de l'enfant" : "Parent & abonnement"}
+                  </h2>
+                </div>
+                <div className="hidden items-center gap-2 sm:flex">
+                  <span
+                    className={`h-1 w-10 rounded-full transition-colors ${step >= 1 ? "bg-ink" : "bg-black/10"}`}
+                  />
+                  <span
+                    className={`h-1 w-10 rounded-full transition-colors ${step === 2 ? "bg-ink" : "bg-black/10"}`}
+                  />
+                </div>
               </div>
-              <div className="hidden gap-2 sm:flex">
-                <div
-                  className={`h-2 w-12 rounded-full transition-all ${step >= 1 ? "bg-white" : "bg-white/30"}`}
-                ></div>
-                <div
-                  className={`h-2 w-12 rounded-full transition-all ${step === 2 ? "bg-white" : "bg-white/30"}`}
-                ></div>
-              </div>
-              {/* Floating accent */}
-              <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-10 p-8 md:p-12">
+            <form onSubmit={handleSubmit} className="p-8 md:p-12">
               {step === 1 ? (
-                <div className="animate-in slide-in-from-right-4 space-y-8 duration-500">
-                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <User size={16} className="text-blue-500" /> Prénom de l'enfant
+                <div className="space-y-7">
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                        <User size={13} strokeWidth={1.8} /> Prénom de l'enfant
                       </label>
                       <input
                         required
@@ -203,14 +250,13 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
                         name="childFirstName"
                         value={formData.childFirstName}
                         onChange={handleInputChange}
-                        className="w-full rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
-                        placeholder="e.g. Leo"
+                        className={inputClass}
+                        placeholder="ex. Léa"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <User size={16} className="text-blue-500" />
-                        Nom de famille
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                        <User size={13} strokeWidth={1.8} /> Nom de famille
                       </label>
                       <input
                         required
@@ -218,17 +264,16 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
                         name="childLastName"
                         value={formData.childLastName}
                         onChange={handleInputChange}
-                        className="w-full rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
-                        placeholder="e.g. Miller"
+                        className={inputClass}
+                        placeholder="ex. Joseph"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <Calendar size={16} className="text-blue-500" /> Date of
-                        Naissance
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                        <Calendar size={13} strokeWidth={1.8} /> Date de naissance
                       </label>
                       <input
                         required
@@ -236,53 +281,61 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
                         name="dob"
                         value={formData.dob}
                         onChange={handleInputChange}
-                        className="w-full rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
+                        className={inputClass}
                       />
                     </div>
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <School size={16} className="text-blue-500" /> Entering
-                        Grade
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                        <School size={13} strokeWidth={1.8} /> Entrée en classe
                       </label>
-                      <select
-                        required
-                        name="grade"
-                        value={formData.grade}
-                        onChange={handleInputChange}
-                        className="w-full appearance-none rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
-                      >
-                        <option value="">Sélectionner le niveau scolaire</option>
-                        <option>Tout-petits / Préscolaire</option>
-                        <option>Élémentaire (1re à 5e année)</option>
-                        <option>Middle School (Grades 6-8)</option>
-                        <option>Lycée (9e à 12e année)</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          required
+                          name="grade"
+                          value={formData.grade}
+                          onChange={handleInputChange}
+                          className={`${inputClass} appearance-none pr-10`}
+                        >
+                          <option value="">Sélectionner le niveau</option>
+                          {gradeOptions.map((g) => (
+                            <option key={g}>{g}</option>
+                          ))}
+                        </select>
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-ink-mute"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="pt-6">
-                    <button
-                      type="button"
-                      disabled={
-                        !formData.childFirstName ||
-                        !formData.childLastName ||
-                        !formData.dob ||
-                        !formData.grade
-                      }
-                      onClick={() => setStep(2)}
-                      className="flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 py-5 font-bold text-white shadow-xl shadow-slate-200 transition-all hover:bg-slate-800 disabled:bg-slate-300"
-                    >
-                      Continuer vers les détails des parents
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    disabled={
+                      !formData.childFirstName ||
+                      !formData.childLastName ||
+                      !formData.dob ||
+                      !formData.grade
+                    }
+                    onClick={() => setStep(2)}
+                    className="group mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Continuer vers les détails parents
+                    <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </button>
                 </div>
               ) : (
-                <div className="animate-in slide-in-from-right-4 space-y-10 duration-500">
-                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <Mail size={16} className="text-blue-500" /> Parent
-                        E-mail
+                <div className="space-y-8">
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                        <Mail size={13} strokeWidth={1.8} /> Email du parent
                       </label>
                       <input
                         required
@@ -290,13 +343,13 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
                         name="parentEmail"
                         value={formData.parentEmail}
                         onChange={handleInputChange}
-                        className="w-full rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
-                        placeholder="parent@example.com"
+                        className={inputClass}
+                        placeholder="parent@exemple.com"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                        <Phone size={16} className="text-blue-500" /> Numéro de contact
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-1.5 text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                        <Phone size={13} strokeWidth={1.8} /> Téléphone
                       </label>
                       <input
                         required
@@ -304,94 +357,87 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full rounded-2xl border-2 border-transparent bg-slate-50 p-4 transition-all outline-none focus:border-blue-500 focus:bg-white"
-                        placeholder="(555) 000-0000"
+                        className={inputClass}
+                        placeholder="+509 00 00 0000"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                      <CreditCard size={16} className="text-blue-500" /> Choisissez votre abonnement
-                    </label>
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                      <label className="group relative cursor-pointer">
-                        <input
-                          type="radio"
-                          name="plan"
-                          value="Monthly ($149/mo)"
-                          checked={formData.plan === "Monthly ($149/mo)"}
-                          onChange={handleInputChange}
-                          className="peer sr-only"
-                        />
-                        <div className="rounded-2xl border-2 border-transparent bg-slate-50 p-6 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50/30">
-                          <div className="mb-4 flex items-center justify-between">
-                            <span className="font-bold text-slate-900">
-                              Mensuel
-                            </span>
-                            <span className="font-bold text-blue-600">
-                              $149/mo
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-500">
-                            Idéal pour découvrir nos programmes mois après mois.
-                          </p>
-                        </div>
-                        <CheckCircle2
-                          size={24}
-                          className="absolute top-4 right-4 text-blue-500 opacity-0 transition-opacity peer-checked:opacity-100"
-                        />
-                      </label>
-
-                      <label className="group relative cursor-pointer">
-                        <input
-                          type="radio"
-                          name="plan"
-                          value="Annual ($1,430/yr)"
-                          checked={formData.plan === "Annual ($1,430/yr)"}
-                          onChange={handleInputChange}
-                          className="peer sr-only"
-                        />
-                        <div className="rounded-2xl border-2 border-transparent bg-slate-50 p-6 transition-all peer-checked:border-blue-500 peer-checked:bg-blue-50/30">
-                          <div className="mb-4 flex items-center justify-between">
-                            <span className="font-bold text-slate-900">
-                              Annuelle
-                            </span>
-                            <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[10px] text-white">
-                              Économisez 20%
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="font-bold text-blue-600">
-                              $1,430/yr
-                            </span>
-                          </div>
-                          <p className="mt-2 text-xs text-slate-500">
-                            Le meilleur rapport qualité-prix pour une croissance et un succès à long terme.
-                          </p>
-                        </div>
-                        <CheckCircle2
-                          size={24}
-                          className="absolute top-4 right-4 text-blue-500 opacity-0 transition-opacity peer-checked:opacity-100"
-                        />
-                      </label>
+                  <div className="space-y-4">
+                    <p className="text-[0.78rem] font-medium tracking-[0.04em] text-ink-mute">
+                      Choisissez votre abonnement
+                    </p>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      {plans.map((p) => {
+                        const checked = formData.plan === p.value;
+                        return (
+                          <label
+                            key={p.id}
+                            className="group relative block cursor-pointer"
+                          >
+                            <input
+                              type="radio"
+                              name="plan"
+                              value={p.value}
+                              checked={checked}
+                              onChange={handleInputChange}
+                              className="peer sr-only"
+                            />
+                            <div
+                              className={`relative rounded-2xl border p-6 transition-all ${
+                                checked
+                                  ? "border-ink bg-[#fbfcfe] shadow-ink"
+                                  : "border-black/[0.07] hover:border-black/15"
+                              }`}
+                            >
+                              <div className="flex items-start justify-between">
+                                <p className="font-display text-[1.1rem] font-medium text-ink">
+                                  {p.name}
+                                </p>
+                                {p.badge && (
+                                  <span className="rounded-full border border-brand/30 bg-brand/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-[0.08em] text-brand-deep uppercase">
+                                    {p.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="mt-3 flex items-baseline gap-1">
+                                <span className="tabular text-[1.85rem] font-semibold tracking-[-0.025em] text-ink">
+                                  ${p.price}
+                                </span>
+                                <span className="text-[0.78rem] text-ink-mute">{p.cadence}</span>
+                              </div>
+                              <p className="mt-3 text-[0.78rem] leading-relaxed text-ink-mute">
+                                {p.blurb}
+                              </p>
+                              <span
+                                className={`absolute right-4 top-4 inline-flex h-5 w-5 items-center justify-center rounded-full border transition-all ${
+                                  checked ? "border-ink bg-ink text-white" : "border-black/15"
+                                }`}
+                              >
+                                {checked && <Check size={11} strokeWidth={2.6} />}
+                              </span>
+                            </div>
+                          </label>
+                        );
+                      })}
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-4 pt-6 sm:flex-row">
+                  <div className="flex flex-col gap-3 pt-2 sm:flex-row">
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="rounded-2xl bg-slate-100 px-8 py-5 font-bold text-slate-600 transition-all hover:bg-slate-200"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-black/[0.08] px-6 py-4 text-[0.9rem] font-medium text-ink transition-colors hover:bg-black/[0.03]"
                     >
+                      <ArrowLeft size={15} />
                       Retour
                     </button>
                     <button
                       type="submit"
-                      className="flex flex-1 items-center justify-center gap-3 rounded-2xl bg-blue-600 py-5 font-bold text-white shadow-xl shadow-blue-200 transition-all hover:bg-blue-700"
+                      className="group flex flex-1 items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.95rem] font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.99]"
                     >
-                      Finalisez votre inscription et envoyez vos informations.{" "}
-                      <ArrowUpRight size={20} />
+                      Finaliser l'inscription
+                      <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </button>
                   </div>
                 </div>
@@ -399,11 +445,9 @@ Envoyé via le portail d'inscription de l'Institution le Saint Justien (ISAJ)
             </form>
           </div>
 
-          <div className="mt-8 text-center text-xs text-slate-400">
-            <p>
-              Cliquer sur « Finaliser l’inscription » ouvrira une fenêtre Gmail pour envoyer en toute sécurité les détails de votre candidature à notre bureau des admissions.
-            </p>
-          </div>
+          <p className="mt-6 text-center text-[0.78rem] leading-relaxed text-ink-mute">
+            Un onglet Gmail s'ouvrira avec votre dossier d'inscription pré-rempli, prêt à être envoyé à notre bureau des admissions.
+          </p>
         </div>
       </div>
     </section>
